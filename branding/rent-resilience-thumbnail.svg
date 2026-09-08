@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="628" viewBox="0 0 1200 628" role="img" aria-labelledby="title desc">
+  <title id="title">Rent Resilience thumbnail</title>
+  <desc id="desc">The Rent Resilience mark beside the lowercase rentresilience wordmark and the tagline turn rent into resilience, on warm charcoal.</desc>
+
+  <rect width="1200" height="628" fill="#1a1510"/>
+
+  <g transform="translate(96 140)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 148L182 10L350 148" stroke="#c98d1a" stroke-width="32"/>
+    <path d="M182 340V187" stroke="#5a9e80" stroke-width="29"/>
+    <path d="M182 246C132 246 102 217 102 169C152 169 182 197 182 246Z" stroke="#5a9e80" stroke-width="29"/>
+    <path d="M182 210C232 210 262 181 262 132C213 132 182 161 182 210Z" stroke="#5a9e80" stroke-width="29"/>
+    <path d="M120 340H244" stroke="#5a9e80" stroke-width="29"/>
+  </g>
+
+  <text x="520" y="300" fill="#e8dfd0" font-family="Bricolage Grotesque, Arial, sans-serif" font-size="86" font-weight="700" letter-spacing="-2.8">rentresilience</text>
+  <path d="M524 336H1104" stroke="#3a3020" stroke-width="4"/>
+  <path d="M524 336H668" stroke="#c98d1a" stroke-width="4"/>
+  <text x="522" y="408" fill="#a89a82" font-family="Bricolage Grotesque, Arial, sans-serif" font-size="40" font-weight="500" letter-spacing="-0.5">turn rent into resilience</text>
+</svg>

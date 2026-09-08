@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rentresilience.org/schemas/rent-event.v0.1.schema.json",
+  "title": "RentEvent",
+  "description": "An append-only, signed event on a RentObligation. Events are never edited or deleted; corrections are new CorrectionIssued events referencing the corrected event. Obligation state and renter reliability are derived exclusively from event history. Events contain protocol identifiers and amounts only — never PII. The canonical byte serialization for signing and Merkle inclusion is JCS (RFC 8785) of this object with `signature` removed.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "obligation_id",
+    "sequence",
+    "event_type",
+    "occurred_at",
+    "recorded_at",
+    "issuer",
+    "payload",
+    "signature"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1" },
+    "event_id": {
+      "type": "string",
+      "pattern": "^evt_[A-Za-z0-9]{8,64}$",
+      "description": "Globally unique event identifier."
+    },
+    "obligation_id": {
+      "type": "string",
+      "pattern": "^obl_[A-Za-z0-9]{8,64}$",
+      "description": "The obligation this event belongs to."
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Monotonic position of this event within its obligation's stream. Gaps are invalid; duplicates are conflicts to be resolved by the store, never silently merged."
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "ObligationCreated",
+        "PaymentScheduled",
+        "PaymentSubmitted",
+        "PaymentSettled",
+        "PaymentFailed",
+        "ModificationRequested",
+        "ModificationAccepted",
+        "ModificationDeclined",
+        "AssistanceRequested",
+        "AssistanceCommitted",
+        "AssistanceSettled",
+        "FinancingCommitted",
+        "LandlordConcessionAccepted",
+        "CorrectionIssued",
+        "DisputeOpened",
+        "DisputeResolved",
+        "ObligationSatisfied"
+      ],
+      "description": "See docs/protocol.md for the legal state-transition table. ObligationSatisfied may only be emitted when settled funding sources sum to amount_due (net of accepted concessions)."
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the real-world fact happened (RFC 3339, UTC)."
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the event was appended to the ledger. recorded_at >= occurred_at; both are kept because late-arriving evidence is normal."
+    },
+    "issuer": {
+      "type": "string",
+      "minLength": 8,
+      "description": "Identifier of the party attesting this event (DID or key identifier, e.g. did:key:..., did:web:...). Reliability derivation weights events by issuer trust class."
+    },
+    "correlation_id": {
+      "type": "string",
+      "pattern": "^cor_[A-Za-z0-9]{8,64}$",
+      "description": "Optional. Groups events belonging to one resolution flow (e.g. a modification request and its acceptance)."
+    },
+    "corrects_event_id": {
+      "type": "string",
+      "pattern": "^evt_[A-Za-z0-9]{8,64}$",
+      "description": "Required when event_type is CorrectionIssued: the event being corrected. The corrected event remains in history; derivation applies the correction."
+    },
+    "payload": {
+      "type": "object",
+      "description": "Type-specific facts. Money amounts are integers in minor units and use the obligation's currency. Free-text fields are forbidden in v0.1 — narrative context belongs in the private data plane, referenced by opaque document IDs.",
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Amount this event concerns, in minor units (e.g. the settled portion for PaymentSettled, the committed grant for AssistanceCommitted)."
+        },
+        "funding_source_type": {
+          "type": "string",
+          "enum": ["renter", "assistance", "financing", "landlord_concession", "employer_benefit", "other"],
+          "description": "Where the money in this event comes from. Drives the independently-funded vs assisted reliability distinction."
+        },
+        "provider_id": {
+          "type": "string",
+          "pattern": "^prv_[A-Za-z0-9]{8,64}$",
+          "description": "Provider responsible for this commitment/settlement, when applicable."
+        },
+        "new_due_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "For accepted modifications: the approved new due date for the deferred portion."
+        },
+        "policy_decision_id": {
+          "type": "string",
+          "pattern": "^pd_[A-Za-z0-9]{8,64}$",
+          "description": "Reference to the deterministic policy-engine decision that authorized a modification. Agents never approve; policies do."
+        },
+        "rail": {
+          "type": "string",
+          "enum": ["ach", "fednow", "rtp", "card", "usdc", "platform", "cash", "other"],
+          "description": "Settlement rail for payment events."
+        },
+        "reference": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Opaque external reference (processor ID, document ID). Must not be guessable PII."
+        },
+        "reason_code": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Machine-readable code (e.g. ACH return code R01, dispute category). Never free text."
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["alg", "key_id", "value"],
+      "description": "Detached signature by the issuer over the JCS canonical form of this event with `signature` removed.",
+      "properties": {
+        "alg": {
+          "type": "string",
+          "enum": ["EdDSA", "ES256", "ES256K"],
+          "description": "Signature algorithm."
+        },
+        "key_id": {
+          "type": "string",
+          "minLength": 8,
+          "description": "Identifier of the issuer key used (kid / DID verification method)."
+        },
+        "value": {
+          "type": "string",
+          "contentEncoding": "base64url",
+          "description": "The signature bytes, base64url."
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "event_type": { "const": "CorrectionIssued" } } },
+      "then": { "required": ["corrects_event_id"] }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "enum": ["PaymentSettled", "AssistanceCommitted", "AssistanceSettled", "FinancingCommitted", "LandlordConcessionAccepted"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": { "required": ["amount", "funding_source_type"] }
+        }
+      }
+    }
+  ]
+}

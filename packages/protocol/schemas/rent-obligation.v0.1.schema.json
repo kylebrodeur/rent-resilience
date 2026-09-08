@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rentresilience.org/schemas/rent-obligation.v0.1.schema.json",
+  "title": "RentObligation",
+  "description": "A verifiable housing obligation. Contains protocol identifiers only — never PII. Renter and landlord identity live in a private vault keyed by party IDs. Current status is DERIVED from the RentEvent history; the status field here is a cached projection, not authoritative state.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "obligation_id",
+    "agreement_id",
+    "renter_party_id",
+    "landlord_party_id",
+    "property_reference",
+    "amount_due",
+    "currency",
+    "due_at",
+    "jurisdiction",
+    "status",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1",
+      "description": "Version of this schema the record was written against."
+    },
+    "obligation_id": {
+      "type": "string",
+      "pattern": "^obl_[A-Za-z0-9]{8,64}$",
+      "description": "Globally unique obligation identifier. Opaque; carries no PII."
+    },
+    "agreement_id": {
+      "type": "string",
+      "pattern": "^agr_[A-Za-z0-9]{8,64}$",
+      "description": "The lease/agreement this obligation arises from. One agreement produces many obligations (typically one per period)."
+    },
+    "renter_party_id": {
+      "type": "string",
+      "pattern": "^pty_[A-Za-z0-9]{8,64}$",
+      "description": "Opaque party identifier for the obligor. PII resolved only in the private identity vault."
+    },
+    "landlord_party_id": {
+      "type": "string",
+      "pattern": "^pty_[A-Za-z0-9]{8,64}$",
+      "description": "Opaque party identifier for the obligee."
+    },
+    "property_reference": {
+      "type": "string",
+      "pattern": "^prp_[A-Za-z0-9]{8,64}$",
+      "description": "Opaque property/unit reference. Never a street address."
+    },
+    "amount_due": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Amount due in MINOR units of `currency` (e.g. cents for USD). Integers avoid floating-point drift in multi-source resolution math."
+    },
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "ISO 4217 currency code, e.g. USD."
+    },
+    "due_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 timestamp (UTC) when the obligation is contractually due."
+    },
+    "period": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Optional obligation period, e.g. the rental month this covers.",
+      "properties": {
+        "start": { "type": "string", "format": "date" },
+        "end": { "type": "string", "format": "date" }
+      },
+      "required": ["start", "end"]
+    },
+    "jurisdiction": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}(-[A-Z0-9]{1,3})?$",
+      "description": "ISO 3166 country or country-subdivision code (e.g. US-CA). Determines applicable resolution and disclosure rules."
+    },
+    "policy_reference": {
+      "type": "string",
+      "pattern": "^pol_[A-Za-z0-9]{8,64}$",
+      "description": "Optional reference to the deterministic landlord policy governing modifications (extensions, splits, arrangement limits)."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "due",
+        "in_resolution",
+        "satisfied",
+        "unresolved",
+        "cancelled"
+      ],
+      "description": "Cached projection of event-derived state. `satisfied` requires ObligationSatisfied; `in_resolution` means an active modification/assistance/financing flow; `unresolved` is a terminal default only after resolution paths are exhausted or expired."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 timestamp (UTC) when the obligation record was created."
+    }
+  }
+}

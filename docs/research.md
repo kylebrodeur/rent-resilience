@@ -1,0 +1,397 @@
+# Rent Resilience Network — Project Research
+
+**Research date:** September 6, 2026  
+**Status:** Proposed / pre-MVP  
+**Working thesis:** **Rent should compound into financial resilience.**
+
+## Executive summary
+
+The strongest version is not “pay rent with crypto.” It is a **housing-obligation resolution network**. A renter who has successfully satisfied tens of thousands of dollars of rent obligations should not be treated as an unknown applicant the first month something goes wrong.
+
+The proposed system combines: an append-only Rent Obligation Ledger; private facts with public cryptographic proofs; portable reliability credentials; agents that discover and orchestrate resolution options; rewards that create resilience rather than merely points; x402 for agent-native paid APIs; and embedded distribution through existing rental platforms.
+
+The solo-engineer MVP should **not** custody rent, lend, operate a charity, or deploy a permissioned blockchain. Build the protocol objects, append-only ledger, reliability engine, public proof anchoring, resolution sandbox, and x402 verification API first.
+
+## 1. The multilayered problem
+
+Rent failures include:
+- **Settlement:** renter paid, but landlord has not received/recognized it.
+- **Timing:** renter can pay, but not on the contractual date.
+- **Shortfall:** renter cannot cover the entire obligation.
+- **Assistance:** help may exist, but discovery and verification are fragmented.
+- **Trust:** years of successful payments do not automatically become portable renter-controlled evidence.
+- **Coordination:** landlords, processors, nonprofits, employers, lenders, and platforms maintain incompatible workflows.
+
+> **Core question: How do we get a verified housing obligation from `due` to `resolved` with the lowest reasonable financial harm and least manual coordination?**
+
+Payment is one resolution mechanism, not the whole product.
+
+## 2. Competitive research
+
+### Apartments.com
+
+Apartments.com advertises free ACH rent collection, a 2.75% renter fee for card/debit/mobile-wallet payments, no landlord receipt fee, automated reminders/late fees, Express Pay for qualifying payments, and more than $20B in rent payments processed. Basic collection is already commoditized. The stronger strategy is an **embedded resolution capability**.
+
+Apartments.com also operates a vendor integration ecosystem and controlled customer APIs, creating a plausible future distribution path.
+
+Sources:
+- https://www.apartments.com/rental-manager/online-rent-collection
+- https://www.apartments.com/rental-manager/resources/tips-and-guides/how-collect-rent-apartmentscom
+- https://www.apartments.com/grow/integrations
+- https://api.apartments.com/v1
+
+### Split Pay
+
+Split Pay publishes a fee of **$9.99 + 1.5% of the total payment**. On $1,925, that is about **$38.87**. This is not pure margin: advancing rent requires capital, risk, compliance, bank/payment infrastructure, support, and operations. It does show that solving a timing problem commands far more value than raw ACH transport.
+
+Source: https://splitpay.com/help/about-split-pay/how-split-pay-works/what-fees-does-split-pay-charge
+
+### Esusu / Stable Home Fund
+
+Esusu combines rent reporting, split-rent products, financial-wellness features, and rent relief. Its split-rent offering includes Esusu Split Pay and Affirm Pay in 2, subject to eligibility and participating-property requirements. Stable Home Fund uses Esusu infrastructure to verify identity/rent debt and describes zero-interest/no-fee relief loans.
+
+We should **not clone Esusu's strongest features**. The opening is a portable obligation/proof/resolution layer that spans platforms and providers.
+
+Sources:
+- https://www.esusurent.com/members
+- https://www.esusurent.com/members/split-rent-payments
+- https://www.esusurent.com/rent-relief
+- https://www.stablehomefund.org/faq
+
+### Bilt
+
+Bilt validates that renters value rewards and credit-building around rent. Our distinction:
+
+**Bilt:** rent → rewards / credit / commerce  
+**Proposed network:** rent → verified reliability → portable trust → resilience when something goes wrong
+
+Sources:
+- https://pages.biltrewards.com/credit-boost
+- https://newsroom.biltrewards.com/meetbiltcard2.0
+
+## 3. Payment economics
+
+The Federal Reserve's 2026 FedACH schedule lists a forward/return origination item at **$0.0035** before other institutional costs. FedNow lists **$0.045** per customer credit-transfer origination and **$0.01** per Request for Payment. These are network prices, not all-in startup costs; consumer-facing fees cover fraud, returns, verification, compliance, bank relationships, reconciliation, support, reserves, capital, and profit.
+
+Sources:
+- https://www.frbservices.org/resources/fees/ach-2026
+- https://www.frbservices.org/resources/fees/fednow-2026
+
+Stripe currently lists ACH Direct Debit at **0.8%, capped at $5** and standard domestic cards at **2.9% + $0.30**. Stablecoin pricing varies by product/pricing surface, so production economics require a confirmed contract.
+
+Sources:
+- https://stripe.com/pricing
+- https://stripe.com/payments/us-bank-debits
+- https://stripe.com/pricing/local-payment-methods
+
+Bridge's published developer agreement lists Basic Orchestration at **0.5%**, Virtual Account Orchestration at **0.75%**, and a $0.50 ACH third-party fee, with other fees potentially applicable. Stablecoins are therefore **not automatically cheaper than ACH** for U.S.-bank-to-U.S.-bank rent. They become attractive when funds are already onchain, 24/7 settlement matters, programmable multi-party settlement matters, or intermediaries can be eliminated.
+
+Source: https://www.bridge.xyz/legal/developer-agreement
+
+### Economic rule for rewards
+
+Never model `visible fee = reward pool`.
+
+Model:
+
+`economic value created - rail cost - capital - loss risk - compliance - support - reserves - partner economics = allocatable margin`
+
+Only part of allocatable margin can safely fund resilience.
+
+## 4. Reliability should earn resilience
+
+A renter's history should be facts, not an opaque score:
+
+```text
+Lifetime obligations:        43
+Satisfied:                   43
+Independently funded:        42
+Assistance events:            1
+Unresolved defaults:          0
+Current independent streak:  18
+Longest independent streak:  24
+```
+
+An assistance event should not erase prior reliability.
+
+Keep three concepts separate:
+- **Reliability credential:** nonmonetary evidence derived from verified history.
+- **Resilience tier/benefit:** provider-defined benefits unlocked by history; not necessarily cash.
+- **Actual capital:** money belonging to a lender, charity, employer program, landlord, platform, or other authorized provider.
+
+### Illustrative pooled economics
+
+At an average **$3 economic contribution per successful monthly obligation**:
+- 1,000 renters → $36,000/year
+- 10,000 renters → $360,000/year
+- 100,000 renters → $3.6M/year
+
+If 5% of renters required a $500 grant annually, simple expected grant cost is $25/renter/year before overhead/variance. At 10%, it is $50. These are scenarios, **not observed hardship rates**. Avoid contractual promises such as “pay 12 months and receive $500” without specialist legal/actuarial design.
+
+## 5. Core protocol objects
+
+### `RentObligation`
+
+```text
+obligation_id
+agreement_id
+renter_party_id
+landlord_party_id
+property_reference
+amount_due
+currency
+due_at
+jurisdiction
+policy_reference
+status
+created_at
+```
+
+PII should be stored separately from protocol identifiers.
+
+### `RentEvent`
+
+```text
+ObligationCreated
+PaymentScheduled
+PaymentSubmitted
+PaymentSettled
+PaymentFailed
+ModificationRequested
+ModificationAccepted
+ModificationDeclined
+AssistanceRequested
+AssistanceCommitted
+AssistanceSettled
+FinancingCommitted
+LandlordConcessionAccepted
+CorrectionIssued
+DisputeOpened
+DisputeResolved
+ObligationSatisfied
+```
+
+Current state is derived from event history. Corrections become new events rather than silent edits.
+
+### Multi-source resolution
+
+```text
+$1,925 obligation
+$1,425 renter funds
+$  300 assistance
+$  200 approved later payment
+-------
+$1,925 resolved
+```
+
+## 6. Privacy and proof design
+
+> **Private facts. Public proofs. Portable trust.**
+
+Never put names, addresses, leases, income, hardship explanations, bank identifiers, or encrypted copies of PII on a public chain.
+
+MVP design:
+1. private encrypted application storage,
+2. append-only signed canonical events,
+3. Merkle tree over events,
+4. periodic public-chain root commitments,
+5. selective proof/credential service.
+
+Avoid naïve hashes of guessable PII such as `hash(name|address|rent)`. Use canonical serialization plus randomized commitments/salts.
+
+A permissioned blockchain becomes justified when **multiple independent organizations need shared control of canonical history**. Until then, an append-only database + signatures + public anchoring provides most useful integrity properties with far less complexity. Design event semantics so storage can later become multi-party.
+
+## 7. Portable reliability
+
+The renter should be able to authorize minimum-disclosure claims such as:
+- 12/12 prior obligations satisfied.
+- 24 consecutive independently funded obligations.
+- no unresolved housing obligation as of a date.
+- active residential lease exists through a month.
+- monthly rent lies within a range without revealing the exact amount.
+- a verified current shortfall exists.
+
+The ledger stores facts; providers decide which facts their policies require; the renter controls disclosure. Longer term, verifiable credentials and selective-disclosure/ZK proofs can strengthen this where justified.
+
+## 8. Agentic resolution
+
+Agents may interpret requests, normalize structured proposals, discover providers, gather authorized proofs, compare offers, explain alternatives, orchestrate APIs, and monitor status.
+
+Agents should **not** independently award grants, approve regulated credit, invent landlord policy, alter lease terms, fabricate settlement, or infer receipt without evidence.
+
+Example pre-authorized landlord policy:
+
+```text
+minimum_initial_payment: 60%
+maximum_extension_days: 10
+maximum_arrangements_per_12_months: 2
+automatic_acceptance: true
+```
+
+The agent translates language; the deterministic policy engine evaluates it.
+
+## 9. What to borrow from Morpho
+
+Morpho itself is not the rent-shortfall solution: its core lending model is overcollateralized crypto lending. The useful lesson is **decomposition**.
+
+```text
+Rent Obligation
+      |
+Resolution Protocol
+      |
++-----+---------+-----------+-----------+
+|               |           |           |
+Payment     Flexibility  Assistance  Financing
+Provider     Provider     Provider    Provider
+```
+
+Each provider owns capital, risk, eligibility, and legal obligations. Our protocol standardizes discovery, evidence, offers, commitments, settlement status, and proofs.
+
+Sources:
+- https://docs.morpho.org/learn/
+- https://docs.morpho.org/learn/concepts/blue/
+- https://docs.morpho.org/learn/concepts/vault-v2/
+- https://docs.morpho.org/developers/midnight/concepts/mempool-router/
+
+## 10. x402's role
+
+x402 is attractive for **agent-to-agent service commerce**. Coinbase's facilitator currently supports multiple mainnets, handles payment verification/settlement, includes KYT screening, and lists the first 1,000 facilitated transactions/month as free and subsequent transactions at $0.001 each.
+
+Potential paid endpoints:
+
+```text
+GET  /proof/payment-history
+POST /verify/obligation
+POST /providers/discover
+POST /providers/evaluate
+POST /resolution/quote
+GET  /provider/reliability
+```
+
+x402 monetizes **trust, verification, discovery, and agent services**. It does not need to carry the entire rent payment.
+
+Sources:
+- https://docs.cdp.coinbase.com/x402/core-concepts/facilitator
+- https://docs.cdp.coinbase.com/x402/network-support
+- https://x402.org/
+
+## 11. Charitable assistance
+
+The charitable layer should remain organizationally separate from the commercial company. IRS guidance states that gifts to individuals are not deductible; deductible contributions generally need to go to qualified organizations. A partner charity/fiscal sponsor must retain control over charitable decisions and funds.
+
+The network can provide verified obligation/shortfall evidence and workflow infrastructure while the charitable organization establishes eligibility and authorizes grants.
+
+Source: https://www.irs.gov/taxtopics/tc506
+
+Future assistance provider interface:
+
+```text
+capabilities
+eligibility_requirements
+required_proofs
+maximum_assistance
+availability
+application
+commitment
+settlement_status
+```
+
+The resolution agent should prefer grants or already-earned benefits before unnecessarily introducing debt, while respecting provider policies and renter choice.
+
+## 12. Business model
+
+### Early
+- sandbox resolution API
+- proof API
+- reliability credential API
+- x402-paid verification
+- hosted demo/SDK
+- integration pilots
+
+### Later
+- platform subscription/minimum
+- per successful resolution
+- per proof/verification
+- x402 API usage
+- provider infrastructure fees
+- settlement/orchestration fees where lawful
+- nonprofit/employer program software
+- enterprise/private-network deployment
+
+Do **not** make the distressed renter the default payer.
+
+### North-star metric: Resolved Rent
+
+Supporting metrics: resolution rate; time to resolution; cost per resolved dollar; percent resolved without financing; percent automatically resolved; assistance utilization; repeat hardship; provider fulfillment reliability; independent-payment streaks; proof verification success.
+
+## 13. Distribution strategy
+
+### Stage 1 — developers and sandbox pilots
+Prove the protocol with synthetic data and sandbox providers.
+
+### Stage 2 — smaller rent-tech/PMS platforms
+> **Add automated rent resolution and portable reliability without building the provider network yourself.**
+
+### Stage 3 — embedded enterprise
+For Apartments.com:
+> **You already know what is owed and what was paid. We handle the space between `rent due` and `rent resolved` when the normal payment flow does not work.**
+
+The platform keeps its UI, customer relationship, and payment infrastructure. We provide obligation/proof/resolution infrastructure.
+
+### Stage 4 — network
+Multiple platforms, assistance programs, employers, and capital providers share the protocol. At this point a permissioned multi-party ledger may be justified.
+
+## 14. Solo-engineer feasibility
+
+### Build now
+- TypeScript service
+- Postgres/Supabase event store
+- strict event schemas
+- deterministic policy engine
+- synthetic provider adapters
+- agent orchestration
+- Merkle commitment service
+- public testnet anchoring
+- x402 testnet endpoint
+- renter/landlord demo
+- reliability credential/proof demo
+
+### Do not build now
+- custom L1/L2
+- production permissioned blockchain
+- consumer wallet/exchange
+- lending balance sheet
+- charitable entity
+- direct credit-bureau integration
+- native apps
+- broad PMS integrations
+- real-money rent custody
+- token economics
+- proprietary credit score
+
+## 15. Key risks and unresolved research
+
+1. **Regulatory classification:** payment transmission, lending, servicing, insurance-like benefits, debt collection, rent acceptance, and charitable administration.
+2. **Fair lending / decision systems:** reliability history must not become an opaque proxy score for consequential decisions.
+3. **Privacy:** public commitments, metadata, identifiers, and proof requests can leak information even if PII is offchain.
+4. **Data authority:** events need trustworthy issuers plus dispute/correction semantics.
+5. **Provider incentives:** assistance programs and lenders need reasons to expose machine-readable capabilities.
+6. **Cold start:** portable reputation becomes more useful as more platforms recognize it.
+7. **Unit economics:** production contracts and capital/loss costs are needed; public pricing is insufficient.
+8. **Assistance economics:** hardship incidence and grant effectiveness need real data.
+9. **Enterprise sales:** Apartments.com is an endgame channel, not the first customer.
+10. **Standards:** use existing identity, credential, event-signature, and proof standards where possible.
+
+## 16. Project principles
+
+1. **Rent should compound into resilience.**
+2. **Private facts. Public proofs. Portable trust.**
+3. **The renter controls disclosure of their history.**
+4. **Assistance does not erase reliability.**
+5. **Borrow last.**
+6. **Agents orchestrate; explicit policy decides.**
+7. **No silent ledger rewrites.**
+8. **Use the cheapest appropriate settlement rail.**
+9. **Do not tokenize something merely because crypto is available.**
+10. **Earn the blockchain before operating one.**
+11. **Existing rental platforms are distribution partners, not necessarily competitors.**

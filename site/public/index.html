@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="base:app_id" content="6a9f81c83c7effd83305210c">
+<meta name="description" content="Agentic infrastructure that resolves housing obligations. Verified rent history becomes portable, privacy-preserving proofs on Base, paid by agents in USDC over x402.">
+<meta property="og:title" content="Rent Resilience">
+<meta property="og:description" content="Turn rent into resilience. A housing-obligation resolution protocol on Base.">
+<meta property="og:image" content="https://rent.kylebrodeur.xyz/rent-resilience-thumbnail.png">
+<title>Rent Resilience — turn rent into resilience</title>
+<link rel="icon" type="image/png" href="/rent-resilience-app-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --charcoal: #1a1510;
+  --charcoal-lift: #241d15;
+  --gold: #c98d1a;
+  --teal: #5a9e80;
+  --cream: #e8dfd0;
+  --cream-muted: #a89a82;
+  --rule: #3a3020;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--charcoal);
+  color: var(--cream);
+  font-family: "Bricolage Grotesque", Arial, sans-serif;
+  line-height: 1.6;
+}
+.page { max-width: 880px; margin: 0 auto; padding: 64px 24px 96px; }
+header { display: flex; align-items: center; gap: 20px; }
+header svg { flex: none; }
+.wordmark { font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; }
+.wordmark .accent { color: var(--gold); }
+.rule { border: none; border-top: 3px solid var(--rule); position: relative; margin: 28px 0 40px; }
+.rule::before { content: ""; position: absolute; left: 0; top: -3px; width: 140px; border-top: 3px solid var(--gold); }
+h1 {
+  font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 18px;
+  max-width: 20ch;
+}
+h1 .teal { color: var(--teal); }
+.lede { font-size: 1.15rem; color: var(--cream-muted); max-width: 58ch; margin: 0 0 34px; }
+.thesis {
+  border-left: 4px solid var(--gold);
+  padding: 6px 0 6px 20px;
+  margin: 0 0 40px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  font-style: italic;
+}
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 0 0 48px; }
+.card {
+  background: var(--charcoal-lift);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 20px 22px;
+}
+.card h2 { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin: 0 0 8px; }
+.card p { margin: 0; color: var(--cream-muted); font-size: 0.98rem; }
+.links { display: flex; flex-wrap: wrap; gap: 14px; }
+.links a {
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  border: 2px solid var(--rule);
+  color: var(--cream);
+}
+.links a.primary { background: var(--gold); border-color: var(--gold); color: var(--charcoal); }
+.links a:hover { border-color: var(--gold); }
+.links a.primary:hover { background: var(--cream); border-color: var(--cream); }
+footer { margin-top: 72px; color: var(--cream-muted); font-size: 0.9rem; }
+footer a { color: var(--teal); }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <svg width="72" height="72" viewBox="0 0 1024 1024" role="img" aria-label="Rent Resilience mark">
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M226 462L512 226L798 462" stroke="#c98d1a" stroke-width="54"/>
+        <path d="M512 788V528" stroke="#5a9e80" stroke-width="50"/>
+        <path d="M512 628C426 628 375 579 375 496C460 496 512 545 512 628Z" stroke="#5a9e80" stroke-width="50"/>
+        <path d="M512 566C598 566 649 517 649 434C564 434 512 484 512 566Z" stroke="#5a9e80" stroke-width="50"/>
+        <path d="M406 788H618" stroke="#5a9e80" stroke-width="50"/>
+      </g>
+    </svg>
+    <div class="wordmark">rent<span class="accent">resilience</span></div>
+  </header>
+
+  <hr class="rule">
+
+  <h1>Reliable rent should count for something <span class="teal">the month you need it to</span>.</h1>
+
+  <p class="lede">Rent Resilience is agentic infrastructure for resolving housing
+  obligations. Rent becomes a verifiable obligation in an append-only ledger. Private
+  facts stay offchain while cryptographic proofs anchor to Base. When a shortfall hits,
+  agents compose the least harmful fix across landlord flexibility, assistance, and
+  financing. Borrowing comes last.</p>
+
+  <p class="thesis">Paying rent on time, consecutively, with no assistance should qualify
+  you for assistance the one month you need it.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Private facts, public proofs</h2>
+      <p>No PII ever touches the chain. Merkle commitments on Base make history
+      tamper-evident; renters control what gets disclosed, to whom, claim by claim.</p>
+    </div>
+    <div class="card">
+      <h2>Agents pay for trust</h2>
+      <p>Proofs, verification, and resolution quotes are paid by other agents in USDC
+      over x402. Machine-payable trust at prices card rails cannot serve.</p>
+    </div>
+    <div class="card">
+      <h2>Open protocol</h2>
+      <p>RentObligation and RentEvent schemas are published under MIT. State derives
+      from signed events; corrections are new events, never silent edits.</p>
+    </div>
+  </div>
+
+  <div class="links">
+    <a class="primary" href="https://github.com/kylebrodeur/rent-resilience">Read the protocol on GitHub</a>
+    <a href="https://github.com/kylebrodeur/rent-resilience/blob/main/docs/protocol.md">Protocol spec</a>
+    <a href="https://github.com/kylebrodeur/rent-resilience/blob/main/docs/roadmap-architecture.md">Roadmap</a>
+  </div>
+
+  <footer>
+    <p>Built in the open on Base by <a href="https://kylebrodeur.xyz">kylebrodeur</a>.
+    Status: pre-MVP; protocol schemas published, sandbox in progress. No token, no
+    custody, no lending. USDC is the unit of payment.</p>
+  </footer>
+</div>
+</body>
+</html>

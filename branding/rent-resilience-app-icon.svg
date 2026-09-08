@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Rent Resilience app icon</title>
+  <desc id="desc">A teal sprout sheltered under a gold roof chevron on a warm charcoal square.</desc>
+
+  <rect width="1024" height="1024" fill="#1a1510"/>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M226 462L512 226L798 462" stroke="#c98d1a" stroke-width="54"/>
+
+    <path d="M512 788V528" stroke="#5a9e80" stroke-width="50"/>
+    <path d="M512 628C426 628 375 579 375 496C460 496 512 545 512 628Z" stroke="#5a9e80" stroke-width="50"/>
+    <path d="M512 566C598 566 649 517 649 434C564 434 512 484 512 566Z" stroke="#5a9e80" stroke-width="50"/>
+    <path d="M406 788H618" stroke="#5a9e80" stroke-width="50"/>
+  </g>
+</svg>
