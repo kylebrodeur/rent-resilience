@@ -176,13 +176,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .ci2{font-family:'Martian Mono',monospace;font-size:11px;color:var(--go);background:var(--gd);padding:1px 5px;border-radius:2px}
 
 /* Share */
-/* full-width resolution terminal */
-.rterm{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-top:34px;background:#14100a;border-top:1px solid var(--brh);border-bottom:1px solid var(--brh)}
+/* full-width resolution terminal: fills the container edge to edge */
+.rterm{margin-top:34px;background:#14100a;border:1px solid var(--brh);border-radius:4px;overflow:hidden}
 [data-theme=light] .rterm{background:#e6dfd2}
-.rtbar{display:flex;align-items:center;gap:7px;max-width:1100px;margin:0 auto;padding:13px 28px;border-bottom:1px solid var(--br)}
+.rtbar{display:flex;align-items:center;gap:7px;padding:13px 24px;border-bottom:1px solid var(--br)}
 .rtc{width:9px;height:9px;border-radius:50%;flex:none}
 .rttl{font-family:'Martian Mono',monospace;font-size:10px;color:var(--mu);letter-spacing:.06em;margin-left:8px}
-.rtin{max-width:1100px;margin:0 auto;padding:26px 28px 30px}
+.rtin{padding:24px}
 .rtcopy{max-width:620px;color:var(--mu);font-size:14px;line-height:1.7;margin-bottom:20px}
 .rtcopy b{color:var(--tx);font-weight:600}
 .rtcode{font-family:'Martian Mono',monospace;font-size:12px;line-height:2.15;overflow-x:auto}
