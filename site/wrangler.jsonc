@@ -1,13 +1,17 @@
 {
   "name": "rent-resilience-site",
+  "main": "src/index.js",
   "compatibility_date": "2026-09-01",
   "assets": {
-    "directory": "./public"
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": true
   },
   "routes": [
-    {
-      "pattern": "rent.kylebrodeur.xyz",
-      "custom_domain": true
-    }
+    { "pattern": "rentresilience.org", "custom_domain": true },
+    { "pattern": "www.rentresilience.org", "custom_domain": true },
+    { "pattern": "rentresilience.xyz", "custom_domain": true },
+    { "pattern": "www.rentresilience.xyz", "custom_domain": true },
+    { "pattern": "rent.kylebrodeur.xyz", "custom_domain": true }
   ]
 }
