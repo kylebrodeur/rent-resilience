@@ -206,6 +206,23 @@ posthog.init('phc_t6hMPtdC3JaYtbvtLdFfSd3haQoeN38VfycSWQBs84QH',{api_host:'https
 <script>
 function phTrack(name,props){try{if(window.posthog)posthog.capture(name,props||{});}catch(e){}}
 document.addEventListener('click',function(ev){var a=ev.target.closest('[data-ph]');if(a)phTrack('cta_click',{location:a.getAttribute('data-ph'),text:(a.textContent||'').trim().slice(0,60)});});
+// Emailable widget: client-side check while typing (public key, 10 uniques/day/IP).
+// The server re-verifies on submit, so a widget miss, error, or rate limit only
+// costs UX polish, never data quality.
+document.querySelectorAll('input[type=email]').forEach(function(inp){
+  inp.addEventListener('verified',function(ev){phTrack('email_widget_result',{accepted:Boolean(ev.detail&&ev.detail.accepted)});});
+  inp.addEventListener('error',function(ev){phTrack('email_widget_error',{status:ev.detail&&ev.detail.status});});
+});
+</script>
+<script>
+  (function (w, d, ns) {
+    w['EmailableObject'] = ns;
+    w[ns] = w[ns] || function () { (w[ns].q = w[ns].q || []).push(arguments) },
+    s = d.createElement('script'), fs = d.getElementsByTagName('script')[0];
+    s.async = 1; s.src = 'https://js.emailable.com/v3/';
+    fs.parentNode.insertBefore(s, fs)
+  })(window, document, 'emailable');
+  emailable('apiKey', 'live_4773093d07f7a3566b49');
 </script>
 </head>
 <body>
