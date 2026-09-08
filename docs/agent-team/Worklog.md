@@ -79,10 +79,24 @@
   connection prompt appears); the Base app row did not (app opened to the
   home screen, no approval prompt). Root cause is upstream: the July 2025
   Coinbase Wallet -> Base app migration broke the go.cb-w.com/wc?uri=
-  deep link (reown-com/appkit-react-native#511); Base app needs a separate
-  Base Account SDK / Mobile Wallet Protocol lane later. Base app row removed
-  from the chooser (commit 7f6c5ca, deploy 021eda2b). Hash-return fallback
-  direction documented: the tx hash travels over the WC relay to the pending
-  eth_sendTransaction promise, not via the redirect, so a manual swipe back
-  to the browser still resolves; a killed tab falls back to the paste field,
-  which is why it stays.
+  deep link (reown-com/appkit-react-native#511). Base app row removed
+  (commit 7f6c5ca, deploy 021eda2b), then restored on its own lane via the
+  Base Account SDK (@base-org/account, lazy +esm import, same JSON-RPC
+  provider contract as WC so payFlow is unchanged): first row on the mobile
+  chooser, own row in the desktop picker, verified to open the real
+  keys.coinbase.com connect popup in Playwright (commit c195108, deploy
+  7e6a7919). Hash-return fallback direction documented: the tx hash
+  travels over the WC relay to the pending eth_sendTransaction promise,
+  not via the redirect, so a manual swipe back to the browser still
+  resolves; a killed tab falls back to the paste field, which is why it
+  stays.
+- Try-it-now redesign from Kyle's review: lucide scan-frame icon replaces
+  the retired QR slot, Pay 1c button in terminal amber (--te, text --bg so
+  both themes flip correctly) to stand out from the green form buttons,
+  copy trimmed across the section, the Mint parenthetical removed.
+- Mobile overflow sweep at 320px, root-caused from Kyle's report: the
+  optgrid 1fr track is really minmax(auto,1fr), so the form row's
+  intrinsic min-content (input default width + nowrap button) floored the
+  track wider than its container; fixed with minmax(0,1fr), min-width:0 on
+  form inputs, stacked input/button below 360px, and wrapping footer
+  links. Page is now scroll-clean at 320 and 390.
