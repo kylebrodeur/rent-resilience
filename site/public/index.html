@@ -1,146 +1,398 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta name="base:app_id" content="6a9f81c83c7effd83305210c">
-<meta name="description" content="Agentic infrastructure that resolves housing obligations. Verified rent history becomes portable, privacy-preserving proofs on Base, paid by agents in USDC over x402.">
+<meta name="description" content="Rent Resilience — agentic infrastructure that resolves housing obligations. Verified rent history, privacy-preserving proofs, x402-paid APIs on Base.">
 <meta property="og:title" content="Rent Resilience">
-<meta property="og:description" content="Turn rent into resilience. A housing-obligation resolution protocol on Base.">
+<meta property="og:description" content="Rent should compound into resilience. Private facts, public proofs, portable trust.">
 <meta property="og:image" content="https://rentresilience.org/rent-resilience-thumbnail.png">
-<link rel="canonical" href="https://rentresilience.org/">
-<title>Rent Resilience: turn rent into resilience</title>
+<title>Rent Resilience: rent should compound into resilience</title>
 <link rel="icon" type="image/png" href="/rent-resilience-app-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Martian+Mono:wght@300;400;500;600&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --charcoal: #1a1510;
-  --charcoal-lift: #241d15;
-  --gold: #c98d1a;
-  --teal: #5a9e80;
-  --cream: #e8dfd0;
-  --cream-muted: #a89a82;
-  --rule: #3a3020;
+:root,[data-theme=dark]{--bg:#1a1510;--sf:#231c14;--sf2:#2c2418;--br:#3a3020;--brh:#4e4030;--tx:#e8dfd0;--mu:#907e68;--dm:#7a6a58;--go:#c98d1a;--gd:rgba(201,141,26,.10);--gm:rgba(201,141,26,.20);--gb:rgba(201,141,26,.28);--gg:rgba(201,141,26,.055);--ru:#cc6030;--rd:rgba(204,96,48,.10);--rb:rgba(204,96,48,.26);--te:#5a9e80;--td:rgba(90,158,128,.10);--tb:rgba(90,158,128,.26)}
+[data-theme=light]{--bg:#f2ede4;--sf:#e8e1d6;--sf2:#ded6c8;--br:#ccc0ac;--brh:#b8a894;--tx:#1e1510;--mu:#6a5a48;--dm:#a89078;--go:#8a6010;--gd:rgba(136,96,16,.10);--gm:rgba(136,96,16,.20);--gb:rgba(136,96,16,.30);--gg:rgba(136,96,16,.05);--ru:#a83e18;--rd:rgba(168,62,24,.10);--rb:rgba(168,62,24,.26);--te:#2a6a4c;--td:rgba(42,106,76,.10);--tb:rgba(42,106,76,.26)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Barlow',sans-serif;font-weight:300;line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(var(--br) 1px,transparent 1px),linear-gradient(90deg,var(--br) 1px,transparent 1px);background-size:48px 48px;opacity:.2;mask-image:radial-gradient(ellipse 80% 45% at 50% 0%,black 0%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 45% at 50% 0%,black 0%,transparent 100%)}
+.con{max-width:1040px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+.tag{display:inline-flex;align-items:center;gap:4px;font-family:'Martian Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:2px}
+.tg{color:var(--go);background:var(--gd);border:1px solid var(--gb)}
+.tr{color:var(--ru);background:var(--rd);border:1px solid var(--rb)}
+.tt{color:var(--te);background:var(--td);border:1px solid var(--tb)}
+.sl{font-family:'Martian Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.sl::before{content:'//';color:var(--dm);font-size:12px}
+h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,3.8vw,44px);font-weight:700;line-height:1.06;letter-spacing:-.03em;margin-bottom:12px}
+h2 em{font-style:normal;color:var(--go)}
+.ss{font-size:15px;color:var(--mu);max-width:520px;line-height:1.72}
+section{padding:88px 0;position:relative;z-index:1}
+section+section{border-top:1px solid var(--br)}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--br);transition:background .3s}
+[data-theme=light] nav{background:rgba(242,237,228,.93)}
+.ni{display:flex;align-items:center;justify-content:space-between;max-width:1040px;margin:0 auto;padding:0 28px;height:52px}
+.logo{font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:800;color:var(--tx);text-decoration:none;display:flex;align-items:center;gap:9px;letter-spacing:-.03em}
+.ld{width:7px;height:7px;background:var(--go);border-radius:50%;animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+.nr{display:flex;align-items:center;gap:16px}
+.nl{display:flex;gap:20px}
+.nl a{font-family:'Martian Mono',monospace;font-size:11px;color:var(--mu);text-decoration:none;transition:color .2s;letter-spacing:.04em}
+.nl a:hover{color:var(--tx)}
+.tmbtn{display:flex;align-items:center;gap:6px;font-family:'Martian Mono',monospace;font-size:11px;color:var(--mu);background:none;border:1px solid var(--brh);border-radius:2px;padding:5px 10px;min-height:44px;cursor:pointer;transition:all .2s}
+.tmbtn:hover{border-color:var(--gb);color:var(--go)}
+.bnav{font-family:'Martian Mono',monospace;font-size:11px;font-weight:600;color:var(--bg);background:var(--go);border:none;padding:8px 14px;border-radius:2px;min-height:44px;cursor:pointer;text-decoration:none;transition:opacity .2s;white-space:nowrap}
+.bnav:hover{opacity:.82}
+
+#hero{padding:140px 0 80px;position:relative;overflow:hidden}
+.hglow{position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:800px;height:440px;background:radial-gradient(ellipse at center top,var(--gg) 0%,transparent 65%);pointer-events:none}
+.hpill{display:inline-flex;align-items:center;gap:11px;flex-wrap:wrap;border:1px solid var(--brh);border-radius:2px;background:var(--sf);padding:6px 13px;font-family:'Martian Mono',monospace;font-size:10px;color:var(--mu);margin-bottom:28px}
+.hlv{color:var(--go);display:flex;align-items:center;gap:6px}
+.hd2{width:5px;height:5px;background:var(--go);border-radius:50%;animation:pulse 1.6s infinite}
+.hsep{color:var(--dm)}
+.h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(44px,7.5vw,88px);font-weight:800;line-height:.96;letter-spacing:-.045em;margin-bottom:24px;max-width:780px}
+.h1 em{font-style:normal;color:var(--go)}
+.hsub{font-size:17px;color:var(--mu);line-height:1.68;max-width:520px;margin-bottom:38px}
+.flbl{font-family:'Martian Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--mu);margin-bottom:8px;display:block}
+.frow{display:flex;max-width:520px;margin-bottom:10px}
+.fi{flex:1;background:var(--sf);border:1px solid var(--brh);border-right:none;border-radius:3px 0 0 3px;padding:13px 16px;font-family:'Martian Mono',monospace;font-size:12px;color:var(--tx);min-height:44px;outline:none;transition:border-color .2s}
+.fi::placeholder{color:var(--mu)}
+.fi:focus{border-color:var(--go)}
+.fb{background:var(--go);color:var(--bg);border:none;border-radius:0 3px 3px 0;padding:13px 20px;font-family:'Martian Mono',monospace;font-size:11px;font-weight:600;min-height:44px;cursor:pointer;white-space:nowrap;transition:opacity .2s;text-decoration:none;display:flex;align-items:center}
+.fb:hover{opacity:.83}
+.ffine{font-family:'Martian Mono',monospace;font-size:11px;color:var(--dm)}
+.ffine span{color:var(--go)}
+.hstats{display:flex;gap:36px;margin-top:52px;padding-top:36px;border-top:1px solid var(--br);flex-wrap:wrap}
+.hst .n{font-family:'Martian Mono',monospace;font-size:26px;font-weight:600;color:var(--go);display:block}
+.hst .l{font-size:11px;color:var(--mu);margin-top:3px}
+.term{margin-top:52px;border:1px solid var(--brh);border-radius:4px;overflow:hidden;background:var(--sf)}
+.tbar{background:var(--sf2);padding:10px 16px;display:flex;align-items:center;gap:5px;border-bottom:1px solid var(--br)}
+.tc{width:10px;height:10px;border-radius:50%}
+.ttl{margin-left:7px;font-family:'Martian Mono',monospace;font-size:11px;color:var(--mu)}
+.tbody2{padding:20px 24px}
+.tl{font-family:'Martian Mono',monospace;font-size:12px;line-height:2.2}
+.tco{color:var(--dm)}.tk{color:#9bbfdf}.tv{color:var(--go)}.tru{color:var(--ru)}
+
+#problem{background:var(--sf)}
+.psg{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:44px;border:1px solid var(--brh);border-radius:4px;overflow:hidden}
+.psc{padding:30px}
+.psc.bad{background:rgba(204,96,48,.04);border-right:1px solid var(--br)}
+.psc.good{background:rgba(201,141,26,.04)}
+.psrl{margin-bottom:20px}
+.psr{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--br);font-family:'Martian Mono',monospace;font-size:11px;line-height:1.55}
+.psr:last-child{border-bottom:none}
+.psk{color:var(--mu);font-size:9px;display:block;margin-bottom:2px;letter-spacing:.07em;text-transform:uppercase}
+.psv{color:var(--tx)}.bv{color:var(--ru)}.gv{color:var(--go)}
+.crow{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+.cc2{flex:1;min-width:160px;border:1px solid var(--brh);border-radius:3px;padding:18px}
+.cc2.bad{border-color:var(--rb);background:var(--rd)}.cc2.good{border-color:var(--gb);background:var(--gd)}
+.ccl{font-family:'Martian Mono',monospace;font-size:9px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em}
+.cca{font-family:'Bricolage Grotesque',sans-serif;font-size:32px;font-weight:800;letter-spacing:-.025em;margin:7px 0 4px}
+.cc2.bad .cca{color:var(--ru)}.cc2.good .cca{color:var(--go)}
+.ccn{font-size:13px;color:var(--mu)}
+
+#how .fg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:44px}
+.fp{border:1px solid var(--brh);border-radius:4px;overflow:hidden;transition:border-color .22s}
+.fp:hover{border-color:var(--gb)}
+.fph{padding:24px 26px;border-bottom:1px solid var(--br);background:var(--sf)}
+.fpd{font-family:'Martian Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--mu);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.fpt{font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:700;letter-spacing:-.02em;margin-bottom:7px}
+.fps{font-size:13px;color:var(--mu);line-height:1.55}
+.fflow{display:flex;align-items:center;gap:6px;padding:11px 26px;background:var(--bg);border-bottom:1px solid var(--br);overflow-x:auto;white-space:nowrap}
+.fn{padding:4px 9px;border:1px solid var(--brh);border-radius:2px;font-family:'Martian Mono',monospace;font-size:10px;color:var(--mu)}
+.fn.on{border-color:var(--gb);color:var(--go);background:var(--gd)}
+.fa{color:var(--dm);font-size:11px;flex-shrink:0}
+.fpb{padding:22px 26px}
+.fpi{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--br);align-items:flex-start}
+.fpi:last-child{border-bottom:none;padding-bottom:0}
+.fpbt{width:5px;height:5px;background:var(--go);border-radius:50%;margin-top:6px;flex-shrink:0}
+.fpit{font-size:13px;font-weight:500;margin-bottom:3px;color:var(--tx)}
+.fpid{font-size:13px;color:var(--mu);line-height:1.6}
+
+#privacy .sg2{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start;margin-top:44px}
+.sps{display:flex;flex-direction:column;gap:2px}
+.spl{border:1px solid var(--brh);border-radius:3px;padding:18px 22px;background:var(--sf);transition:border-color .2s}
+.spl:hover{border-color:var(--gb)}
+.splt{font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:600;letter-spacing:-.015em;margin-bottom:5px}
+.spld{font-size:13px;color:var(--mu);line-height:1.65}
+.zbadge{display:inline-flex;align-items:center;gap:7px;margin-top:16px;border:1px solid var(--gb);background:var(--gd);border-radius:2px;padding:8px 14px;font-family:'Martian Mono',monospace;font-size:11px;color:var(--go)}
+.sc2{border:1px solid var(--brh);border-radius:4px;overflow:hidden;position:sticky;top:62px}
+.scb{background:var(--sf2);padding:9px 14px;border-bottom:1px solid var(--br);font-family:'Martian Mono',monospace;font-size:9px;color:var(--mu);display:flex;gap:5px;align-items:center}
+.scd{width:9px;height:9px;border-radius:50%}
+.scb2{padding:20px 22px;font-family:'Martian Mono',monospace;font-size:12px;line-height:2.1;background:var(--sf)}
+.sco{color:var(--dm)}.sck{color:#9bbfdf}.scv{color:var(--go)}
+
+#api .apitab{margin-top:44px;border:1px solid var(--brh);border-radius:4px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--br)}
+.ac{background:var(--sf);padding:18px 20px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.am{font-family:'Martian Mono',monospace;font-size:11px;color:var(--tx)}
+.apr{font-family:'Martian Mono',monospace;font-size:11px;color:var(--go);white-space:nowrap}
+
+#faq .faq{margin-top:44px;display:flex;flex-direction:column;gap:2px}
+.fqi{border:1px solid var(--brh);border-radius:3px;overflow:hidden;transition:border-color .2s}
+.fqi.op{border-color:var(--gb)}
+.fqq{width:100%;text-align:left;background:var(--sf);border:none;cursor:pointer;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.fqqt{font-family:'Martian Mono',monospace;font-size:11px;color:var(--tx);text-align:left;line-height:1.5}
+.fqar{color:var(--mu);font-size:18px;transition:transform .25s,color .2s;flex-shrink:0}
+.fqi.op .fqar{transform:rotate(45deg);color:var(--go)}
+.fqa{max-height:0;overflow:hidden;transition:max-height .32s ease;background:var(--bg)}
+.fqai{padding:0 22px 20px;font-size:14px;color:var(--mu);line-height:1.8;border-top:1px solid var(--br)}
+.fqi.op .fqa{max-height:320px}
+.ci2{font-family:'Martian Mono',monospace;font-size:11px;color:var(--go);background:var(--gd);padding:1px 5px;border-radius:2px}
+
+#fcta{padding:80px 0}
+.fci{text-align:center;padding:64px 24px;background:radial-gradient(ellipse at center,var(--gg) 0%,transparent 65%);border:1px solid var(--brh);border-radius:6px}
+.fch{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(28px,5vw,58px);font-weight:800;letter-spacing:-.035em;line-height:1.02;margin-bottom:16px}
+.fch em{font-style:normal;color:var(--go)}
+.fcs{font-size:15px;color:var(--mu);margin-bottom:28px}
+.fclinks{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.fclink{display:inline-flex;align-items:center;padding:12px 22px;border-radius:3px;text-decoration:none;font-family:'Martian Mono',monospace;font-size:11px;font-weight:600;border:2px solid var(--brh);color:var(--tx);min-height:44px}
+.fclink.primary{background:var(--go);border-color:var(--go);color:var(--bg)}
+.fclink:hover{border-color:var(--go)}
+.fclink.primary:hover{opacity:.84}
+.fcn2{font-family:'Martian Mono',monospace;font-size:9px;color:var(--dm);margin-top:12px}
+
+footer{border-top:1px solid var(--br);padding:28px 0}
+.fi2{max-width:1040px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+footer span,footer a{font-family:'Martian Mono',monospace;font-size:10px;color:var(--dm);text-decoration:none}
+footer a:hover{color:var(--mu)}
+.flinks{display:flex;gap:18px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fu{opacity:0;animation:fadeUp .55s ease both}
+.d1{animation-delay:.05s}.d2{animation-delay:.14s}.d3{animation-delay:.25s}.d4{animation-delay:.36s}
+
+@media(max-width:860px){.psg,.sg2,.fg,#api .apitab{grid-template-columns:1fr}.psc.bad{border-right:none;border-bottom:1px solid var(--br)}.nl{display:none}}
+
+:focus-visible{outline:2px solid var(--go);outline-offset:2px}
+.tmbtn:focus-visible,.bnav:focus-visible,.fqq:focus-visible,.fclink:focus-visible,.fb:focus-visible{outline:2px solid var(--go);outline-offset:2px;border-radius:2px}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .ld,.hd2{animation:none}
+  html{scroll-behavior:auto}
 }
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--charcoal);
-  color: var(--cream);
-  font-family: "Bricolage Grotesque", Arial, sans-serif;
-  line-height: 1.6;
-}
-.page { max-width: 880px; margin: 0 auto; padding: 64px 24px 96px; }
-header { display: flex; align-items: center; gap: 20px; }
-header svg { flex: none; }
-.wordmark { font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; }
-.wordmark .accent { color: var(--gold); }
-.rule { border: none; border-top: 3px solid var(--rule); position: relative; margin: 28px 0 40px; }
-.rule::before { content: ""; position: absolute; left: 0; top: -3px; width: 140px; border-top: 3px solid var(--gold); }
-h1 {
-  font-size: clamp(1.9rem, 4.5vw, 2.9rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  margin: 0 0 18px;
-  max-width: 20ch;
-}
-h1 .teal { color: var(--teal); }
-.lede { font-size: 1.15rem; color: var(--cream-muted); max-width: 58ch; margin: 0 0 34px; }
-.thesis {
-  border-left: 4px solid var(--gold);
-  padding: 6px 0 6px 20px;
-  margin: 0 0 40px;
-  font-size: 1.2rem;
-  font-weight: 500;
-  font-style: italic;
-}
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 0 0 48px; }
-.card {
-  background: var(--charcoal-lift);
-  border: 1px solid var(--rule);
-  border-radius: 10px;
-  padding: 20px 22px;
-}
-.card h2 { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin: 0 0 8px; }
-.card p { margin: 0; color: var(--cream-muted); font-size: 0.98rem; }
-.links { display: flex; flex-wrap: wrap; gap: 14px; }
-.links a {
-  display: inline-block;
-  padding: 12px 22px;
-  border-radius: 999px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1rem;
-  border: 2px solid var(--rule);
-  color: var(--cream);
-}
-.links a.primary { background: var(--gold); border-color: var(--gold); color: var(--charcoal); }
-.links a:hover { border-color: var(--gold); }
-.links a.primary:hover { background: var(--cream); border-color: var(--cream); }
-footer { margin-top: 72px; color: var(--cream-muted); font-size: 0.9rem; }
-footer a { color: var(--teal); }
 </style>
 </head>
 <body>
-<div class="page">
-  <header>
-    <svg width="72" height="72" viewBox="0 0 1024 1024" role="img" aria-label="Rent Resilience mark">
-      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M226 462L512 226L798 462" stroke="#c98d1a" stroke-width="54"/>
-        <path d="M512 788V528" stroke="#5a9e80" stroke-width="50"/>
-        <path d="M512 628C426 628 375 579 375 496C460 496 512 545 512 628Z" stroke="#5a9e80" stroke-width="50"/>
-        <path d="M512 566C598 566 649 517 649 434C564 434 512 484 512 566Z" stroke="#5a9e80" stroke-width="50"/>
-        <path d="M406 788H618" stroke="#5a9e80" stroke-width="50"/>
-      </g>
-    </svg>
-    <div class="wordmark">rent<span class="accent">resilience</span></div>
-  </header>
 
-  <hr class="rule">
-
-  <h1>Reliable rent should count for something <span class="teal">the month you need it to</span>.</h1>
-
-  <p class="lede">Rent Resilience is agentic infrastructure for resolving housing
-  obligations. Rent becomes a verifiable obligation in an append-only ledger. Private
-  facts stay offchain while cryptographic proofs anchor to Base. When a shortfall hits,
-  agents compose the least harmful fix across landlord flexibility, assistance, and
-  financing. Borrowing comes last.</p>
-
-  <p class="thesis">Paying rent on time, consecutively, with no assistance should qualify
-  you for assistance the one month you need it.</p>
-
-  <div class="grid">
-    <div class="card">
-      <h2>Private facts, public proofs</h2>
-      <p>No PII ever touches the chain. Merkle commitments on Base make history
-      tamper-evident; renters control what gets disclosed, to whom, claim by claim.</p>
-    </div>
-    <div class="card">
-      <h2>Agents pay for trust</h2>
-      <p>Proofs, verification, and resolution quotes are paid by other agents in USDC
-      over x402. Machine-payable trust at prices card rails cannot serve.</p>
-    </div>
-    <div class="card">
-      <h2>Open protocol</h2>
-      <p>RentObligation and RentEvent schemas are published under MIT. State derives
-      from signed events; corrections are new events, never silent edits.</p>
+<nav>
+  <div class="ni">
+    <a href="#" class="logo"><span class="ld"></span>Rent Resilience</a>
+    <div class="nr">
+      <div class="nl">
+        <a href="#problem">Why</a>
+        <a href="#how">How</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#api">API</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <button class="tmbtn" onclick="toggleTheme()" id="tmbtn">
+        <span id="tmicon">☀</span>
+        <span id="tmlbl">Light</span>
+      </button>
+      <a href="https://github.com/kylebrodeur/rent-resilience" class="bnav" target="_blank">Read the Protocol →</a>
     </div>
   </div>
+</nav>
 
-  <div class="links">
-    <a class="primary" href="https://github.com/kylebrodeur/rent-resilience">Read the protocol on GitHub</a>
-    <a href="https://github.com/kylebrodeur/rent-resilience/blob/main/docs/protocol.md">Protocol spec</a>
-    <a href="https://github.com/kylebrodeur/rent-resilience/blob/main/docs/roadmap-architecture.md">Roadmap</a>
+<section id="hero">
+  <div class="hglow"></div>
+  <div class="con">
+    <div class="hpill fu d1">
+      <span class="hlv"><span class="hd2"></span>Building in public</span>
+      <span class="hsep">·</span><span>Pre-MVP · Sandbox week 1</span>
+      <span class="hsep">·</span>
+      <span>Base · x402 · USDC</span>
+    </div>
+    <h1 class="h1 fu d2">Pay rent for two years.<br>Be worth <em>something</em><br>the month you're short.</h1>
+    <p class="hsub fu d3">Years of on-time payments are proof. Right now they count for nothing the first month something goes wrong. Rent Resilience turns rent into a verifiable obligation — private facts stay off-chain, proofs anchor to Base, and agents resolve shortfalls with the least harm done.</p>
+    <div class="fu d4" id="heroform">
+      <label class="flbl" for="hemail">Developer? First x402 endpoint is the door in.</label>
+      <div class="frow">
+        <span class="fi" id="epath">GET /v1/proofs/reliability</span>
+        <a class="fb" href="https://github.com/kylebrodeur/rent-resilience/tree/main/packages/protocol/schemas" target="_blank">Schemas →</a>
+      </div>
+      <div class="ffine">Sandbox week 3: <span>HTTP 402 · USDC · ~$0.05/call</span>. No API keys, no onboarding.</div>
+    </div>
+    <div class="hstats fu d3">
+      <div class="hst"><span class="n">$46k</span><span class="l">on-time rent counts for $0 today</span></div>
+      <div class="hst"><span class="n">0</span><span class="l">PII onchain, ever</span></div>
+      <div class="hst"><span class="n">x402</span><span class="l">first revenue rail</span></div>
+      <div class="hst"><span class="n">4 wk</span><span class="l">to developer preview</span></div>
+    </div>
+    <div class="term fu d4">
+      <div class="tbar"><span class="tc" style="background:#8b3a2a"></span><span class="tc" style="background:#8b7030"></span><span class="tc" style="background:#3a7040"></span><span class="ttl">resolution — $1,925 due, renter holds $1,300</span></div>
+      <div class="tbody2">
+        <div class="tl"><span class="tco">// ObligationCreated $1,925 · status: due</span></div>
+        <div class="tl">&nbsp;</div>
+        <div class="tl"><span class="tco">// Month 25: renter can pay $1,300 → agent composes the stack</span></div>
+        <div class="tl"><span class="tk">renter</span>: <span class="tv">$1,300</span>&nbsp;&nbsp;<span class="tco">// now</span></div>
+        <div class="tl"><span class="tk">assistance</span>: <span class="tv">$  300</span>&nbsp;&nbsp;<span class="tco">// sandbox provider, no repayment</span></div>
+        <div class="tl"><span class="tk">landlord_flex</span>: <span class="tv">$  325</span>&nbsp;&nbsp;<span class="tco">// policy-authorized extension, due 10th</span></div>
+        <div class="tl"><span class="tk">debt</span>: <span class="tru">$    0</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tco">// borrow last — never needed here</span></div>
+        <div class="tl">&nbsp;</div>
+        <div class="tl"><span class="tco">// ObligationSatisfied · 25/25 · 24 independ · 1 assisted</span></div>
+        <div class="tl"><span class="tco">// Merkle root anchored to Base · no PII onchain, ever</span></div>
+      </div>
+    </div>
   </div>
+</section>
 
-  <footer>
-    <p>Built in the open on Base by <a href="https://kylebrodeur.xyz">kylebrodeur</a>.
-    Status: pre-MVP; protocol schemas published, sandbox in progress. No token, no
-    custody, no lending. USDC is the unit of payment.</p>
-  </footer>
-</div>
+<section id="problem">
+  <div class="con">
+    <div class="sl">What rent actually costs</div>
+    <h2>Reliability is invisible.<br>Hardship is <em>instantly priced.</em></h2>
+    <p class="ss">The existing layers each take a cut or sell you certainty you already earned. None of them resolve the exception.</p>
+    <div class="psg">
+      <div class="psc bad">
+        <div class="psrl"><span class="tag tr">✕ The current stack</span></div>
+        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Card rent</span><span class="psv bv">2.75% fee — $53 on $1,925</span></div></div>
+        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Split pay</span><span class="psv bv">$9.99 + 1.5% — $38.87 on $1,925</span></div></div>
+        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Settled vs received</span><span class="psv bv">ACH days; landlord doesn't see settlement until cleared</span></div></div>
+        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Proof</span><span class="psv bv">Years on-time: invisible. One short month: a credit ding</span></div></div>
+        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">When it breaks</span><span class="psv bv">Late fee, advance, or eviction notice — no composition</span></div></div>
+      </div>
+      <div class="psc good">
+        <div class="psrl"><span class="tag tg">✓ Rent Resilience</span></div>
+        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Rail</span><span class="psv gv">USDC on Base or ACH/FedNow — cheapest rail that settles right</span></div></div>
+        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Exception</span><span class="psv gv">Agent composes flex + assistance; debt is the last option</span></div></div>
+        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Settlement</span><span class="psv gv">24/7 when funds are onchain; evidence is signed and anchored</span></div></div>
+        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Proof</span><span class="psv gv">Append-only history → portable claims. 24 of 24 is a fact you own</span></div></div>
+        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">When it breaks</span><span class="psv gv">Obligation resolves across providers, never silently</span></div></div>
+      </div>
+    </div>
+    <div class="crow">
+      <div class="cc2 bad"><span class="ccl">One $1,925 rent on card</span><div class="cca">$53</div><p class="ccn">2.75% fee. Every month, every card user.</p></div>
+      <div class="cc2 good"><span class="ccl">Resolving a $625 shortfall</span><div class="cca" style="color:var(--go)">$0</div><p class="ccn">Flex + assistance compose at origin. No fee on resolving.</p></div>
+      <div class="cc2" style="border-color:var(--brh);background:var(--sf)"><span class="ccl">Proof a landlord reads</span><div class="cca" style="color:var(--go)">$0.05</div><p class="ccn">x402 price for a verified reliability claim.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="con">
+    <div class="sl">The protocol</div>
+    <h2>Four objects.<br><em>Three weeks</em> to the first paid call.</h2>
+    <p class="ss">Append-only ledger, deterministic policy, privacy-preserving proofs, paid APIs. Each piece is shippable on its own; together they're the resolution network.</p>
+    <div class="fg">
+      <div class="fp">
+        <div class="fph">
+          <div class="fpd"><span class="tag tg">01</span> The Ledger</div>
+          <div class="fpt">Append-only RentEvent stream</div>
+          <div class="fps">Facts are signed events on a RentObligation. Corrections are new events; nothing is ever silently edited.</div>
+        </div>
+        <div class="fflow"><span class="fn on">RentObligation</span><span class="fa">→</span><span class="fn on">RentEvent</span><span class="fa">→</span><span class="fn on">Reliability</span><span class="fa">→</span><span class="fn">Proof</span></div>
+        <div class="fpb">
+          <div class="fpi"><div class="fpbt"></div><div><div class="fpit">PII never in events</div><div class="fpid">Party, property, and policy are opaque IDs. The real facts live in a private vault only the renter can disclose from.</div></div></div>
+          <div class="fpi"><div class="fpbt"></div><div><div class="fpit">Assistance doesn't erase history</div><div class="fpid">An assisted month ends an independent streak, never the satisfied record. 25/25 is still 25/25.</div></div></div>
+          <div class="fpi"><div class="fpbt"></div><div><div class="fpit">Reconstructible from events alone</div><div class="fpid">State derives deterministically from the event stream. No hidden mutations, no side channels.</div></div></div>
+        </div>
+      </div>
+      <div class="fp">
+        <div class="fph">
+          <div class="fpd"><span class="tag tg">02</span> Policy Engine</div>
+          <div class="fpt">Deterministic, landlord-authored</div>
+          <div class="fps">Agents interpret requests; explicit policy decides what's allowed. In-policy resolves instantly.</div>
+        </div>
+        <div class="fflow"><span class="fn on">Natural language</span><span class="fa">→</span><span class="fn on">Agent</span><span class="fa">→</span><span class="fn on">Policy check</span><span class="fa">→</span><span class="fn">Resolution</span></div>
+        <div class="fpb">
+          <div class="fpi"><div class="fpbt"></div><div><div class="fpit">Example: 60% now, 10 days, twice a year</div><div class="fpid">A landlord sets it once. The agent translates "I can pay Thursday" into a policy check; the engine says yes or no deterministically.</div></div></div>
+          <div class="fpi"><div class="fpbt"></div><div><div class="fpit">Out-of-policy never invents approval</div><div class="fpid">The agent can't fabricate landlord consent. Policy violations return no; they never become a maybe.</div></div></div>
+          <div class="fpi"><div class="fpbt"></div><div><div class="fpit">Borrow last, always</div><div class="fpid">Resolution order is fixed: correction, then flex, then assistance, then employer benefit, then financing. Debt is the last card.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="privacy">
+  <div class="con">
+    <div class="sl">Privacy</div>
+    <h2>Public proof.<br><em>Private</em> facts.</h2>
+    <p class="ss">The chain sees Merkle roots only. Everything sensitive lives off it, and disclosure is the renter's choice.</p>
+    <div class="sg2">
+      <div class="sps">
+        <div class="spl"><div class="splt">No PII onchain, ever</div><div class="spld">Names, addresses, leases, income, bank IDs — none of it. The public chain holds cryptographic roots and nothing else. Not even salted hashes of guessable facts.</div></div>
+        <div class="spl"><div class="splt">Minimum-disclosure claims</div><div class="spld">Prove "12 of 12 satisfied" without revealing the address, the amounts, or the history. The verifier sees only the claim you authorized.</div></div>
+        <div class="spl"><div class="splt">Tamper-evident without trust</div><div class="spld">Change a record, break the root. Anyone checking the anchor on Base sees the break. No need to trust us on history.</div></div>
+        <div class="spl"><div class="splt">Earn the chain</div><div class="spld">Anchoring starts on a cheap EVM L2 (Base Sepolia, then mainnet). A permissioned network is a P3, only when multiple institutions need shared governance.</div></div>
+        <div class="zbadge">✓ Private facts. Public proofs. Portable trust.</div>
+      </div>
+      <div class="sc2">
+        <div class="scb"><span class="scd" style="background:#8b3a2a"></span><span class="scd" style="background:#8b7030"></span><span class="scd" style="background:#3a7040"></span><span style="margin-left:7px">anchor.mjs</span></div>
+        <div class="scb2">
+<span class="sco">// What actually goes onchain — a weekend prototype, not a promise</span><br>
+<span class="sck">const</span> leaves = events.<span class="scv">map</span>(h => <span class="scv">sha256</span>(<span class="scv">jcs</span>(h))); <span class="sco">// hashes only</span><br>
+<span class="sck">const</span> root = <span class="scv">merkleRoot</span>(leaves);<br>
+<span class="sck">await</span> anchor.<span class="scv">commit</span>(root, { dataSuffix: builderCode });<br>
+<span class="sco">// the anchor transaction carries bc_1utyhkys (ERC-8021)</span><br>
+<span class="sco">// and nothing else. no rent amount, no address, no name.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="api">
+  <div class="con">
+    <div class="sl">x402 API</div>
+    <h2>The first money is a <em>dime.</em><br>Paid by an agent, not a person.</h2>
+    <p class="ss">Other agents discover the capability, get an HTTP 402, pay in USDC, and get the verified result. No onboarding, no sales call, no card rail that can't settle a $0.10 charge.</p>
+    <div class="apitab">
+      <div class="ac"><span class="am">GET <span class="ci2">/v1/proofs/obligation/{id}</span></span><span class="apr">$0.05</span></div>
+      <div class="ac"><span class="am">GET <span class="ci2">/v1/proofs/reliability/{party}</span></span><span class="apr">$0.10</span></div>
+      <div class="ac"><span class="am">POST <span class="ci2">/v1/verify/obligation</span></span><span class="apr">$0.10</span></div>
+      <div class="ac"><span class="am">POST <span class="ci2">/v1/providers/discover</span></span><span class="apr">$0.01</span></div>
+      <div class="ac"><span class="am">POST <span class="ci2">/v1/providers/evaluate</span></span><span class="apr">$0.25</span></div>
+      <div class="ac"><span class="am">POST <span class="ci2">/v1/resolution/quote</span></span><span class="apr">$0.50</span></div>
+    </div>
+    <div class="ffine" style="margin-top:18px">Prices are hypotheses. Validation starts when an unrelated agent pays for one. <span>x402 is not the rent rail</span> — machine-payable trust at these price points is what card rails can't serve.</div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="con">
+    <div class="sl">FAQ</div>
+    <h2>The questions a landlord,<br>a renter, or a judge <em>actually asks</em>.</h2>
+    <div class="faq">
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Does this store my lease, address, or income on a public blockchain?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">No. Ever. Protocol events contain opaque identifiers and integer amounts in minor units of currency. The actual documents and identities live in a private encrypted store. The public chain only sees the periodic Merkle root of your event history — proof the record exists and hasn't been rewritten, with nothing about you in it.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">How is this not just rent reporting like Esusu or Bilt?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Those services report your payments to a credit bureau or give you rewards points after the fact. This resolves the exception in the moment it happens. The ledger is the substrate; the product is what an agent does with it when you come up short — composing landlord flexibility and assistance before any debt appears. Rent reporting looks backward. Resolution works forward.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Are you taking custody of my rent?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">No. The MVP moves no real money at all — the sandbox uses synthetic obligations and simulated providers. Payment rails are adapters: ACH, FedNow, or USDC on Base, chosen by cost and settlement truth, not by ideology. When real funds settle later, it's through licensed providers who own the custody, not this protocol.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">What does an "assistance event" do to my reliability record?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">It counts. Getting help doesn't erase your history — an assisted month closes the obligation and it stays in your satisfied record. An independent-satisfaction streak ends, because that streak means something narrower (you funded it alone). 24 of 24 satisfied with 1 assisted is a stronger application story than 24 of 24 alone that never had to exist.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Why Base and not an existing rental platform's own chain?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Base is where x402 agent payments and ERC-8021 builder attribution already work. Public anchoring on Base gives the record tamper evidence anyone can verify with no trust in this company. The protocol is portable; the first deployment follows the payment rail and the agents.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="fcta">
+  <div class="con">
+    <div class="fci">
+      <div class="fch">Rent already moves $50B+ a year.<br>Rent <em>reliability</em> is free to earn.</div>
+      <p class="fcs">Protocol schemas are MIT-licensed on GitHub today. Sandbox in four weeks. The first x402 endpoint is the door in — $0.05/call, no keys.</p>
+      <div class="fclinks">
+        <a class="fclink primary" href="https://github.com/kylebrodeur/rent-resilience" target="_blank">Read the Protocol →</a>
+        <a class="fclink" href="https://github.com/kylebrodeur/rent-resilience/blob/main/docs/roadmap-architecture.md" target="_blank">Roadmap</a>
+        <a class="fclink" href="https://github.com/kylebrodeur/rent-resilience/tree/main/packages/protocol/schemas" target="_blank">Schemas</a>
+      </div>
+      <div class="fcn2">No token · No custody · No PII onchain · Solo founder, public by default</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fi2">
+    <span>© 2026 Rent Resilience. Built in public on Base by <a href="https://kylebrodeur.xyz" target="_blank" style="display:inline">kylebrodeur</a>.</span>
+    <div class="flinks"><a href="https://github.com/kylebrodeur/rent-resilience" target="_blank">GitHub</a><a href="https://github.com/kylebrodeur/rent-resilience/blob/main/docs/protocol.md" target="_blank">Protocol</a><a href="https://github.com/kylebrodeur/rent-resilience/blob/main/docs/research.md" target="_blank">Research</a></div>
+  </div>
+</footer>
+
+<script>
+function toggleFaq(el){const was=el.classList.contains('op');document.querySelectorAll('.fqi').forEach(i=>{i.classList.remove('op');const b=i.querySelector('.fqq');if(b)b.setAttribute('aria-expanded','false');});if(!was){el.classList.add('op');const b=el.querySelector('.fqq');if(b)b.setAttribute('aria-expanded','true');}}
+function toggleTheme(){const h=document.documentElement,g=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',g);document.getElementById('tmicon').textContent=g==='light'?'☾':'☀';document.getElementById('tmlbl').textContent=g==='light'?'Dark':'Light';}
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}}),{threshold:.07});
+document.querySelectorAll('section > .con > *').forEach(el=>{if(!el.classList.contains('fu')&&!el.classList.contains('hglow')){el.style.opacity='0';el.style.transform='translateY(12px)';el.style.transition='opacity .55s ease,transform .55s ease';obs.observe(el);}});
+</script>
 </body>
 </html>
