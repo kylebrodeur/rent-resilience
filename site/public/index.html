@@ -366,11 +366,11 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
     <div class="optgrid" style="display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:start;margin-top:34px">
       <div class="flcard" style="text-align:center;padding:18px">
         <img src="/optin-qr.png" alt="QR code: send 1 cent USDC on Base to the Rent Resilience opt-in address" style="width:100%;max-width:160px;border-radius:3px"/><div class="hdt" style="font-size:9px;margin-top:10px">scan with a wallet app<br>1¢ USDC · Base (mainnet)</div>
-        <a class="fb" data-ph="tap-to-pay" style="margin-top:12px;justify-content:center;text-align:center;border-radius:3px;white-space:normal;line-height:1.45;padding:11px 14px;gap:7px" href="ethereum:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913@8453/transfer?address=0x79588BB628c741d073FD3bC47685328Cf8aD6802&uint256=10000"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg><span>On mobile? Tap to pay 1¢</span></a>
+        <a class="fb" data-ph="tap-to-pay" style="margin-top:12px;justify-content:center;text-align:center;border-radius:3px;white-space:normal;line-height:1.45;padding:11px 14px;gap:7px" href="ethereum:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913@8453/transfer?address=0x79588BB628c741d073FD3bC47685328Cf8aD6802&uint256=10000" onclick="return payClick(event)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg><span>Pay 1¢ with your wallet</span></a>
       </div>
       <div>
         <div class="fpd" style="margin-bottom:14px"><span class="tag tg">Humans</span> scan → send → confirm</div>
-        <div class="ffline" style="margin-bottom:14px">Confirm with the transaction hash once it lands.</div>
+        <div class="ffline" style="margin-bottom:14px">A connected wallet confirms automatically. No wallet? Pay, then paste the transaction hash.</div>
         <form class="frow" onsubmit="return confirmOptin(event)" style="margin-bottom:8px">
           <input class="fi" id="otx" type="text" placeholder="0x… (transaction hash from your wallet)" aria-label="Transaction hash from your wallet" />
           <button class="fb" type="submit">Confirm →</button>
@@ -645,20 +645,93 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
 </footer>
 
 <script>
-async function confirmOptin(ev){
+/* Wallet pay: EIP-6963 injected wallets, no SDK. One fixed transfer, auditable by eye. */
+const RRPAY={to:'0x79588BB628c741d073FD3bC47685328Cf8aD6802',usdc:'0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',chainId:'0x2105'};
+const _wl=[];
+window.addEventListener('eip6963:announceProvider',function(e){if(e.detail&&e.detail.info&&!_wl.some(function(w){return w.info.rdns===e.detail.info.rdns;}))_wl.push(e.detail);});
+window.dispatchEvent(new Event('eip6963:requestProvider'));
+
+function payClick(ev){
+  const wl=_wl.slice();
+  if(!wl.length&&window.ethereum)wl.push({info:{name:'Browser wallet',rdns:'legacy',icon:null},provider:window.ethereum});
+  const msg=document.getElementById('omsg');
+  if(!wl.length){
+    if(msg)msg.textContent='No wallet detected in this browser. Scan the QR code with a wallet app, then paste the transaction hash below.';
+    phTrack('optin_wallet_pay',{result:'no-wallet'});
+    return true; /* let the deep link through for mobile wallet apps */
+  }
   ev.preventDefault();
-  const inp=document.getElementById('otx'),msg=document.getElementById('omsg');
-  const v=(inp.value||'').trim();
-  if(!v){msg.textContent='Paste the transaction hash from your wallet after the 1¢ transfer lands.';return;}
+  phTrack('optin_wallet_pay',{result:'picker-open',wallets:wl.length});
+  if(wl.length===1)payFlow(wl[0]);else walletPicker(wl);
+  return false;
+}
+
+function walletPicker(wl){
+  let ov=document.getElementById('wpick');
+  if(!ov){
+    ov=document.createElement('div');ov.id='wpick';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','Choose a wallet to pay 1 cent');
+    ov.style.cssText='position:fixed;inset:0;background:rgba(10,8,4,.72);display:flex;align-items:center;justify-content:center;z-index:300;padding:16px';
+    ov.innerHTML='<div style="background:var(--sf);border:1px solid var(--brh);border-radius:4px;padding:20px;width:min(320px,100%);box-shadow:0 20px 60px rgba(0,0,0,.5)"><div class="fpd" style="margin-bottom:12px"><span class="tag tg">Pay 1¢</span> choose a wallet</div><div id="wpklist"></div><button class="srbtn" type="button" id="wpkx" style="margin-top:12px;width:100%;justify-content:center">Cancel</button></div>';
+    document.body.appendChild(ov);
+    ov.addEventListener('click',function(e){if(e.target===ov)ov.hidden=true;});
+    document.getElementById('wpkx').addEventListener('click',function(){ov.hidden=true;});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!ov.hidden)ov.hidden=true;});
+  }
+  const list=document.getElementById('wpklist');list.innerHTML='';
+  wl.forEach(function(w){
+    const b=document.createElement('button');b.type='button';b.className='srbtn';b.style.cssText='width:100%;justify-content:flex-start;gap:9px;margin-top:6px;padding:9px 11px;color:var(--fg)';
+    b.innerHTML=(w.info.icon?'<img src="'+w.info.icon+'" alt="" width="18" height="18" style="border-radius:3px">':'<span aria-hidden="true">🔗</span>')+'<span></span>';
+    b.querySelector('span:last-child').textContent=w.info.name||'Wallet';
+    b.addEventListener('click',function(){ov.hidden=true;payFlow(w);});
+    list.appendChild(b);
+  });
+  ov.hidden=false;
+}
+
+async function payFlow(w){
+  const msg=document.getElementById('omsg'),p=w.provider,nm=(w.info&&w.info.name)||'wallet';
+  try{
+    msg.textContent='Opening '+nm+'…';
+    const acc=await p.request({method:'eth_requestAccounts'});
+    let cid=await p.request({method:'eth_chainId'});
+    if(cid!==RRPAY.chainId){
+      try{await p.request({method:'wallet_switchEthereumChain',params:[{chainId:RRPAY.chainId}]});}
+      catch(sw){
+        if(sw&&(sw.code===4902||(sw.data&&sw.data.originalError&&sw.data.originalError.code===4902))){
+          await p.request({method:'wallet_addEthereumChain',params:[{chainId:RRPAY.chainId,chainName:'Base',nativeCurrency:{name:'Ether',symbol:'ETH',decimals:18},rpcUrls:['https://mainnet.base.org'],blockExplorerUrls:['https://basescan.org']}]});
+        }else{throw sw;}
+      }
+      cid=await p.request({method:'eth_chainId'});
+    }
+    /* USDC.transfer(optin, 10000): selector a9059cbb + padded address + padded amount */
+    const data='0xa9059cbb000000000000000000000000'+RRPAY.to.toLowerCase().slice(2)+'0000000000000000000000000000000000000000000000000000000000002710';
+    const hash=await p.request({method:'eth_sendTransaction',params:[{from:acc&&acc[0],to:RRPAY.usdc,data:data}]});
+    if(hash){phTrack('optin_wallet_pay',{result:'sent',wallet:(w.info&&w.info.rdns)||'legacy'});confirmTx(hash,'wallet');}
+    else{msg.textContent='No transaction hash came back. Paste the hash below once the transfer lands.';phTrack('optin_wallet_pay',{result:'no-hash'});}
+  }catch(e){
+    if(e&&(e.code===4001||/denied|rejected/i.test(e.message||''))){msg.textContent='Payment cancelled in '+nm+'.';phTrack('optin_wallet_pay',{result:'cancelled'});}
+    else{msg.textContent='Wallet payment didn\'t go through. Scan the QR, or paste the transaction hash below once the transfer lands.';phTrack('optin_wallet_pay',{result:'error'});}
+  }
+}
+
+async function confirmTx(v,lane){
+  const msg=document.getElementById('omsg');
   msg.textContent='Checking the chain…';
   try{
     const res=await fetch('/api/confirm',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({txHash:v})});
     const body=await res.json();
-    if(res.ok){window.__lastTxHash=body.txHash;document.getElementById('omsg2').style.display='block';msg.innerHTML='✓ In. Receipt: <a href="https://basescan.org/tx/'+body.txHash+'" target="_blank" style="color:var(--go)">'+body.txHash.slice(0,10)+'…</a> · <a href="https://github.com/kylebrodeur/rent-resilience" target="_blank" style="color:var(--go)">next: read the protocol</a>';if(window.rrShare)rrShare.confirmInto(document.getElementById('osup'));phTrack('optin_confirm',{result:'joined',lane:'qr'});}
-    else if(res.status===404){msg.textContent=body.hint||'Not seen onchain yet. Try again in a few seconds.';phTrack('optin_confirm',{result:'not-found-yet',lane:'qr'});}
-    else{msg.textContent=body.error||'Check failed; retry later.';phTrack('optin_confirm',{result:'error',lane:'qr'});}
-  }catch(e){msg.textContent='Check failed; retry later.';phTrack('optin_confirm',{result:'error',lane:'qr'});}
+    if(res.ok){window.__lastTxHash=body.txHash;document.getElementById('omsg2').style.display='block';msg.innerHTML='✓ In. Receipt: <a href="https://basescan.org/tx/'+body.txHash+'" target="_blank" style="color:var(--go)">'+body.txHash.slice(0,10)+'…</a> · <a href="https://github.com/kylebrodeur/rent-resilience" target="_blank" style="color:var(--go)">next: read the protocol</a>';if(window.rrShare)rrShare.confirmInto(document.getElementById('osup'));phTrack('optin_confirm',{result:'joined',lane:lane});}
+    else if(res.status===404){msg.textContent=body.hint||'Not seen onchain yet. Try again in a few seconds.';phTrack('optin_confirm',{result:'not-found-yet',lane:lane});}
+    else{msg.textContent=body.error||'Check failed; retry later.';phTrack('optin_confirm',{result:'error',lane:lane});}
+  }catch(e){msg.textContent='Check failed; retry later.';phTrack('optin_confirm',{result:'error',lane:lane});}
   return false;
+}
+async function confirmOptin(ev){
+  ev.preventDefault();
+  const inp=document.getElementById('otx');
+  const v=(inp.value||'').trim();
+  if(!v){document.getElementById('omsg').textContent='Paste the transaction hash from your wallet after the 1¢ transfer lands.';return false;}
+  return confirmTx(v,'qr');
 }
 async function submitContact(ev, form, via){
   ev.preventDefault();
