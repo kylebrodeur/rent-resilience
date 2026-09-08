@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="base:app_id" content="6a9f81c83c7effd83305210c">
+<link rel="canonical" href="https://rentresilience.org/status">
+<meta name="description" content="Rent Resilience status: what shipped, what is being built, and the receipts behind each claim. Updated by hand as the 4-week sandbox progresses.">
+<meta property="og:title" content="Rent Resilience: status">
+<meta property="og:description" content="Shipped, building next, and the receipts behind each claim.">
+<title>Rent Resilience: status</title>
+<link rel="icon" type="image/png" href="/rent-resilience-app-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Martian+Mono:wght@300;400;500;600&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root,[data-theme=dark]{--bg:#1a1510;--sf:#231c14;--sf2:#2c2418;--br:#3a3020;--brh:#4e4030;--tx:#e8dfd0;--mu:#907e68;--dm:#7a6a58;--go:#5a9e80;--gd:rgba(90,158,128,.10);--gb:rgba(90,158,128,.28);--gg:rgba(90,158,128,.07);--ru:#cc6030;--rd:rgba(204,96,48,.10);--rb:rgba(204,96,48,.26);--te:#c98d1a;--td:rgba(201,141,26,.10);--tb:rgba(201,141,26,.26)}
+[data-theme=light]{--bg:#f2ede4;--sf:#e8e1d6;--sf2:#ded6c8;--br:#ccc0ac;--brh:#b8a894;--tx:#1e1510;--mu:#6a5a48;--dm:#a89078;--go:#2a6a4c;--gd:rgba(42,106,76,.10);--gb:rgba(42,106,76,.30);--gg:rgba(42,106,76,.06);--ru:#a83e18;--rd:rgba(168,62,24,.10);--rb:rgba(168,62,24,.26);--te:#8a6010;--td:rgba(136,96,16,.10);--tb:rgba(136,96,16,.26)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:'Barlow',sans-serif;font-weight:300;line-height:1.6;transition:background .3s,color .3s}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(var(--br) 1px,transparent 1px),linear-gradient(90deg,var(--br) 1px,transparent 1px);background-size:48px 48px;opacity:.2;mask-image:radial-gradient(ellipse 80% 45% at 50% 0%,black 0%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 45% at 50% 0%,black 0%,transparent 100%)}
+a{color:var(--go)}
+.con{max-width:860px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+.tag{display:inline-flex;align-items:center;gap:6px;font-family:'Martian Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:2px}
+.tg{color:var(--go);background:var(--gd);border:1px solid var(--gb)}
+.tt{color:var(--te);background:var(--td);border:1px solid var(--tb)}
+header.top{padding:72px 0 40px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--tx);font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:17px;letter-spacing:-.03em;margin-bottom:34px}
+.brand .mark{width:30px;height:30px;border-radius:8px;box-shadow:0 0 0 1px var(--brh)}
+h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(30px,4.4vw,46px);font-weight:800;line-height:1.05;letter-spacing:-.04em;margin-bottom:14px}
+h1 em{font-style:normal;color:var(--go)}
+.lede{font-size:16px;color:var(--mu);max-width:560px;line-height:1.7;margin-bottom:18px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+section{padding:44px 0;border-top:1px solid var(--br)}
+.sl{font-family:'Martian Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.sl::before{content:'//';color:var(--dm);font-size:12px}
+.item{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--br)}
+.item:last-child{border-bottom:none}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:9px}
+.dot.done{background:var(--go);box-shadow:0 0 0 3px var(--gd)}
+.dot.build{background:var(--te);box-shadow:0 0 0 3px var(--td)}
+.item .t{font-family:'Martian Mono',monospace;font-size:12.5px;color:var(--tx);line-height:1.55}
+.item .t a{color:var(--go);text-decoration:none}
+.item .t a:hover{text-decoration:underline}
+.item .s{display:block;font-family:'Barlow',sans-serif;font-weight:300;font-size:13.5px;color:var(--mu);margin-top:3px;line-height:1.6}
+.when{font-family:'Martian Mono',monospace;font-size:10px;color:var(--dm);margin-left:auto;flex-shrink:0;padding-top:4px;white-space:nowrap}
+.week{font-family:'Martian Mono',monospace;font-size:10px;color:var(--te);border:1px solid var(--tb);background:var(--td);border-radius:2px;padding:2px 7px;flex-shrink:0;margin-top:2px;white-space:nowrap}
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.lc{border:1px solid var(--brh);border-radius:3px;background:var(--sf);padding:16px 18px;text-decoration:none;color:var(--tx);transition:border-color .2s}
+.lc:hover{border-color:var(--gb)}
+.lc .k{font-family:'Martian Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:5px}
+.lc .v{font-family:'Martian Mono',monospace;font-size:12px;color:var(--go)}
+.note{border:1px solid var(--brh);border-left:3px solid var(--go);border-radius:3px;background:var(--sf);padding:16px 20px;font-size:14px;color:var(--mu);line-height:1.7}
+.note strong{color:var(--tx);font-weight:500}
+footer{padding:34px 0 56px;color:var(--dm);font-size:13px}
+footer a{color:var(--mu)}
+@media(max-width:640px){.when{display:none}}
+</style>
+</head>
+<body>
+<div class="con">
+
+<header class="top">
+  <a class="brand" href="/">
+    <svg class="mark" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" rx="220" fill="#1a1510"/><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M226 462L512 226L798 462" stroke="#c98d1a" stroke-width="54"/><path d="M512 788V528" stroke="#5a9e80" stroke-width="50"/><path d="M512 628C426 628 375 579 375 496C460 496 512 545 512 628Z" stroke="#5a9e80" stroke-width="50"/><path d="M512 566C598 566 649 517 649 434C564 434 512 484 512 566Z" stroke="#5a9e80" stroke-width="50"/><path d="M406 788H618" stroke="#5a9e80" stroke-width="50"/></g></svg>
+    Rent Resilience
+  </a>
+  <h1>Shipped, building <em>next</em>, and the receipts.</h1>
+  <p class="lede">A public view of where the protocol stands. Updated by hand as work lands; every claim links to something you can check. The working dashboard stays private.</p>
+  <div class="chips">
+    <span class="tag tg">Batches 004 · submitted Sep 8</span>
+    <span class="tag tg">Pre-MVP · no real money moved</span>
+    <span class="tag tt">Cash spend to date: $13.38</span>
+  </div>
+</header>
+
+<section>
+  <div class="sl">Shipped · receipts attached</div>
+  <div class="item"><span class="dot done"></span><div class="t">Protocol spec + schemas published (MIT)
+    <span class="s">RentObligation v0.1 and RentEvent v0.1: signed append-only events, deterministic reliability facts, Merkle anchoring to Base. No PII in any protocol object.</span></div><span class="when">Sep 7</span></div>
+  <div class="item"><span class="dot done"></span><div class="t">Base app registered, 3 domains verified
+    <span class="s">One app, three verified domains (rentresilience.org primary), Builder Code <a href="https://www.base.dev/" target="_blank" rel="noopener">bc_eo4fiinm</a> (ERC-8021). Attribution rides on transactions we originate.</span></div><span class="when">Sep 7 to 8</span></div>
+  <div class="item"><span class="dot done"></span><div class="t">rentresilience.org live on a Cloudflare Worker
+    <span class="s">Custom domain, docs subdomain, canonical host. All three app domains serve the site directly with the app metatag at their own origin.</span></div><span class="when">Sep 8</span></div>
+  <div class="item"><span class="dot done"></span><div class="t"><a href="/api/optin" target="_blank" rel="noopener">Paid endpoint live: POST /api/optin</a>
+    <span class="s">Answers HTTP 402 and takes 0.01 USDC from any x402 agent, verified and settled by the facilitator. The tx hash is the receipt; no email, no keys. Try: <em>curl -i -X POST https://rentresilience.org/api/optin</em></span></div><span class="when">Sep 8</span></div>
+  <div class="item"><span class="dot done"></span><div class="t">Human QR pay lane on Base mainnet
+    <span class="s">Scan the QR on the landing page, send 0.01 USDC, confirm by posting the tx hash to /api/confirm. Consumer wallet apps do not list testnet tokens, so the human lane runs mainnet while the agent lane stays on Sepolia.</span></div><span class="when">Sep 8</span></div>
+  <div class="item"><span class="dot done"></span><div class="t"><a href="https://docs.rentresilience.org/docs/" target="_blank" rel="noopener">Docs live at docs.rentresilience.org</a></div><span class="when">Sep 8</span></div>
+  <div class="item"><span class="dot done"></span><div class="t">Human verification minted onchain (Base)</div><span class="when">Sep 8</span></div>
+  <div class="item"><span class="dot done"></span><div class="t">Base Batches 004 application submitted
+    <span class="s">Category: AI / Agents. Acceptances land Sep 17. Building regardless of the answer.</span></div><span class="when">Sep 8</span></div>
+</section>
+
+<section>
+  <div class="sl">Building next · the 4-week sandbox</div>
+  <div class="item"><span class="dot build"></span><span class="week">WK 1</span><div class="t">Ledger + reliability MVP
+    <span class="s">TypeScript API, append-only event store, request signing, deterministic reliability derivation. Facts, not scores.</span></div></div>
+  <div class="item"><span class="dot build"></span><span class="week">WK 2</span><div class="t">Resolution engine
+    <span class="s">Policy engine with a fixed least-harm ordering: correction, then flexibility, then assistance, then employer benefit, then financing. Debt comes last.</span></div></div>
+  <div class="item"><span class="dot build"></span><span class="week">WK 3</span><div class="t">Base anchoring + first x402 proof endpoint
+    <span class="s">Merkle batches committed onchain through an anchor contract. This is where our Builder Code starts riding transactions we originate.</span></div></div>
+  <div class="item"><span class="dot build"></span><span class="week">WK 4</span><div class="t">Sellable developer preview
+    <span class="s">Hosted sandbox, TS SDK, demo app, design-partner offer.</span></div></div>
+  <div class="item"><span class="dot build"></span><span class="week">LATER</span><div class="t">Real data, real payments, assistance, platform embedding
+    <span class="s">Partner-gated phases. Permissioned governance only when multiple institutions require it.</span></div></div>
+</section>
+
+<section>
+  <div class="sl">Receipts and links</div>
+  <div class="links">
+    <a class="lc" href="https://github.com/kylebrodeur/rent-resilience" target="_blank" rel="noopener"><span class="k">Protocol</span><span class="v">github.com/kylebrodeur/rent-resilience</span></a>
+    <a class="lc" href="https://docs.rentresilience.org/docs/" target="_blank" rel="noopener"><span class="k">Docs</span><span class="v">docs.rentresilience.org</span></a>
+    <a class="lc" href="/api/optin" target="_blank" rel="noopener"><span class="k">Paid endpoint</span><span class="v">POST /api/optin · 402 · 0.01 USDC</span></a>
+    <a class="lc" href="https://youtu.be/5gJXJnhne-E" target="_blank" rel="noopener"><span class="k">Founder video</span><span class="v">2:07 · one take, jump cuts</span></a>
+  </div>
+</section>
+
+<section>
+  <div class="sl">What this page is</div>
+  <p class="note"><strong>Deliberately public.</strong> This page carries protocol status, shipped work, and onchain or linkable receipts only. Personal and operational detail lives in a private working dashboard. The rule we build by: private facts stay offchain, and the same holds for this site.</p>
+</section>
+
+<footer>
+  <p>Built in the open by <a href="https://kylebrodeur.com" target="_blank" rel="noopener">Kyle Brodeur</a> · <a href="mailto:kyle@brodeur.me">kyle@brodeur.me</a> · updated 2026-09-08</p>
+</footer>
+
+</div>
+</body>
+</html>
