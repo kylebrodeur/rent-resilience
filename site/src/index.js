@@ -129,7 +129,7 @@ const MAINNET = {
 };
 
 async function handleConfirm(request, env) {
-  if (request.method !== "POST") return json({ error: "POST txHash or payer address" }, 405);
+  if (request.method !== "POST") return json({ error: "POST only" }, 405);
   let body;
   try {
     body = await request.json();
@@ -143,53 +143,67 @@ async function handleConfirm(request, env) {
   const existing = txHash ? await env.RENT_OPTIN.get(txHash) : null;
   if (existing) return json({ status: "already-logged", txHash: txHash }, 200);
 
-  const logsBody = {
-    jsonrpc: "2.0",
-    id: 1,
-    method: "eth_getLogs",
-    params: [{
-      address: MAINNET.asset,
-      topics: [
-        TRANSFER_TOPIC,
-        null,
-        "0x000000000000000000000000" + X402.payTo.slice(2).toLowerCase(),
-      ],
-      fromBlock: "0x0",
-      toBlock: "latest",
-    }],
-  };
-  const logsRes = await fetch(MAINNET.rpc, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(logsBody),
-  });
-  if (!logsRes.ok) return json({ error: "chain lookup failed; retry later" }, 502);
-  const logsJson = await logsRes.json();
-  const logs = (logsJson && logsJson.result) || [];
-
-  let matched = null;
-  for (const log of logs) {
-    const value = parseInt(log.data, 16);
-    if (value < parseInt(X402.priceAtomic, 10)) continue;
-    if (txHash && log.transactionHash.toLowerCase() !== txHash.toLowerCase()) continue;
-    if (payer && log.topics[1] &&
-        "0x" + log.topics[1].slice(26).toLowerCase() !== payer.toLowerCase()) continue;
-    if (!txHash && !payer) continue;
-    matched = log;
-    break;
+  async function rpc(method, params) {
+    const res = await fetch(MAINNET.rpc, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: method, params: params }),
+    });
+    if (!res.ok) return null;
+    return (await res.json()).result;
   }
+
+  function logMatches(log, wantPayer) {
+    if (log.address.toLowerCase() !== MAINNET.asset) return false;
+    if (parseInt(log.data, 16) < parseInt(X402.priceAtomic, 10)) return false;
+    const toAddr = "0x" + log.topics[2].slice(26).toLowerCase();
+    if (toAddr !== X402.payTo.toLowerCase()) return false;
+    if (wantPayer) {
+      const fromAddr = "0x" + log.topics[1].slice(26).toLowerCase();
+      if (fromAddr !== wantPayer.toLowerCase()) return false;
+    }
+    return true;
+  }
+
+  // Preferred path: exact tx. Public RPCs refuse full-history log scans, so the
+  // payer-only fallback windows the scan to recent blocks.
+  let matched = null;
+  if (txHash) {
+    const receipt = await rpc("eth_getTransactionReceipt", [txHash]);
+    if (receipt && receipt.status === "0x1" && Array.isArray(receipt.logs)) {
+      for (const log of receipt.logs) {
+        if (logMatches(log, payer)) { matched = log; break; }
+      }
+    }
+  } else {
+    const latestHex = await rpc("eth_blockNumber", []);
+    if (latestHex) {
+      const fromHex = "0x" + (parseInt(latestHex, 16) - 50000).toString(16);
+      const logs = await rpc("eth_getLogs", [{
+        address: MAINNET.asset,
+        topics: [TRANSFER_TOPIC, "0x" + "0".repeat(64 - 42) + payer.slice(2).toLowerCase(),
+          "0x000000000000000000000000" + X402.payTo.slice(2).toLowerCase()],
+        fromBlock: fromHex,
+        toBlock: "latest",
+      }]) || [];
+      for (const log of logs) {
+        if (logMatches(log, payer)) { matched = log; break; }
+      }
+    }
+  }
+
   if (!matched) {
     return json({
       status: "not-found-yet",
       hint: txHash
-        ? "Tx hash didn't show a 0.01+ USDC transfer to the opt-in address. Base finality is seconds; try again or check the tx on basescan.org."
+        ? "Tx receipt didn't show a 0.01+ USDC transfer to the opt-in address. Base finality is seconds; try again or check the tx on basescan.org."
         : "No recent 0.01+ USDC transfer from that payer address was found on Base mainnet.",
     }, 404);
   }
 
   const now = new Date().toISOString();
   const row = JSON.stringify({
-    payer: payer || matched.topics[1],
+    payer: payer || "0x" + matched.topics[1].slice(26),
     txHash: matched.transactionHash,
     network: "base",
     at: now,
@@ -209,29 +223,6 @@ async function handleConfirm(request, env) {
     at: now,
     note: "Early access recorded. No email, no keys — the tx hash is your receipt.",
   }, 200);
-}
-
-async function handleContact(request, env) {
-  if (request.method !== "POST") return json({ error: "POST only" }, 405);
-  let body;
-  try {
-    body = await request.json();
-  } catch {
-    return json({ error: "JSON body required" }, 400);
-  }
-  const email = (body && typeof body.email === "string" ? body.email.trim() : "");
-  const note = (body && typeof body.note === "string" ? body.note.trim().slice(0, 300) : "");
-  const via = (body && typeof body.via === "string" ? body.via.slice(0, 40) : "unknown");
-  const txHash = (body && typeof body.txHash === "string" ? body.txHash.slice(0, 66) : null);
-
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || email.length > 120) {
-    return json({ error: "valid email required" }, 400);
-  }
-
-  const now = new Date().toISOString();
-  const row = JSON.stringify({ email: email, note: note, via: via, txHash: txHash, at: now });
-  await env.RENT_OPTIN.put("contact:" + crypto.randomUUID(), row);
-  return json({ status: "noted", at: now, note: "Got it. One list, real or email, same signal." }, 200);
 }
 
 export default {

@@ -324,11 +324,12 @@ footer a:hover{color:var(--mu)}
 <section id="optin">
   <div class="con">
     <div class="sl">Try it now</div>
-    <h2>Show you're interested.<br>One cent, an email, or <em>an agent.</em></h2>
-    <p class="ss">Paying 1¢ is skin in the game. An email is "keep building." An agent hitting /api/optin is a future customer. All three add you to the same list; only the paying and email paths can be contacted later.</p>
+    <h2>The Mint stopped minting pennies.<br><em>Somebody had to</em> pick up the slack.</h2>
+    <p class="ss">So proving you're interested costs 1¢ and one signature on Base. An email is "keep building" — free, still counts. An agent hitting <span class="ci2">/api/optin</span> pays its way in. One list for all three; pay-anonymous stays anonymous, pay + email gives us a way back to you.</p>
     <div style="display:grid;grid-template-columns:200px 1fr;gap:36px;align-items:start;margin-top:44px">
       <div class="flcard" style="text-align:center;padding:18px">
-        <img src="/optin-qr.png" alt="QR code for 1 cent USDC on Base Sepolia to the Rent Resilience opt-in address" style="width:100%;max-width:160px;border-radius:3px"/><div class="hdt" style="font-size:9px;margin-top:10px">scan with a wallet app<br>1¢ USDC · Base (mainnet)</div>
+        <img src="/optin-qr.png" alt="QR code: send 1 cent USDC on Base to the Rent Resilience opt-in address" style="width:100%;max-width:160px;border-radius:3px"/><div class="hdt" style="font-size:9px;margin-top:10px">scan with a wallet app<br>1¢ USDC · Base (mainnet)</div>
+        <a class="fb" style="margin-top:12px;justify-content:center;text-align:center;border-radius:3px" href="ethereum:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913@8453/transfer?address=0x79588BB628c741d073FD3bC47685328Cf8aD6802&uint256=10000">On mobile? Tap to pay 1¢ →</a>
       </div>
       <div>
         <div class="fpd" style="margin-bottom:14px"><span class="tag tg">Humans</span> scan → send → confirm</div>
@@ -360,8 +361,7 @@ footer a:hover{color:var(--mu)}
       </form>
       <div class="ffine" style="margin-top:8px" id="emsg"></div>
       <div class="ffine" style="margin-top:16px;padding-top:14px;border-top:1px solid var(--br);font-size:10px;color:var(--dm);line-height:1.8">
-        The US Mint stopped minting pennies in 2025, so proving you care now costs one cent and one signature on Base. Somebody had to pick up the slack.<br>
-        <span style="color:var(--mu)">Pay only = anonymous signal we can't answer. Pay + email = we can. Email only = free and still counts.</span>
+        (The Mint actually did stop minting pennies in 2025. The cent just moved onchain.)
       </div>
         </div>
       </div>

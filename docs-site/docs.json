@@ -1,0 +1,64 @@
+{
+  "$schema": "./node_modules/@umami/shiso/docs.schema.json",
+  "theme": "shiso",
+  "name": "Rent Resilience",
+  "description": "Protocol documentation for the Rent Resilience Network: an append-only obligation ledger, privacy-preserving proofs on Base, and x402-paid agent APIs.",
+  "logo": "/logo.svg",
+  "favicon": "/logo.svg",
+  "contextual": {
+    "options": [
+      "copy",
+      "view"
+    ]
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Protocol",
+        "collapsible": false,
+        "pages": [
+          {
+            "page": "index",
+            "title": "Overview"
+          },
+          {
+            "page": "protocol",
+            "title": "Protocol specification"
+          }
+        ]
+      },
+      {
+        "group": "Research",
+        "collapsible": true,
+        "pages": [
+          {
+            "page": "research",
+            "title": "Product research"
+          },
+          {
+            "page": "roadmap-architecture",
+            "title": "Roadmap & architecture"
+          },
+          {
+            "page": "base-x402-monetization",
+            "title": "Base / x402 monetization"
+          }
+        ]
+      },
+      {
+        "group": "Payments",
+        "collapsible": true,
+        "pages": [
+          {
+            "page": "x402-opt-in-spike",
+            "title": "x402 opt-in spike"
+          },
+          {
+            "page": "founding-receipt-nft",
+            "title": "Founding receipt NFT"
+          }
+        ]
+      }
+    ]
+  }
+}

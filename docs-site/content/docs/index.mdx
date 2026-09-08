@@ -1,0 +1,34 @@
+---
+title: Rent Resilience
+description: Agentic infrastructure that resolves housing obligations and turns verified rent history into portable, privacy-preserving financial resilience.
+---
+
+> Rent should compound into financial resilience. Private facts, public proofs,
+> portable trust.
+
+Rent is most renters' largest recurring bill, and years of on-time payments earn
+nothing the month something goes wrong. This protocol represents rent as a verifiable
+obligation in an append-only ledger, keeps private facts off-chain, anchors proofs to
+Base, and lets agents resolve shortfalls across landlord flexibility, assistance, and
+financing — debt last, always.
+
+<CardGroup cols={2}>
+  <Card title="Protocol specification" href="/docs/protocol">
+    RentObligation and RentEvent schemas, invariants, state transitions, and the
+    reliability derivation rules.
+  </Card>
+  <Card title="x402 opt-in spike" href="/docs/x402-opt-in-spike">
+    The live paid endpoint on rentresilience.org — one cent of USDC proves you meant it.
+  </Card>
+  <Card title="Roadmap & architecture" href="/docs/roadmap-architecture">
+    Four weeks from schemas to a hosted developer preview, with the full system map.
+  </Card>
+  <Card title="Product research" href="/docs/research">
+    Why the resolution layer, not rails: the competitive and economic groundwork.
+  </Card>
+</CardGroup>
+
+Try the paid handshake right now: `POST https://rentresilience.org/api/optin` answers
+402 with a 0.01 USDC price sheet on Base Sepolia. The source, schemas, and this
+documentation all live in the
+[public repo](https://github.com/kylebrodeur/rent-resilience), MIT licensed.

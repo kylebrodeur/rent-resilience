@@ -1,0 +1,42 @@
+name: Docs site (GitHub Pages)
+on:
+  push:
+    branches: [main]
+    paths:
+      - docs/**
+      - docs-site/**
+      - .github/workflows/docs.yml
+  workflow_dispatch:
+permissions:
+  pages: write
+  id-token: write
+concurrency:
+  group: pages-docs
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: docs-site/pnpm-lock.yaml
+      - working-directory: docs-site
+        run: pnpm install --frozen-lockfile && bash sync.sh && pnpm build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs-site/dist/client
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
