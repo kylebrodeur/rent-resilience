@@ -130,7 +130,30 @@ function json(body, status) {
 
 // Email/contact capture for the opt-in section. The /api/contact route was
 // wired into the router without this handler, so signups 500'd until 2026-09-08.
+// Rate limit: 5 contact attempts per IP per 10-minute bucket. KV free tier is
+// 1,000 writes/day shared with opt-in rows, so an unthrottled form is a budget
+// problem, not just an abuse one. Coarse by design: KV is eventually
+// consistent, so a burst can slip through; the real wall is a Cloudflare WAF
+// rate-limiting rule (see docs/email-signups.md).
+async function contactAllowed(env, request) {
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  const bucket = Math.floor(Date.now() / 600000);
+  const key = "rl:" + ip + ":" + bucket;
+  let n = 0;
+  try {
+    n = parseInt((await env.RENT_OPTIN.get(key)) || "0", 10) || 0;
+  } catch {}
+  if (n >= 5) return false;
+  try {
+    await env.RENT_OPTIN.put(key, String(n + 1), { expirationTtl: 3600 });
+  } catch {}
+  return true;
+}
+
 async function handleContact(request, env, ctx) {
+  if (!(await contactAllowed(env, request))) {
+    return json({ error: "Too many attempts from this address; try again later." }, 429);
+  }
   if (request.method !== "POST") return json({ error: "POST only" }, 405);
   let body;
   try {
