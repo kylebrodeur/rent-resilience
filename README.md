@@ -22,6 +22,30 @@ proof service, and x402 endpoints are in active development. See the
 [rentresilience.org](https://rentresilience.org)
 (also served at [rent.kylebrodeur.xyz](https://rent.kylebrodeur.xyz)).
 
+## Setup
+
+Works on macOS, Linux, and Windows.
+
+- **Node 24+** ([nodejs.org](https://nodejs.org))
+- **pnpm** (enabled via corepack, which ships with Node): `corepack enable pnpm`.
+  The version is pinned by `packageManager` in `package.json`.
+- **uv** (Python tooling; all Python runs through it): macOS/Linux
+  `curl -LsSf https://astral.sh/uv/install.sh | sh`, Windows (PowerShell)
+  `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"`.
+
+Then:
+
+```sh
+pnpm install
+pnpm lint            # oxlint + anti-slop rules
+pnpm lint:md         # markdownlint publish gate
+pnpm gate:prose      # HTML publish gate (via uv)
+```
+
+All quality gates are cross-platform. The agent-team workflow
+(`scripts/rr-agents.sh`, Zellij layouts, omp hooks) is zsh-based and
+mac/Linux-only; on Windows, work through Claude Code directly instead.
+
 ## What exists today
 
 - [`RentObligation` v0.1 schema](packages/protocol/schemas/rent-obligation.v0.1.schema.json)

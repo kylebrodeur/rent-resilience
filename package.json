@@ -2,11 +2,13 @@
   "name": "rent-resilience",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@12.3.4",
   "scripts": {
     "lint": "oxlint",
     "lint:rules:test": "node --experimental-strip-types tools/oxlint/anti-slop/rent/rules/no-oversized-comments.test.ts && node --experimental-strip-types tools/oxlint/anti-slop/rent/rules/no-float-money.test.ts && node --experimental-strip-types tools/oxlint/anti-slop/rent/rules/no-weak-randomness.test.ts && node --experimental-strip-types tools/oxlint/anti-slop/rent/rules/no-slop-prose.test.ts",
     "gate:prose": "uv run tools/validate_publish_markdown.py site/public/index.html site/public/status.html",
     "lint:md": "markdownlint-cli2",
+    "kv:pull": "node site/scripts/kv-pull.mjs",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -14,6 +16,7 @@
     "husky": "^9.1.7",
     "markdownlint": "^0.41.1",
     "markdownlint-cli2": "^0.23.2",
-    "oxlint": "1.80.0"
+    "oxlint": "1.80.0",
+    "wrangler": "4.130.0"
   }
 }
