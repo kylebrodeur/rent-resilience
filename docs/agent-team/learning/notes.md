@@ -2,7 +2,7 @@
 
 Append-only record of what Kyle covered, quiz results, and kata completions.
 The teacher is the single writer; Kyle approves kata results by pasting real
-terminal output. "Katas become the seed test suite" — a completed kata is a
+terminal output. "Katas become the seed test suite". A completed kata is a
 candidate handoff to the verifier lane.
 
 ## Progress

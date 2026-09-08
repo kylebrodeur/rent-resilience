@@ -7,7 +7,7 @@ Commands and per-tool usage: `RUNBOOK.md` in this directory.
 ## Roles
 
 | Role | Model | Owns | Never touches |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `schemas` | kimi-k2.7-code | `packages/protocol/schemas/**` | services, simulations, site |
 | `ledger` | kimi-k2.7-code | `services/api/**` (event store, API, signing) | schemas, simulations |
 | `dataset` | kimi-k2.7-code | `simulations/rent-history/**` | schemas, services |
@@ -20,10 +20,10 @@ Commands and per-tool usage: `RUNBOOK.md` in this directory.
 Set in `scripts/rr-agent-terminal.sh` (launch default) and each `.omp/agents/rr-<role>.md`
 frontmatter. Upgraded 2026-09-08 from ollama-cloud inventory (`omp models`).
 
-- Coding lanes (schemas/ledger/dataset): `kimi-k2.7-code:cloud` — Kyle's standing
+- Coding lanes (schemas/ledger/dataset): `kimi-k2.7-code:cloud`, Kyle's standing
   coding model. Alternates: `gpt-5.6-luna`/`gpt-5.6-terra` (openai-codex provider),
   `claude-sonnet-4-6` (google-antigravity).
-- Verification: `deepseek-v4-pro:cloud` (1M context) — Kyle's standing review model.
+- Verification: `deepseek-v4-pro:cloud` (1M context), Kyle's standing review model.
   Alternate: `kimi-k3:cloud`.
 - Teaching: `kimi-k3:cloud`. Alternate: `gemini-3.8-flash` via google-antigravity.
 - Coordination: `glm-5.3:cloud` (10 days newer than 5.2). Alternate: `glm-5.3-flash:cloud`
@@ -41,21 +41,21 @@ in `.agents/skills/protocol-dev/SKILL.md` and `docs/protocol.md`.
 
 Any role runs standalone in any terminal: `./scripts/rr-agent-terminal.sh teacher`.
 The Pi Link hub wait is capped at 5 seconds, so a standalone session starts fine
-without the team — it just has no Link peers (coordinate via the handoff files
+without the team; it just has no Link peers (coordinate via the handoff files
 instead). Don't run the same role both ways at once: both share one session dir
 (`.omp/rr-agents/<role>/`), and two omp processes appending to the same session
 history will corrupt it.
 
 ## Documentation flow
 
-- `Team-State.md` — active lanes, ownership, handoff status. **Advisor is the single
+- `Team-State.md`: active lanes, ownership, handoff status. **Advisor is the single
   writer.** Specialists report through handoffs; the advisor records.
-- `decisions.md` / `conflicts.md` — registers the advisor writes; specialists never
+- `decisions.md` / `conflicts.md`: registers the advisor writes; specialists never
   edit concurrently.
-- `handoffs/` — commit-pinned handoff documents (base SHA, files, evidence, approval
+- `handoffs/`: commit-pinned handoff documents (base SHA, files, evidence, approval
   state). A handoff without a pinned commit is not a handoff.
-- `handoffs/scratchpads/<role>.md` — each role's persistent environment notes.
-- `Worklog.md` — append-only session log. Every session ends with a dated entry
+- `handoffs/scratchpads/<role>.md`: each role's persistent environment notes.
+- `Worklog.md`: append-only session log. Every session ends with a dated entry
   (done / decided / next).
 
 ## Handoff lifecycle
@@ -74,7 +74,8 @@ history will corrupt it.
 ## Learnings carried from the other two agent teams
 
 From **enviro-grow-pico** (the template):
-- omp runs synchronously in the foreground inside the Zellij pane — backgrounding it
+
+- omp runs synchronously in the foreground inside the Zellij pane; backgrounding it
   corrupts PTY capability routing and spins the restart loop.
 - The "first turn" instruction lives in the generated system prompt, never as a
   positional CLI argument (a startup race once split it word-by-word into turns).
@@ -82,13 +83,14 @@ From **enviro-grow-pico** (the template):
 - Session history lives on disk (`omp -r` resumable); `--fresh` is the only deleter.
 
 From **btc-market-learning-lab** (the stricter governance):
+
 - Single-writer control board; concurrent edits to shared registers caused real
   merge pain there. Specialists write handoffs, never the registers.
 - Exact base/worktree recorded before each activation; unpinned "latest" is refused.
 - Verification honesty: passing synthetic checks are not provider conformance; report
-  exactly what ran. Failed streams are evidence — never discarded silently.
+  exactly what ran. Failed streams are evidence, never discarded silently.
 - Pi Link was DISABLED there pending runtime verification. Here it starts enabled
-  (enviro proved the mechanics) — if it misbehaves, fall back to handoff-file
+  (enviro proved the mechanics); if it misbehaves, fall back to handoff-file
   coordination and note it in the conflict register rather than blocking.
 
 ## Quick start

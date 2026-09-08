@@ -1,0 +1,30 @@
+{
+	// Reader-facing docs. Skill files (.agents/**) are agent config, not prose
+	// for humans; session dirs and vendored tooling are excluded too.
+	"globs": ["README.md", "docs/**/*.md"],
+	// NB: the key is "ignores" in markdownlint-cli2 ("ignorePatterns" is the
+	// markdownlint-cli key and is silently dropped here).
+	"ignores": [
+		"node_modules/**",
+		"docs-site/**",
+		// Frozen founding-research docs (byte-identical to the research bundle
+		// zip): historical provenance, not living prose. If one is ever
+		// published, gate that piece through the publishing pipeline.
+		"docs/research.md",
+		"docs/roadmap-architecture.md",
+		"docs/base-x402-monetization.md"
+	],
+	"customRules": ["./tools/markdownlint/rules/rr-publish-gate.cjs"],
+	"config": {
+		"default": true,
+		// Prose files wrap naturally; line length is not a defect.
+		"MD013": false,
+		// Frontmatter-prefixed and docs with embedded HTML snippets.
+		"MD033": false,
+		"MD041": false,
+		// Tables and code-heavy protocol docs legitimately repeat headings.
+		"MD024": { "siblings_only": true },
+		// Inline emphasis after punctuation is used in terminal-style examples.
+		"MD036": false
+	}
+}

@@ -9,7 +9,7 @@ system (obligation status, reliability claims, proofs) is **derived from events*
 ## Objects
 
 | Object | Schema | Purpose |
-|---|---|---|
+| --- | --- | --- |
 | `RentObligation` | [`rent-obligation.v0.1.schema.json`](../packages/protocol/schemas/rent-obligation.v0.1.schema.json) | A verifiable housing obligation (what is owed, by whom, when). |
 | `RentEvent` | [`rent-event.v0.1.schema.json`](../packages/protocol/schemas/rent-event.v0.1.schema.json) | An append-only, signed fact about an obligation. |
 
@@ -32,23 +32,23 @@ system (obligation status, reliability claims, proofs) is **derived from events*
 
 ## Event state-transition table
 
-Derived obligation status per event type. "—" means the event does not change status by
-itself (it contributes to derivation inputs).
+Derived obligation status per event type. A cell reading `none` means the event does
+not change status by itself (it contributes to derivation inputs).
 
 | Event | Allowed prior status | Status after |
-|---|---|---|
+| --- | --- | --- |
 | `ObligationCreated` | (none) | `pending` → `due` at `due_at` |
-| `PaymentScheduled` | `due`, `in_resolution` | — |
-| `PaymentSubmitted` | `due`, `in_resolution` | — |
-| `PaymentSettled` | `due`, `in_resolution` | `satisfied` if settled sources cover `amount_due`, else — |
-| `PaymentFailed` | `due`, `in_resolution` | — (may trigger resolution) |
+| `PaymentScheduled` | `due`, `in_resolution` | none |
+| `PaymentSubmitted` | `due`, `in_resolution` | none |
+| `PaymentSettled` | `due`, `in_resolution` | `satisfied` if settled sources cover `amount_due`, else none |
+| `PaymentFailed` | `due`, `in_resolution` | none (may trigger resolution) |
 | `ModificationRequested` | `due` | `in_resolution` |
-| `ModificationAccepted` | `in_resolution` | — (new schedule active) |
+| `ModificationAccepted` | `in_resolution` | none (new schedule active) |
 | `ModificationDeclined` | `in_resolution` | `due` if no other active flow |
 | `AssistanceRequested` | `due`, `in_resolution` | `in_resolution` |
-| `AssistanceCommitted` | `in_resolution` | — |
-| `AssistanceSettled` | `in_resolution` | `satisfied` if sources now cover, else — |
-| `FinancingCommitted` | `in_resolution` | — |
+| `AssistanceCommitted` | `in_resolution` | none |
+| `AssistanceSettled` | `in_resolution` | `satisfied` if sources now cover, else none |
+| `FinancingCommitted` | `in_resolution` | none |
 | `LandlordConcessionAccepted` | `due`, `in_resolution` | reduces effective amount due |
 | `CorrectionIssued` | any | recomputed from corrected stream |
 | `DisputeOpened` | any non-terminal | `in_resolution` |

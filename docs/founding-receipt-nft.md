@@ -1,4 +1,4 @@
-# Founding Receipt NFT — design and deploy runbook
+# Founding Receipt NFT: design and deploy runbook
 
 **Status:** code ready (`contracts/FoundingReceipt.sol`), deliberately **not deployed
 before the Batches application is submitted.** Deploy whenever after that; it is one
@@ -10,7 +10,7 @@ The opt-in spike (docs/x402-opt-in-spike.md) proves payer interest with a 1¢ US
 transfer. This contract turns that into a durable onchain receipt: an ERC-721 where
 token ID = position on the opt-in list. "I was here before there was a product" as a
 souvenir with a verifiable order. It is a marketing artifact for the protocol, not a
-speculative asset — no royalties, no floor price narrative, and the mint is
+speculative asset: no royalties, no floor price narrative, and the mint is
 permissionless claim-by-proof.
 
 It is also the project's first verified Base contract, which feeds builder-attribution
@@ -34,7 +34,7 @@ signals independent of the Batches outcome.
 - The claim page checks onchain: the tx hash shows a ≥0.01 USDC transfer to payTo, and
   `_claimed[hash]` is false. The wallet prompts the user's signature; the contract does
   the rest.
-- No backend keys are needed for minting — the contract is self-service; the site only
+- No backend keys are needed for minting; the contract is self-service; the site only
   verifies qualification and deep-links the call.
 
 ## Metadata
@@ -50,5 +50,5 @@ binding serves them.
   `/api/confirm` time; the mint only records position.
 - One claim per tx hash is enforced in-contract (`_claimed`).
 - Supply is naturally bounded by the opt-in list; there is no mint deadline, because
-  there is no price — claims stay open while the spike runs, and the spike ends when the
+  there is no price: claims stay open while the spike runs, and the spike ends when the
   real proof endpoints take over.

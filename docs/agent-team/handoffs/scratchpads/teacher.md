@@ -1,4 +1,4 @@
-# Teacher — scratchpad
+# Teacher scratchpad
 
 Working environment state for the teacher role. Update when something changes.
 

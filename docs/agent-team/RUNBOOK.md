@@ -1,4 +1,4 @@
-# Rent Resilience agent team — runbook
+# Rent Resilience agent team runbook
 
 Every command you need to run the 6-role agent team, and how each tool works.
 Structure and governance live in `README.md`; this file is operation-only.
@@ -19,7 +19,7 @@ The six roles: `schemas`, `ledger`, `dataset` (build lanes), `verifier`,
 
 Attaches to the running Zellij session `rent-resilience-agents`, or creates it:
 a 6-pane layout where each pane runs one role's omp session. Sessions are
-resumed, not reset — every role picks up its conversation history from disk.
+resumed, not reset; every role picks up its conversation history from disk.
 
 The advisor pane starts first on purpose: it binds the Pi Link hub (port 9900)
 before the other five launch, so the hub race always goes to the coordinator.
@@ -71,7 +71,7 @@ omp -r    # session picker; resume any saved session
 ## 2. Zellij survival kit
 
 | Action | Keys |
-|---|---|
+| --- | --- |
 | Detach (team keeps running) | `Ctrl-a d` |
 | Move between panes | `Alt + arrow keys` (or `Ctrl-a` then arrows) |
 | Enter scroll/copy mode | `Ctrl-a s` (exit with `q`) |
@@ -116,7 +116,7 @@ yourself).
 **What each agent is for:**
 
 | Pane | You use it for |
-|---|---|
+| --- | --- |
 | Schemas | schema work in `packages/protocol/schemas/` |
 | Ledger | event store, API, signing in `services/api/` |
 | Dataset | the synthetic rent-history generator in `simulations/rent-history/` |
@@ -141,8 +141,9 @@ only ONE at a time. Standalone has no Pi Link peers; coordination falls back
 to the handoff files, which is fine for teaching.
 
 Learning artifacts (teacher-owned, append-only):
-- `docs/agent-team/learning/notes.md` — progress + kata results with dates
-- `docs/agent-team/learning/reading-log.md` — one line per reading
+
+- `docs/agent-team/learning/notes.md`: progress + kata results with dates
+- `docs/agent-team/learning/reading-log.md`: one line per reading
 
 A completed kata is a ready handoff to the verifier lane: the teacher flags
 it, the advisor records it, the verifier turns it into a checklist item.
@@ -155,7 +156,7 @@ Sessions are append-only JSONL files under `.omp/rr-agents/<role>/`. Inside
 any omp session:
 
 | Command | What it does |
-|---|---|
+| --- | --- |
 | `/fork` | clone the session to a new file; original untouched |
 | `/branch` | start a new thread from an earlier message, same file |
 | `/tree` | navigate session history, label checkpoints |
@@ -176,8 +177,8 @@ files.
 
 Two places must agree:
 
-1. `scripts/rr-agent-terminal.sh` — the `model="..."` line in the role's case
-2. `.omp/agents/rr-<role>.md` — the `model:` frontmatter line
+1. `scripts/rr-agent-terminal.sh`: the `model="..."` line in the role's case
+2. `.omp/agents/rr-<role>.md`: the `model:` frontmatter line
 
 Edit both, then reset that role (`./scripts/rr-session.sh new <role>`) so the
 new prompt file is generated. Model inventory:
@@ -205,6 +206,7 @@ The link tools are NOT shell commands. Inside an omp session they are
 Full contract: `docs/agent-team/Link-Tools.md`.
 
 Rules of thumb:
+
 - `link_list` first: see who is connected before sending.
 - `link_send` for fire-and-forget coordination; `link_prompt` when you need
   a response back.
@@ -223,7 +225,7 @@ keeps current.
 The runner checks two flag files after each omp exit:
 
 | Flag | Location | Effect |
-|---|---|---|
+| --- | --- | --- |
 | `.stop` | `.omp/rr-agents/<role>/.stop` | runner breaks the loop; pane dies, no restart |
 | `.reset` | `.omp/rr-agents/<role>/.reset` | runner starts a FRESH session next loop; old file preserved on disk |
 
@@ -240,7 +242,7 @@ quiet with no error, check for that message in the pane and look at
 `.omp/rr-agents/<role>/` and the config overlay for the cause.
 
 **Environment override:** `RR_SKIP_HUB_WAIT=1` skips the 5-second Pi Link
-hub wait — useful for standalone launches when the team isn't running.
+hub wait, useful for standalone launches when the team isn't running.
 
 ---
 
@@ -309,7 +311,7 @@ pnpm gate:prose                               # publish gate on site pages
 Files that matter:
 
 | File | Role |
-|---|---|
+| --- | --- |
 | `.omp/agents/rr-<role>.md` | operating contract per role (single source of truth) |
 | `scripts/rr-agent-terminal.sh` | launch + restart loop + model per role |
 | `scripts/rr-agents.sh` | zellij attach/create |

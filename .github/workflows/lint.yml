@@ -19,4 +19,5 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm lint:rules:test
+      - run: pnpm lint:md
       - run: pnpm gate:prose
