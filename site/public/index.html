@@ -12,31 +12,29 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Martian+Mono:wght@300;400;500;600&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
-:root,[data-theme=dark]{--bg:#1a1510;--sf:#231c14;--sf2:#2c2418;--br:#3a3020;--brh:#4e4030;--tx:#e8dfd0;--mu:#907e68;--dm:#7a6a58;--go:#c98d1a;--gd:rgba(201,141,26,.10);--gm:rgba(201,141,26,.20);--gb:rgba(201,141,26,.28);--gg:rgba(201,141,26,.055);--ru:#cc6030;--rd:rgba(204,96,48,.10);--rb:rgba(204,96,48,.26);--te:#5a9e80;--td:rgba(90,158,128,.10);--tb:rgba(90,158,128,.26)}
-[data-theme=light]{--bg:#f2ede4;--sf:#e8e1d6;--sf2:#ded6c8;--br:#ccc0ac;--brh:#b8a894;--tx:#1e1510;--mu:#6a5a48;--dm:#a89078;--go:#8a6010;--gd:rgba(136,96,16,.10);--gm:rgba(136,96,16,.20);--gb:rgba(136,96,16,.30);--gg:rgba(136,96,16,.05);--ru:#a83e18;--rd:rgba(168,62,24,.10);--rb:rgba(168,62,24,.26);--te:#2a6a4c;--td:rgba(42,106,76,.10);--tb:rgba(42,106,76,.26)}
+:root,[data-theme=dark]{--bg:#1a1510;--sf:#231c14;--sf2:#2c2418;--br:#3a3020;--brh:#4e4030;--tx:#e8dfd0;--mu:#907e68;--dm:#7a6a58;--go:#5a9e80;--gd:rgba(90,158,128,.10);--gm:rgba(90,158,128,.22);--gb:rgba(90,158,128,.28);--gg:rgba(90,158,128,.07);--ru:#cc6030;--rd:rgba(204,96,48,.10);--rb:rgba(204,96,48,.26);--te:#c98d1a;--td:rgba(201,141,26,.10);--tb:rgba(201,141,26,.26)}
+[data-theme=light]{--bg:#f2ede4;--sf:#e8e1d6;--sf2:#ded6c8;--br:#ccc0ac;--brh:#b8a894;--tx:#1e1510;--mu:#6a5a48;--dm:#a89078;--go:#2a6a4c;--gd:rgba(42,106,76,.10);--gm:rgba(42,106,76,.20);--gb:rgba(42,106,76,.30);--gg:rgba(42,106,76,.06);--ru:#a83e18;--rd:rgba(168,62,24,.10);--rb:rgba(168,62,24,.26);--te:#8a6010;--td:rgba(136,96,16,.10);--tb:rgba(136,96,16,.26)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--tx);font-family:'Barlow',sans-serif;font-weight:300;line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(var(--br) 1px,transparent 1px),linear-gradient(90deg,var(--br) 1px,transparent 1px);background-size:48px 48px;opacity:.2;mask-image:radial-gradient(ellipse 80% 45% at 50% 0%,black 0%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 45% at 50% 0%,black 0%,transparent 100%)}
-.con{max-width:1040px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+.con{max-width:1100px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
 .tag{display:inline-flex;align-items:center;gap:4px;font-family:'Martian Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:2px}
 .tg{color:var(--go);background:var(--gd);border:1px solid var(--gb)}
 .tr{color:var(--ru);background:var(--rd);border:1px solid var(--rb)}
-.tt{color:var(--te);background:var(--td);border:1px solid var(--tb)}
 .sl{font-family:'Martian Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);margin-bottom:16px;display:flex;align-items:center;gap:10px}
 .sl::before{content:'//';color:var(--dm);font-size:12px}
-h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,3.8vw,44px);font-weight:700;line-height:1.06;letter-spacing:-.03em;margin-bottom:12px}
+h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(24px,3.2vw,38px);font-weight:700;line-height:1.08;letter-spacing:-.03em;margin-bottom:12px}
 h2 em{font-style:normal;color:var(--go)}
 .ss{font-size:15px;color:var(--mu);max-width:520px;line-height:1.72}
-section{padding:88px 0;position:relative;z-index:1}
+section{padding:84px 0;position:relative;z-index:1}
 section+section{border-top:1px solid var(--br)}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--br);transition:background .3s}
 [data-theme=light] nav{background:rgba(242,237,228,.93)}
-.ni{display:flex;align-items:center;justify-content:space-between;max-width:1040px;margin:0 auto;padding:0 28px;height:52px}
-.logo{font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:800;color:var(--tx);text-decoration:none;display:flex;align-items:center;gap:9px;letter-spacing:-.03em}
-.ld{width:7px;height:7px;background:var(--go);border-radius:50%;animation:pulse 2s ease-in-out infinite;flex-shrink:0}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+.ni{display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto;padding:0 28px;height:52px}
+.logo{font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:800;color:var(--tx);text-decoration:none;display:flex;align-items:center;gap:10px;letter-spacing:-.03em}
+.mark{width:30px;height:30px;flex-shrink:0;border-radius:8px;box-shadow:0 0 0 1px var(--brh)}
 .nr{display:flex;align-items:center;gap:16px}
 .nl{display:flex;gap:20px}
 .nl a{font-family:'Martian Mono',monospace;font-size:11px;color:var(--mu);text-decoration:none;transition:color .2s;letter-spacing:.04em}
@@ -46,40 +44,49 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .bnav{font-family:'Martian Mono',monospace;font-size:11px;font-weight:600;color:var(--bg);background:var(--go);border:none;padding:8px 14px;border-radius:2px;min-height:44px;cursor:pointer;text-decoration:none;transition:opacity .2s;white-space:nowrap}
 .bnav:hover{opacity:.82}
 
-#hero{padding:140px 0 80px;position:relative;overflow:hidden}
+#hero{padding:124px 0 72px;position:relative;overflow:hidden}
 .hglow{position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:800px;height:440px;background:radial-gradient(ellipse at center top,var(--gg) 0%,transparent 65%);pointer-events:none}
-.hpill{display:inline-flex;align-items:center;gap:11px;flex-wrap:wrap;border:1px solid var(--brh);border-radius:2px;background:var(--sf);padding:6px 13px;font-family:'Martian Mono',monospace;font-size:10px;color:var(--mu);margin-bottom:28px}
+.herogrid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hpill{display:inline-flex;align-items:center;gap:11px;flex-wrap:wrap;border:1px solid var(--brh);border-radius:2px;background:var(--sf);padding:6px 13px;font-family:'Martian Mono',monospace;font-size:10px;color:var(--mu);margin-bottom:22px}
 .hlv{color:var(--go);display:flex;align-items:center;gap:6px}
 .hd2{width:5px;height:5px;background:var(--go);border-radius:50%;animation:pulse 1.6s infinite}
 .hsep{color:var(--dm)}
-.h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(44px,7.5vw,88px);font-weight:800;line-height:.96;letter-spacing:-.045em;margin-bottom:24px;max-width:780px}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+.h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,4.6vw,54px);font-weight:800;line-height:1.02;letter-spacing:-.04em;margin-bottom:20px;max-width:100%}
 .h1 em{font-style:normal;color:var(--go)}
-.hsub{font-size:17px;color:var(--mu);line-height:1.68;max-width:520px;margin-bottom:38px}
+.h3brand{display:flex;align-items:center;gap:18px;margin-bottom:20px}
+.hmark{width:72px;height:72px;flex-shrink:0;border-radius:16px;box-shadow:0 0 0 1px var(--brh)}
+.hsub{font-size:16px;color:var(--mu);line-height:1.7;max-width:480px;margin-bottom:30px}
 .flbl{font-family:'Martian Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--mu);margin-bottom:8px;display:block}
 .frow{display:flex;max-width:520px;margin-bottom:10px}
-.fi{flex:1;background:var(--sf);border:1px solid var(--brh);border-right:none;border-radius:3px 0 0 3px;padding:13px 16px;font-family:'Martian Mono',monospace;font-size:12px;color:var(--tx);min-height:44px;outline:none;transition:border-color .2s}
-.fi::placeholder{color:var(--mu)}
-.fi:focus{border-color:var(--go)}
+.fi{flex:1;background:var(--sf);border:1px solid var(--brh);border-right:none;border-radius:3px 0 0 3px;padding:13px 16px;font-family:'Martian Mono',monospace;font-size:12px;color:var(--tx);min-height:44px;outline:none;transition:border-color .2s;display:flex;align-items:center}
+.fi span{color:var(--tx)}
 .fb{background:var(--go);color:var(--bg);border:none;border-radius:0 3px 3px 0;padding:13px 20px;font-family:'Martian Mono',monospace;font-size:11px;font-weight:600;min-height:44px;cursor:pointer;white-space:nowrap;transition:opacity .2s;text-decoration:none;display:flex;align-items:center}
 .fb:hover{opacity:.83}
 .ffine{font-family:'Martian Mono',monospace;font-size:11px;color:var(--dm)}
 .ffine span{color:var(--go)}
-.hstats{display:flex;gap:36px;margin-top:52px;padding-top:36px;border-top:1px solid var(--br);flex-wrap:wrap}
-.hst .n{font-family:'Martian Mono',monospace;font-size:26px;font-weight:600;color:var(--go);display:block}
+.ffline{margin-top:8px;font-family:'Martian Mono',monospace;font-size:10px;color:var(--dm)}
+.hstats{display:flex;gap:30px;margin-top:40px;padding-top:32px;border-top:1px solid var(--br);flex-wrap:wrap}
+.hst .n{font-family:'Martian Mono',monospace;font-size:22px;font-weight:600;color:var(--go);display:block}
 .hst .l{font-size:11px;color:var(--mu);margin-top:3px}
-.term{margin-top:52px;border:1px solid var(--brh);border-radius:4px;overflow:hidden;background:var(--sf)}
-.tbar{background:var(--sf2);padding:10px 16px;display:flex;align-items:center;gap:5px;border-bottom:1px solid var(--br)}
-.tc{width:10px;height:10px;border-radius:50%}
-.ttl{margin-left:7px;font-family:'Martian Mono',monospace;font-size:11px;color:var(--mu)}
-.tbody2{padding:20px 24px}
-.tl{font-family:'Martian Mono',monospace;font-size:12px;line-height:2.2}
-.tco{color:var(--dm)}.tk{color:#9bbfdf}.tv{color:var(--go)}.tru{color:var(--ru)}
 
+/* Hero diagram right */
+.hdiag{border:1px solid var(--brh);border-radius:4px;overflow:hidden;background:var(--sf)}
+.hdbar{background:var(--sf2);padding:9px 14px;display:flex;gap:5px;align-items:center;border-bottom:1px solid var(--br)}
+.hdot{width:9px;height:9px;border-radius:50%}
+.hdt{font-family:'Martian Mono',monospace;font-size:9px;color:var(--mu);margin-left:7px}
+.hdbody{padding:18px 20px;font-family:'Martian Mono',monospace;font-size:11px;line-height:2.0}
+.hdk{color:#9bbfdf}.hdv{color:var(--go)}.hdo{color:var(--dm)}
+.hdnode{display:inline-block;border:1px solid var(--brh);border-radius:2px;padding:1px 6px;margin:0 2px;color:var(--tx);font-size:10px}
+.hdnode.on{border-color:var(--gb);color:var(--go);background:var(--gd)}
+.hdarrow{color:var(--dm);margin:0 2px}
+
+/* Problem */
 #problem{background:var(--sf)}
 .psg{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:44px;border:1px solid var(--brh);border-radius:4px;overflow:hidden}
 .psc{padding:30px}
 .psc.bad{background:rgba(204,96,48,.04);border-right:1px solid var(--br)}
-.psc.good{background:rgba(201,141,26,.04)}
+.psc.good{background:rgba(90,158,128,.04)}
 .psrl{margin-bottom:20px}
 .psr{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--br);font-family:'Martian Mono',monospace;font-size:11px;line-height:1.55}
 .psr:last-child{border-bottom:none}
@@ -93,6 +100,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .cc2.bad .cca{color:var(--ru)}.cc2.good .cca{color:var(--go)}
 .ccn{font-size:13px;color:var(--mu)}
 
+/* Architecture diagram section */
+#flow .flayout{margin-top:44px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.flcard{border:1px solid var(--brh);border-radius:4px;overflow:hidden}
+.flb{background:var(--sf2);padding:9px 14px;border-bottom:1px solid var(--br);font-family:'Martian Mono',monospace;font-size:9px;color:var(--mu);display:flex;gap:5px;align-items:center}
+.flbody{padding:20px;font-family:'Martian Mono',monospace;font-size:11px;line-height:2.1;background:var(--sf)}
+.flk{color:#9bbfdf}.flv{color:var(--go)}.flo{color:var(--dm)}
+.flowsteps{display:flex;flex-direction:column;gap:14px;padding:20px;background:var(--sdark)}
+.fstep{display:flex;gap:14px;align-items:flex-start}
+.fnum{width:22px;height:22px;border-radius:50%;background:var(--gd);border:1.5px solid var(--gb);color:var(--go);display:flex;align-items:center;justify-content:center;font-family:'Martian Mono',monospace;font-size:9px;font-weight:600;flex-shrink:0;margin-top:1px}
+.fnum.done{background:var(--go);color:var(--bg);border-color:var(--go)}
+.ftext{font-family:'Martian Mono',monospace;font-size:11px;color:var(--tx);line-height:1.7}
+.ftext small{display:block;color:var(--mu);margin-top:2px}
+
+/* How it works */
 #how .fg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:44px}
 .fp{border:1px solid var(--brh);border-radius:4px;overflow:hidden;transition:border-color .22s}
 .fp:hover{border-color:var(--gb)}
@@ -111,6 +132,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .fpit{font-size:13px;font-weight:500;margin-bottom:3px;color:var(--tx)}
 .fpid{font-size:13px;color:var(--mu);line-height:1.6}
 
+/* Privacy */
 #privacy .sg2{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start;margin-top:44px}
 .sps{display:flex;flex-direction:column;gap:2px}
 .spl{border:1px solid var(--brh);border-radius:3px;padding:18px 22px;background:var(--sf);transition:border-color .2s}
@@ -124,11 +146,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .scb2{padding:20px 22px;font-family:'Martian Mono',monospace;font-size:12px;line-height:2.1;background:var(--sf)}
 .sco{color:var(--dm)}.sck{color:#9bbfdf}.scv{color:var(--go)}
 
+/* API */
 #api .apitab{margin-top:44px;border:1px solid var(--brh);border-radius:4px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--br)}
 .ac{background:var(--sf);padding:18px 20px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
 .am{font-family:'Martian Mono',monospace;font-size:11px;color:var(--tx)}
 .apr{font-family:'Martian Mono',monospace;font-size:11px;color:var(--go);white-space:nowrap}
 
+/* FAQ */
 #faq .faq{margin-top:44px;display:flex;flex-direction:column;gap:2px}
 .fqi{border:1px solid var(--brh);border-radius:3px;overflow:hidden;transition:border-color .2s}
 .fqi.op{border-color:var(--gb)}
@@ -143,7 +167,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 
 #fcta{padding:80px 0}
 .fci{text-align:center;padding:64px 24px;background:radial-gradient(ellipse at center,var(--gg) 0%,transparent 65%);border:1px solid var(--brh);border-radius:6px}
-.fch{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(28px,5vw,58px);font-weight:800;letter-spacing:-.035em;line-height:1.02;margin-bottom:16px}
+.fch{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,4.4vw,48px);font-weight:800;letter-spacing:-.035em;line-height:1.04;margin-bottom:16px}
 .fch em{font-style:normal;color:var(--go)}
 .fcs{font-size:15px;color:var(--mu);margin-bottom:28px}
 .fclinks{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
@@ -154,7 +178,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .fcn2{font-family:'Martian Mono',monospace;font-size:9px;color:var(--dm);margin-top:12px}
 
 footer{border-top:1px solid var(--br);padding:28px 0}
-.fi2{max-width:1040px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.fi2{max-width:1100px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
 footer span,footer a{font-family:'Martian Mono',monospace;font-size:10px;color:var(--dm);text-decoration:none}
 footer a:hover{color:var(--mu)}
 .flinks{display:flex;gap:18px}
@@ -163,6 +187,7 @@ footer a:hover{color:var(--mu)}
 .fu{opacity:0;animation:fadeUp .55s ease both}
 .d1{animation-delay:.05s}.d2{animation-delay:.14s}.d3{animation-delay:.25s}.d4{animation-delay:.36s}
 
+@media(max-width:960px){.herogrid{grid-template-columns:1fr}.hdiag{order:2}}
 @media(max-width:860px){.psg,.sg2,.fg,#api .apitab{grid-template-columns:1fr}.psc.bad{border-right:none;border-bottom:1px solid var(--br)}.nl{display:none}}
 
 :focus-visible{outline:2px solid var(--go);outline-offset:2px}
@@ -179,10 +204,11 @@ footer a:hover{color:var(--mu)}
 
 <nav>
   <div class="ni">
-    <a href="#" class="logo"><span class="ld"></span>Rent Resilience</a>
+    <a href="#" class="logo"><svg class="mark" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" rx="220" fill="#1a1510"/><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M226 462L512 226L798 462" stroke="#c98d1a" stroke-width="54"/><path d="M512 788V528" stroke="#5a9e80" stroke-width="50"/><path d="M512 628C426 628 375 579 375 496C460 496 512 545 512 628Z" stroke="#5a9e80" stroke-width="50"/><path d="M512 566C598 566 649 517 649 434C564 434 512 484 512 566Z" stroke="#5a9e80" stroke-width="50"/><path d="M406 788H618" stroke="#5a9e80" stroke-width="50"/></g></svg>Rent Resilience</a>
     <div class="nr">
       <div class="nl">
         <a href="#problem">Why</a>
+        <a href="#flow">Flow</a>
         <a href="#how">How</a>
         <a href="#privacy">Privacy</a>
         <a href="#api">API</a>
@@ -202,39 +228,62 @@ footer a:hover{color:var(--mu)}
   <div class="con">
     <div class="hpill fu d1">
       <span class="hlv"><span class="hd2"></span>Building in public</span>
-      <span class="hsep">·</span><span>Pre-MVP · Sandbox week 1</span>
+      <span class="hsep">·</span><span>Pre-MPV · Sandbox week 1</span>
       <span class="hsep">·</span>
       <span>Base · x402 · USDC</span>
     </div>
-    <h1 class="h1 fu d2">Pay rent for two years.<br>Be worth <em>something</em><br>the month you're short.</h1>
-    <p class="hsub fu d3">Years of on-time payments are proof. Right now they count for nothing the first month something goes wrong. Rent Resilience turns rent into a verifiable obligation — private facts stay off-chain, proofs anchor to Base, and agents resolve shortfalls with the least harm done.</p>
-    <div class="fu d4" id="heroform">
-      <label class="flbl" for="hemail">Developer? First x402 endpoint is the door in.</label>
-      <div class="frow">
-        <span class="fi" id="epath">GET /v1/proofs/reliability</span>
-        <a class="fb" href="https://github.com/kylebrodeur/rent-resilience/tree/main/packages/protocol/schemas" target="_blank">Schemas →</a>
+    <div class="herogrid">
+      <div>
+        <div class="h3brand fu d2"><svg class="hmark" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" rx="220" fill="#1a1510"/><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M226 462L512 226L798 462" stroke="#c98d1a" stroke-width="54"/><path d="M512 788V528" stroke="#5a9e80" stroke-width="50"/><path d="M512 628C426 628 375 579 375 496C460 496 512 545 512 628Z" stroke="#5a9e80" stroke-width="50"/><path d="M512 566C598 566 649 517 649 434C564 434 512 484 512 566Z" stroke="#5a9e80" stroke-width="50"/><path d="M406 788H618" stroke="#5a9e80" stroke-width="50"/></g></svg></div>
+        <h1 class="h1 fu d2">Pay rent for two years.<br>Be worth <em>something</em><br>the month you're short.</h1>
+        <p class="hsub fu d3">Years of on-time payments are proof. Right now they count for nothing the first month something goes wrong. Rent Resilience turns rent into a verifiable obligation — private facts stay off-chain, proofs anchor to Base, and agents resolve shortfalls with the least harm done.</p>
+        <div class="fu d4">
+          <label class="flbl">Developer? First x402 endpoint is the door in.</label>
+          <div class="frow">
+            <span class="fi"><span>GET /v1/proofs/reliability</span></span>
+            <a class="fb" href="https://github.com/kylebrodeur/rent-resilience/tree/main/packages/protocol/schemas" target="_blank">Schemas →</a>
+          </div>
+          <div class="ffine">Sandbox week 3: <span>HTTP 402 · USDC · ~$0.05/call</span>. No API keys, no onboarding.</div>
+        </div>
+        <div class="hstats fu d3">
+          <div class="hst"><span class="n">$46k</span><span class="l">on-time rent counts for $0 today</span></div>
+          <div class="hst"><span class="n">0</span><span class="l">PII onchain, ever</span></div>
+          <div class="hst"><span class="n">x402</span><span class="l">first revenue rail</span></div>
+          <div class="hst"><span class="n">4 wk</span><span class="l">to developer preview</span></div>
+        </div>
       </div>
-      <div class="ffine">Sandbox week 3: <span>HTTP 402 · USDC · ~$0.05/call</span>. No API keys, no onboarding.</div>
+      <div class="hdiag fu d4">
+        <div class="hdbar"><span class="hdot" style="background:#8b3a2a"></span><span class="hdot" style="background:#8b7030"></span><span class="hdot" style="background:#3a7040"></span><span class="hdt">architecture — what's onchain, what isn't</span></div>
+        <div class="hdbody">
+<span class="hdo">// rent_resilience · what touches Base vs what never does</span><br>
+<br>
+<span class="hdk">renter / landlord / platform</span><br>
+<span class="hdo">→</span> <span class="hdnode on">RentObligation ledger</span> <span class="hdo">(private, signed events)</span><br>
+<span class="hdo">→</span> <span class="hdnode">reliability engine</span> <span class="hdo">(derives facts from history)</span><br>
+<span class="hdo">→</span> <span class="hdnode">Merkle tree per batch</span><br>
+<br>
+<span class="hdo">onchain (Base):</span><br>
+<span class="hdo">→</span> <span class="hdnode on">root commitment</span> <span class="hdo">+ builder code bc_1utyhkys</span><br>
+<span class="hdo">→</span> <span class="hdnode on">x402 payments</span> <span class="hdo">(agent pays in USDC)</span><br>
+<br>
+<span class="hdo">never onchain:</span> names, addresses, amounts, leases<br>
+<span class="hdo">disclosed only if renter authorizes:</span> <span class="hdnode on">selective proof</span>
+        </div>
+      </div>
     </div>
-    <div class="hstats fu d3">
-      <div class="hst"><span class="n">$46k</span><span class="l">on-time rent counts for $0 today</span></div>
-      <div class="hst"><span class="n">0</span><span class="l">PII onchain, ever</span></div>
-      <div class="hst"><span class="n">x402</span><span class="l">first revenue rail</span></div>
-      <div class="hst"><span class="n">4 wk</span><span class="l">to developer preview</span></div>
-    </div>
-    <div class="term fu d4">
+    <div class="term fu d4" style="margin-top:48px">
       <div class="tbar"><span class="tc" style="background:#8b3a2a"></span><span class="tc" style="background:#8b7030"></span><span class="tc" style="background:#3a7040"></span><span class="ttl">resolution — $1,925 due, renter holds $1,300</span></div>
-      <div class="tbody2">
-        <div class="tl"><span class="tco">// ObligationCreated $1,925 · status: due</span></div>
-        <div class="tl">&nbsp;</div>
-        <div class="tl"><span class="tco">// Month 25: renter can pay $1,300 → agent composes the stack</span></div>
-        <div class="tl"><span class="tk">renter</span>: <span class="tv">$1,300</span>&nbsp;&nbsp;<span class="tco">// now</span></div>
-        <div class="tl"><span class="tk">assistance</span>: <span class="tv">$  300</span>&nbsp;&nbsp;<span class="tco">// sandbox provider, no repayment</span></div>
-        <div class="tl"><span class="tk">landlord_flex</span>: <span class="tv">$  325</span>&nbsp;&nbsp;<span class="tco">// policy-authorized extension, due 10th</span></div>
-        <div class="tl"><span class="tk">debt</span>: <span class="tru">$    0</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tco">// borrow last — never needed here</span></div>
-        <div class="tl">&nbsp;</div>
-        <div class="tl"><span class="tco">// ObligationSatisfied · 25/25 · 24 independ · 1 assisted</span></div>
-        <div class="tl"><span class="tco">// Merkle root anchored to Base · no PII onchain, ever</span></div>
+      <div class="hdbody">
+<span class="hdo">// ObligationCreated $1,925 · status: due</span><br>
+<span class="hdo">//</span><br>
+<span class="hdo">// Month 25: renter can pay $1,300 → agent composes the stack</span><br>
+<span class="hdk">renter</span>: <span class="hdv">$1,300</span>  <span class="hdo">// now</span><br>
+<span class="hdk">assistance</span>: <span class="hdv">$  300</span>  <span class="hdo">// sandbox provider, no repayment</span><br>
+<span class="hdk">landlord_flex</span>: <span class="hdv">$  325</span>  <span class="hdo">// policy-authorized extension, due 10th</span><br>
+<span class="hdk">debt</span>: <span class="hdv">$    0</span>   <span class="hdo">// borrow last — never needed here</span><br>
+<span class="hdo">//</span><br>
+<span class="hdo">// ObligationSatisfied · 25/25 · 24 independ · 1 assisted</span><br>
+<span class="hdo">// Merkle root anchored to Base · no PII onchain, ever</span>
       </div>
     </div>
   </div>
@@ -266,7 +315,43 @@ footer a:hover{color:var(--mu)}
     <div class="crow">
       <div class="cc2 bad"><span class="ccl">One $1,925 rent on card</span><div class="cca">$53</div><p class="ccn">2.75% fee. Every month, every card user.</p></div>
       <div class="cc2 good"><span class="ccl">Resolving a $625 shortfall</span><div class="cca" style="color:var(--go)">$0</div><p class="ccn">Flex + assistance compose at origin. No fee on resolving.</p></div>
-      <div class="cc2" style="border-color:var(--brh);background:var(--sf)"><span class="ccl">Proof a landlord reads</span><div class="cca" style="color:var(--go)">$0.05</div><p class="ccn">x402 price for a verified reliability claim.</p></div>
+      <div class="cc2" style="border-color:var(--brh);background:var(--td)"><span class="ccl">Proof a landlord reads</span><div class="cca" style="color:var(--te)">$0.05</div><p class="ccn">x402 price for a verified reliability claim.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="con">
+    <div class="sl">How it flows</div>
+    <h2>Agents interpret.<br><em>Policy</em> decides.</h2>
+    <p class="ss">The pipeline from a renter in a bind to a resolved obligation, in order. Each step is its own thing; the whole system is composition.</p>
+    <div class="flayout">
+      <div class="flcard">
+        <div class="flb"><span class="hdot" style="background:#8b3a2a"></span><span class="hdot" style="background:#8b7030"></span><span class="hdot" style="background:#3a7040"></span><span class="hdt">obligation.mjs — the flow, top to bottom</span></div>
+        <div class="flbody">
+<span class="flo">// what happens when a renter says "I can pay $1,300 by Friday"</span><br>
+<span class="flk">1.</span> renter request lands → <span class="hdnode">obligation service</span><br>
+<span class="flk">2.</span> agent reads the ledger, sees history: <span class="hdv">24/24 satisfied</span><br>
+<span class="flk">3.</span> <span class="hdnode">policy engine</span> checks landlord's pre-set rules<br>
+<span class="flk">4.</span> <span class="hdnode">provider router</span> composes: flexibility first, assistance next<br>
+<span class="flk">5.</span> resolution offered → renter accepts<br>
+<span class="flk">6.</span> events append → <span class="hdnode">ObligationSatisfied</span><br>
+<span class="flk">7.</span> Merkle root → <span class="hdnode on">Base anchor</span> <span class="flo">(no PII)</span>
+        </div>
+      </div>
+      <div class="flcard">
+        <div class="flb"><span class="hdot" style="background:#8b3a2a"></span><span class="hdot" style="background:#8b7030"></span><span class="hdot" style="background:#3a7040"></span><span class="hdt">provider stack — who owns what</span></div>
+        <div class="flbody">
+<span class="flk">landlord flex</span>   <span class="flo">// landlord authorizes once, agents enforce</span><br>
+<span class="flk">assistance</span>      <span class="flo">// nonprofit/benefit programs set eligibility</span><br>
+<span class="flk">financing</span>      <span class="flo">// licensed providers; protocol never lends</span><br>
+<span class="flo">//</span><br>
+<span class="flo">// order is fixed:</span><br>
+<span class="hdo">correction</span> → <span class="hdo">flexibility</span> → <span class="hdo">assistance</span> → <span class="hdo">benefit</span> → <span class="hdo">financing</span><br>
+<span class="flo">//</span><br>
+<span class="flo">// the agent composes. the renter accepts. the ledger records.</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
