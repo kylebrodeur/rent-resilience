@@ -166,6 +166,40 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .fqi.op .fqa{max-height:320px}
 .ci2{font-family:'Martian Mono',monospace;font-size:11px;color:var(--go);background:var(--gd);padding:1px 5px;border-radius:2px}
 
+/* Share */
+/* full-width resolution terminal */
+.rterm{position:relative;width:100vw;left:50%;margin-left:-50vw;margin-top:34px;background:#14100a;border-top:1px solid var(--brh);border-bottom:1px solid var(--brh)}
+[data-theme=light] .rterm{background:#e6dfd2}
+.rtbar{display:flex;align-items:center;gap:7px;max-width:1100px;margin:0 auto;padding:13px 28px;border-bottom:1px solid var(--br)}
+.rtc{width:9px;height:9px;border-radius:50%;flex:none}
+.rttl{font-family:'Martian Mono',monospace;font-size:10px;color:var(--mu);letter-spacing:.06em;margin-left:8px}
+.rtin{max-width:1100px;margin:0 auto;padding:26px 28px 30px}
+.rtcopy{max-width:620px;color:var(--mu);font-size:14px;line-height:1.7;margin-bottom:20px}
+.rtcopy b{color:var(--tx);font-weight:600}
+.rtcode{font-family:'Martian Mono',monospace;font-size:12px;line-height:2.15;overflow-x:auto}
+@media(max-width:960px){.rtcode{font-size:10.5px}.rtin{padding:20px 28px 24px}}
+/* compact social rail (hero + footer) */
+.srail{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+.srl{font-family:'Martian Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dm)}
+.srbtn{font-family:'Martian Mono',monospace;font-size:10px;color:var(--mu);background:var(--sf);border:1px solid var(--br);border-radius:2px;padding:6px 11px;cursor:pointer;text-decoration:none;transition:color .2s,border-color .2s;display:inline-flex;align-items:center;min-height:32px}
+.srbtn:hover{color:var(--go);border-color:var(--gb)}
+#share .shg{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:start;margin-top:34px}
+.shcard{border:1px solid var(--brh);border-radius:4px;overflow:hidden;background:var(--sf)}
+.shcard canvas{display:block;width:100%;height:auto}
+.shbar{padding:14px 16px;border-top:1px solid var(--br);background:var(--sf2);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.shin{flex:1;min-width:170px;background:var(--bg);border:1px solid var(--brh);border-radius:3px;padding:10px 12px;font-family:'Martian Mono',monospace;font-size:12px;color:var(--tx);min-height:44px;outline:none;transition:border-color .2s}
+.shin:focus{border-color:var(--gb)}
+.shtab{font-family:'Martian Mono',monospace;font-size:10px;color:var(--mu);background:none;border:1px solid var(--brh);border-radius:2px;padding:9px 12px;min-height:44px;cursor:pointer;transition:all .2s}
+.shtab:hover{color:var(--tx)}
+.shtab.on{border-color:var(--gb);color:var(--go);background:var(--gd)}
+.shtab:focus-visible,.shin:focus-visible,.shrow:focus-visible{outline:2px solid var(--go);outline-offset:2px}
+.shside{display:flex;flex-direction:column;gap:2px}
+.shrow{display:flex;justify-content:space-between;align-items:center;gap:14px;border:1px solid var(--brh);border-radius:3px;padding:16px 20px;background:var(--sf);text-decoration:none;transition:border-color .2s;color:inherit;font:inherit;text-align:left}
+.shrow:hover{border-color:var(--gb)}
+.shrl{font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:600;letter-spacing:-.015em}
+.shrd{font-size:12px;color:var(--mu);margin-top:2px}
+@media(max-width:960px){#share .shg{grid-template-columns:1fr}}
+
 #fcta{padding:64px 0}
 .fci{text-align:center;padding:48px 24px;background:radial-gradient(ellipse at center,var(--gg) 0%,transparent 65%);border:1px solid var(--brh);border-radius:6px}
 .fch{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,4.4vw,48px);font-weight:800;letter-spacing:-.035em;line-height:1.04;margin-bottom:16px}
@@ -274,6 +308,12 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
           <div class="hst"><span class="n">$46k</span><span class="l">on-time rent counts for $0 today</span></div>
           <div class="hst"><span class="n">0</span><span class="l">PII onchain, ever</span></div>
         </div>
+        <div class="srail fu d4">
+          <span class="srl">Spread</span>
+          <a class="srbtn" data-share="x" data-ph="hero-share-x" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener">Post on X</a>
+          <a class="srbtn" data-share="fc" data-ph="hero-share-fc" href="https://warpcast.com/~/compose" target="_blank" rel="noopener">Farcaster</a>
+          <button class="srbtn" data-copylink data-ph="hero-share-copy" type="button">Copy link</button>
+        </div>
       </div>
       <div class="hdiag fu d4">
         <div class="hdbar"><span class="hdot" style="background:#8b3a2a"></span><span class="hdot" style="background:#8b7030"></span><span class="hdot" style="background:#3a7040"></span><span class="hdt">architecture: what's onchain, what isn't</span></div>
@@ -320,6 +360,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
           </form>
           <span style="font-size:9px;color:var(--dm)">paid intent + email = we reach you; paid only = anonymous signal.</span>
         </div>
+        <div id="osup" hidden></div>
         <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--br)">
           <div class="fpd" style="margin-bottom:10px"><span class="tag tg">Agents</span> post to the endpoint</div>
           <div class="ffine" style="font-size:10px;color:var(--mu);line-height:1.9">curl -X POST <span style="color:var(--go)">https://rentresilience.org/api/optin</span><br>answers 402 with scheme <span style="color:var(--go)">exact</span>, asset <span style="color:var(--go)">USDC@base-sepolia</span>, <span style="color:var(--go)">0.01</span>. Pay with any x402 client and you're in.</div>
@@ -334,6 +375,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
         <button class="fb" type="submit">Keep building →</button>
       </form>
       <div class="ffine" style="margin-top:8px" id="emsg"></div>
+      <div id="esup" hidden></div>
       <div class="ffine" style="margin-top:16px;padding-top:14px;border-top:1px solid var(--br);font-size:10px;color:var(--dm);line-height:1.8">
         (The Mint actually did stop minting pennies in 2025. The cent just moved onchain.)
       </div>
@@ -369,9 +411,11 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
       <div class="cc2 good"><span class="ccl">Resolving a $625 shortfall</span><div class="cca" style="color:var(--go)">$0</div><p class="ccn">Flex + assistance compose at origin. No fee on resolving.</p></div>
       <div class="cc2" style="border-color:var(--brh);background:var(--td)"><span class="ccl">Proof a landlord reads</span><div class="cca" style="color:var(--te)">$0.05</div><p class="ccn">x402 price for a verified reliability claim.</p></div>
     </div>
-    <div class="term" style="margin-top:14px">
-      <div class="tbar"><span class="tc" style="background:#8b3a2a"></span><span class="tc" style="background:#8b7030"></span><span class="tc" style="background:#3a7040"></span><span class="ttl">resolution: $1,925 due, renter holds $1,300</span></div>
-      <div class="hdbody">
+    <div class="rterm">
+      <div class="rtbar"><span class="rtc" style="background:#8b3a2a"></span><span class="rtc" style="background:#8b7030"></span><span class="rtc" style="background:#3a7040"></span><span class="rttl">rent-resilience · resolution walkthrough</span></div>
+      <div class="rtin">
+        <p class="rtcopy">Month 25. $1,925 due, the renter holds $1,300. The agent composes the stack at origin: assistance first, landlord flex second, debt last. Shortfall resolved for <b style="color:var(--go)">$0 in fees</b>, and the ledger records 25 of 25, one assisted.</p>
+        <div class="rtcode">
 <span class="hdo">// ObligationCreated $1,925 · status: due</span><br>
 <span class="hdo">// Month 25: renter can pay $1,300 → agent composes the stack</span><br>
 <span class="hdk">renter</span>: <span class="hdv">$1,300</span>  <span class="hdo">// now</span><br>
@@ -381,6 +425,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
 <span class="hdo">//</span><br>
 <span class="hdo">// ObligationSatisfied · 25/25 · 24 independ · 1 assisted</span><br>
 <span class="hdo">// Merkle root anchored to Base · no PII onchain, ever</span>
+        </div>
       </div>
     </div>
   </div>
@@ -519,6 +564,41 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
   </div>
 </section>
 
+<section id="share">
+  <div class="con">
+    <div class="sl">Spread it</div>
+    <h2>One cent said you meant it.<br><em>Say it louder.</em></h2>
+    <p class="ss">The card below is drawn in your browser from nothing but this page: no upload, no account, nothing you type leaves your machine. Download it and attach it to your post, or share the link straight from the buttons.</p>
+    <div class="shg">
+      <div class="shcard">
+        <canvas id="imincard" width="1200" height="630" aria-label="Preview of your shareable support card"></canvas>
+        <div class="shbar">
+          <input class="shin" id="iminname" type="text" maxlength="24" placeholder="Name on the card (optional)" aria-label="Name on the card"/>
+          <button class="shtab on" id="tab-imin" type="button">I'm in</button>
+          <button class="shtab" id="tab-sup" type="button">I supported</button>
+          <button class="fb" id="imin-dl" type="button" style="border-radius:3px">Download PNG</button>
+          <button class="fb" id="imin-share" type="button" style="border-radius:3px;display:none">Share card…</button>
+        </div>
+      </div>
+      <div class="shside">
+        <a class="shrow" id="shx" data-share="x" data-ph="share-x" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener">
+          <div><div class="shrl">Post on X</div><div class="shrd">Post text prefilled, link included</div></div>
+          <span class="fqar" aria-hidden="true">→</span>
+        </a>
+        <a class="shrow" id="shfc" data-share="fc" data-ph="share-farcaster" href="https://warpcast.com/~/compose" target="_blank" rel="noopener">
+          <div><div class="shrl">Post on Farcaster</div><div class="shrd">Opens the Warpcast composer</div></div>
+          <span class="fqar" aria-hidden="true">→</span>
+        </a>
+        <button class="shrow" id="shcopy" data-copylink data-ph="share-copy" type="button">
+          <div><div class="shrl">Copy the link</div><div class="shrd" id="shcopylbl">rentresilience.org</div></div>
+          <span class="fqar" aria-hidden="true">⧉</span>
+        </button>
+        <div class="ffine" style="padding:12px 4px;line-height:1.9">Post text used by the buttons: <span style="color:var(--tx)">"Rent should compound into resilience. I'm in for 1¢: private rent proofs on Base. https://rentresilience.org"</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="fcta">
   <div class="con">
     <div class="fci">
@@ -537,7 +617,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
 <footer>
   <div class="fi2">
     <span>© 2026 Rent Resilience. Built in public on Base by <a href="https://kylebrodeur.xyz" target="_blank" style="display:inline">kylebrodeur</a>.</span>
-    <div class="flinks"><a href="https://github.com/kylebrodeur/rent-resilience" target="_blank">GitHub</a><a href="https://github.com/kylebrodeur/rent-resilience/blob/main/docs/protocol.md" target="_blank">Protocol</a><a href="https://github.com/kylebrodeur/rent-resilience/blob/main/docs/research.md" target="_blank">Research</a></div>
+    <div class="flinks"><a href="https://github.com/kylebrodeur/rent-resilience" target="_blank">GitHub</a><a href="https://github.com/kylebrodeur/rent-resilience/blob/main/docs/protocol.md" target="_blank">Protocol</a><a href="https://github.com/kylebrodeur/rent-resilience/blob/main/docs/research.md" target="_blank">Research</a><a data-share="x" data-ph="footer-share-x" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener">X</a><a data-share="fc" data-ph="footer-share-fc" href="https://warpcast.com/~/compose" target="_blank" rel="noopener">Farcaster</a></div>
   </div>
 </footer>
 
@@ -551,7 +631,7 @@ async function confirmOptin(ev){
   try{
     const res=await fetch('/api/confirm',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({txHash:v})});
     const body=await res.json();
-    if(res.ok){window.__lastTxHash=body.txHash;document.getElementById('omsg2').style.display='block';msg.innerHTML='✓ In. Receipt: <a href="https://basescan.org/tx/'+body.txHash+'" target="_blank" style="color:var(--go)">'+body.txHash.slice(0,10)+'…</a> · <a href="https://github.com/kylebrodeur/rent-resilience" target="_blank" style="color:var(--go)">next: read the protocol</a>';phTrack('optin_confirm',{result:'joined',lane:'qr'});}
+    if(res.ok){window.__lastTxHash=body.txHash;document.getElementById('omsg2').style.display='block';msg.innerHTML='✓ In. Receipt: <a href="https://basescan.org/tx/'+body.txHash+'" target="_blank" style="color:var(--go)">'+body.txHash.slice(0,10)+'…</a> · <a href="https://github.com/kylebrodeur/rent-resilience" target="_blank" style="color:var(--go)">next: read the protocol</a>';if(window.rrShare)rrShare.confirmInto(document.getElementById('osup'));phTrack('optin_confirm',{result:'joined',lane:'qr'});}
     else if(res.status===404){msg.textContent=body.hint||'Not seen onchain yet. Try again in a few seconds.';phTrack('optin_confirm',{result:'not-found-yet',lane:'qr'});}
     else{msg.textContent=body.error||'Check failed; retry later.';phTrack('optin_confirm',{result:'error',lane:'qr'});}
   }catch(e){msg.textContent='Check failed; retry later.';phTrack('optin_confirm',{result:'error',lane:'qr'});}
@@ -566,7 +646,7 @@ async function submitContact(ev, form, via){
   try{
     const res=await fetch('/api/contact',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:email,via:via,txHash:txHash})});
     const body=await res.json();
-    if(res.ok){msg.innerHTML='✓ Noted. <span style="color:var(--go)">You\'re on the list.</span>';form.querySelector('input').disabled=true;form.querySelector('button').disabled=true;phTrack('email_signup',{intent:via,had_payment:Boolean(txHash)});}
+    if(res.ok){msg.innerHTML='✓ Noted. <span style="color:var(--go)">You\'re on the list.</span>';form.querySelector('input').disabled=true;form.querySelector('button').disabled=true;if(window.rrShare)rrShare.confirmInto(document.getElementById(via==='email-only'?'esup':'osup'));phTrack('email_signup',{intent:via,had_payment:Boolean(txHash)});}
     else{msg.textContent=body.error||'Check failed; retry later.';phTrack('email_signup_failed',{intent:via});}
   }catch(e){msg.textContent='Check failed; retry later.';phTrack('email_signup_failed',{intent:via});}
   return false;
@@ -575,6 +655,142 @@ function toggleFaq(el){const was=el.classList.contains('op');document.querySelec
 function toggleTheme(){const h=document.documentElement,g=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',g);document.getElementById('tmicon').textContent=g==='light'?'☾':'☀';document.getElementById('tmlbl').textContent=g==='light'?'Dark':'Light';}
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}}),{threshold:.07});
 document.querySelectorAll('section > .con > *').forEach(el=>{if(!el.classList.contains('fu')&&!el.classList.contains('hglow')){el.style.opacity='0';el.style.transform='translateY(12px)';el.style.transition='opacity .55s ease,transform .55s ease';obs.observe(el);}});
+</script>
+<script>
+// I'm-in card: drawn entirely client-side from page content. The name field is
+// never read by any server; there is no network call in this block.
+(function(){
+  const c=document.getElementById('imincard');
+  if(!c)return;
+  const W=c.width,H=c.height;
+  const nameInp=document.getElementById('iminname');
+  const dlBtn=document.getElementById('imin-dl');
+  const shBtn=document.getElementById('imin-share');
+  const tIn=document.getElementById('tab-imin'),tSup=document.getElementById('tab-sup');
+  const SHARE_TEXT="Rent should compound into resilience. I'm in for 1¢: private rent proofs on Base. https://rentresilience.org";
+  const CARD_FILE='im-in-rent-resilience.png';
+  let mode='imin';
+  // Paints the card at any canvas size; everything is laid out on a fixed
+  // 1200x630 logical grid and scaled to the target canvas width.
+  function paint(cv,md,nm){
+    const g=cv.getContext('2d');const s=cv.width/1200;
+    g.save();g.scale(s,s);
+    g.clearRect(0,0,1200,630);
+    g.fillStyle='#1a1510';g.fillRect(0,0,1200,630);
+    g.strokeStyle='rgba(58,48,32,.55)';g.lineWidth=1;g.beginPath();
+    for(let i=48;i<1200;i+=48){g.moveTo(i+.5,0);g.lineTo(i+.5,630);}
+    for(let j=48;j<630;j+=48){g.moveTo(0,j+.5);g.lineTo(1200,j+.5);}
+    g.stroke();
+    const fade=g.createLinearGradient(0,0,0,630);
+    fade.addColorStop(0,'rgba(26,21,16,0)');fade.addColorStop(1,'rgba(26,21,16,.92)');
+    g.fillStyle=fade;g.fillRect(0,0,1200,630);
+    const glow=g.createRadialGradient(600,-80,40,600,-80,520);
+    glow.addColorStop(0,'rgba(90,158,128,.16)');glow.addColorStop(1,'rgba(90,158,128,0)');
+    g.fillStyle=glow;g.fillRect(0,0,1200,420);
+    // Logo mark, same path data as the nav SVG, scaled to 64px.
+    g.save();g.translate(72,60);g.scale(1/16,1/16);
+    g.fillStyle='#231c14';g.beginPath();
+    if(g.roundRect){g.roundRect(0,0,1024,1024,220);}else{g.rect(0,0,1024,1024);}
+    g.fill();
+    g.lineCap='round';g.lineJoin='round';
+    g.strokeStyle='#c98d1a';g.lineWidth=54;g.stroke(new Path2D('M226 462L512 226L798 462'));
+    g.strokeStyle='#5a9e80';g.lineWidth=50;
+    g.stroke(new Path2D('M512 788V528'));
+    g.stroke(new Path2D('M512 628C426 628 375 579 375 496C460 496 512 545 512 628Z'));
+    g.stroke(new Path2D('M512 566C598 566 649 517 649 434C564 434 512 484 512 566Z'));
+    g.stroke(new Path2D('M406 788H618'));
+    g.restore();
+    g.textAlign='left';g.textBaseline='alphabetic';
+    g.font='500 19px "Martian Mono", monospace';g.fillStyle='#907e68';
+    g.fillText('RENT RESILIENCE NETWORK',152,101);
+    g.font='800 112px "Bricolage Grotesque", sans-serif';g.fillStyle='#e8dfd0';
+    g.fillText(md==='imin'?"I'm in.":'I supported.',72,346);
+    g.fillStyle='#5a9e80';g.fillRect(72,380,120,6);
+    g.font='500 26px "Martian Mono", monospace';g.fillStyle='#5a9e80';
+    g.fillText(nm?nm.toUpperCase()+' · FOUNDING OPT-IN':'FOUNDING OPT-IN · DAY ONE',72,442);
+    g.font='300 32px Barlow, sans-serif';g.fillStyle='#907e68';
+    g.fillText('Rent should compound into resilience.',72,496);
+    g.font='500 22px "Martian Mono", monospace';
+    g.fillStyle='#c98d1a';g.fillText('1¢ USDC · BASE · x402',72,566);
+    g.fillStyle='#e8dfd0';g.textAlign='right';g.fillText('rentresilience.org',1200-72,566);
+    g.textAlign='left';
+    g.restore();
+  }
+  function draw(){paint(c,mode,(nameInp.value||'').trim().slice(0,24));}
+  function download(){
+    c.toBlob(function(b){
+      if(!b)return;
+      const a=document.createElement('a');
+      const url=URL.createObjectURL(b);
+      a.href=url;a.download=CARD_FILE;
+      document.body.appendChild(a);a.click();a.remove();
+      setTimeout(function(){URL.revokeObjectURL(url);},4000);
+      phTrack('im_in_card',{action:'download',mode:mode,named:Boolean(nmSafe())});
+    },'image/png');
+  }
+  async function shareCard(){
+    const blob=await new Promise(function(r){c.toBlob(r,'image/png');});
+    if(!blob)return;
+    const file=new File([blob],CARD_FILE,{type:'image/png'});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){
+      try{await navigator.share({files:[file],text:SHARE_TEXT});phTrack('im_in_card',{action:'share',mode:mode});}
+      catch(e){/* user cancelled the share sheet */}
+    }else{download();}
+  }
+  function nmSafe(){return (nameInp.value||'').trim();}
+  function setMode(m){mode=m;tIn.classList.toggle('on',m==='imin');tSup.classList.toggle('on',m==='sup');draw();phTrack('im_in_card',{action:'mode',mode:m});}
+  tIn.addEventListener('click',function(){setMode('imin');});
+  tSup.addEventListener('click',function(){setMode('sup');});
+  nameInp.addEventListener('input',draw);
+  dlBtn.addEventListener('click',download);
+  shBtn.addEventListener('click',shareCard);
+  if(navigator.canShare){shBtn.style.display='';}
+  // Wires every share surface on the page (hero rail, footer, share section,
+  // post-optin confirmation) from data attributes.
+  function wireShare(root){
+    root.querySelectorAll('[data-share="x"]').forEach(function(a){a.href='https://twitter.com/intent/tweet?text='+encodeURIComponent(SHARE_TEXT);});
+    root.querySelectorAll('[data-share="fc"]').forEach(function(a){a.href='https://warpcast.com/~/compose?text='+encodeURIComponent(SHARE_TEXT);});
+    root.querySelectorAll('[data-copylink]').forEach(function(b){
+      if(b.__rrcopy)return;b.__rrcopy=true;
+      b.addEventListener('click',async function(){
+        const lbl=b.querySelector('.shrd')||b,old=lbl.textContent;
+        try{await navigator.clipboard.writeText('https://rentresilience.org/');lbl.textContent='Copied.';}
+        catch(e){lbl.textContent='https://rentresilience.org/';return;}
+        setTimeout(function(){lbl.textContent=old;},2000);
+      });
+    });
+  }
+  wireShare(document);
+  // Post-optin confirmation: a compact "I supported." card plus share links,
+  // shown after either opt-in lane (1¢ confirmation or email-only) succeeds.
+  function confirmInto(el){
+    if(!el)return;
+    if(!el.dataset.built){
+      el.dataset.built='1';
+      el.innerHTML='<div class="fpd" style="margin-bottom:12px"><span class="tag tg">✓ In</span> say it louder</div>'
+        +'<div class="shcard" style="max-width:560px"><canvas width="600" height="315" aria-label="Your support card"></canvas>'
+        +'<div class="shbar">'
+        +'<a class="srbtn" data-share="x" data-ph="confirm-share-x" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener">Post on X</a>'
+        +'<a class="srbtn" data-share="fc" data-ph="confirm-share-fc" href="https://warpcast.com/~/compose" target="_blank" rel="noopener">Farcaster</a>'
+        +'<button class="srbtn" data-copylink data-ph="confirm-share-copy" type="button">Copy link</button>'
+        +'<a class="srbtn" data-ph="confirm-share-full" href="#share">Full-size card ↓</a>'
+        +'</div></div>';
+      wireShare(el);
+    }
+    el.hidden=false;
+    setMode('sup');
+    paint(el.querySelector('canvas'),'sup','');
+    el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+  window.rrShare={confirmInto:confirmInto,paint:paint};
+  if(document.fonts&&document.fonts.load){
+    Promise.all([
+      document.fonts.load('800 112px "Bricolage Grotesque"'),
+      document.fonts.load('500 26px "Martian Mono"'),
+      document.fonts.load('300 32px Barlow')
+    ]).then(draw).catch(draw);
+  }else{draw();}
+})();
 </script>
 </body>
 </html>
