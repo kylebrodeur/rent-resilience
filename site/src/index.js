@@ -128,12 +128,12 @@ function json(body, status) {
   });
 }
 
+// WHY: fail open on any Emailable outage — a verification service hiccup must
+// never cost a real signup, and the KV rate limit above is the abuse control.
 // Email verification via Emailable before a signup row is written. Undeliverable
 // and disposable addresses are rejected; everything else (risky, unknown, role)
-// is accepted and tagged. Fail open on any Emailable outage — a verification
-// service hiccup must never cost a real signup, and the KV rate limit above is
-// the abuse control. Each verify costs 1 credit; EMAILABLE_KEY is a wrangler
-// secret, never committed.
+// is accepted and tagged. Each verify costs 1 credit; EMAILABLE_KEY is a
+// wrangler secret, never committed.
 async function verifyEmail(email, env) {
   if (!env.EMAILABLE_KEY) return { state: "skipped" };
   try {
@@ -145,19 +145,22 @@ async function verifyEmail(email, env) {
     const v = await res.json();
     if (v.disposable) return { state: "disposable" };
     if (v.state === "undeliverable") return { state: "undeliverable", reason: v.reason || null };
-    return { state: v.state || "unknown", score: typeof v.score === "number" ? v.score : null };
+    return { state: v.state || "unknown", score: Number.isFinite(v.score) ? v.score : null };
   } catch {
     return { state: "skipped" };
   }
 }
 
-// Email/contact capture for the opt-in section. The /api/contact route was
-// wired into the router without this handler, so signups 500'd until 2026-09-08.
-// Rate limit: 5 contact attempts per IP per 10-minute bucket. KV free tier is
-// 1,000 writes/day shared with opt-in rows, so an unthrottled form is a budget
-// problem, not just an abuse one. Coarse by design: KV is eventually
-// consistent, so a burst can slip through; the real wall is a Cloudflare WAF
-// rate-limiting rule (see docs/email-signups.md).
+/**
+ * Email/contact capture for the opt-in section. The /api/contact route was
+ * wired into the router without this handler, so signups 500'd until 2026-09-08.
+ *
+ * WHY: rate limiting is a KV free-tier budget problem (1,000 writes/day shared
+ * with opt-in rows), not just an abuse one. 5 attempts per IP per 10-minute
+ * bucket, coarse by design: KV is eventually consistent, so a burst can slip
+ * through; the real wall is a Cloudflare WAF rate-limiting rule
+ * (see docs/email-signups.md).
+ */
 async function contactAllowed(env, request) {
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   const bucket = Math.floor(Date.now() / 600000);

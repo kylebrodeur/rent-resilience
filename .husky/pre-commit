@@ -1,0 +1,7 @@
+# Rent Resilience pre-commit gates.
+# 1. oxlint (anti-slop type-evidence rules + rent rules incl. no-slop-prose)
+# 2. rule unit tests (RuleTester)
+# 3. publish gate on reader-facing pages (dash gate, editorial markers)
+pnpm lint || exit 1
+pnpm lint:rules:test || exit 1
+python3 tools/validate_publish_markdown.py site/public/index.html site/public/status.html || exit 1

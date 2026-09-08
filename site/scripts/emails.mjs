@@ -1,14 +1,16 @@
 #!/usr/bin/env node
-// Read email signups (and optionally paid opt-ins) from the production KV
-// namespace via wrangler. Read-only. Each key fetch is one KV read against the
-// free-tier budget of 100k reads/day, so no cap issues at signup volumes.
-//
-// Usage:
-//   node scripts/emails.mjs              table of email signups
-//   node scripts/emails.mjs --csv        CSV to stdout (redirect to a file)
-//   node scripts/emails.mjs --json       raw rows
-//   node scripts/emails.mjs --paid       include paid opt-ins (tx:* keys)
-//   node scripts/emails.mjs --limit 50   cap key fetches (default 500)
+/**
+ * Read email signups (and optionally paid opt-ins) from the production KV
+ * namespace via wrangler. Read-only. Each key fetch is one KV read against the
+ * free-tier budget of 100k reads/day, so no cap issues at signup volumes.
+ *
+ * Usage:
+ *   node scripts/emails.mjs              table of email signups
+ *   node scripts/emails.mjs --csv        CSV to stdout (redirect to a file)
+ *   node scripts/emails.mjs --json       raw rows
+ *   node scripts/emails.mjs --paid       include paid opt-ins (tx:* keys)
+ *   node scripts/emails.mjs --limit 50   cap key fetches (default 500)
+ */
 
 import { execFileSync } from "node:child_process";
 
@@ -36,7 +38,8 @@ function listAll() {
 }
 
 const keys = listAll()
-  .map((k) => (typeof k === "string" ? k : k.name))
+  // wrangler list rows are either plain key strings or {name} objects.
+  .map((k) => k?.name ?? k)
   .filter((k) => k.startsWith("email:") || (includePaid && k.startsWith("tx:")))
   .slice(0, limit);
 

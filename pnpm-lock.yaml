@@ -11,6 +11,9 @@ importers:
       '@oxlint/plugins':
         specifier: 1.80.0
         version: 1.80.0
+      husky:
+        specifier: ^9.1.7
+        version: 9.1.7
       oxlint:
         specifier: 1.80.0
         version: 1.80.0
@@ -143,6 +146,11 @@ packages:
     resolution: {integrity: sha512-QRgH1XqQEYNHa4f1vvPQ5fAdNdncHGIUG1ZWLlGIZHky3qwCEeAKYitZNbZMtaXtAQAAFFTOwqUfzESvimqZNA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
+  husky@9.1.7:
+    resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
+    engines: {node: '>=18'}
+    hasBin: true
+
   oxlint@1.80.0:
     resolution: {integrity: sha512-5nTiSps4qdbCWLbxzuO00alHkEO2exR9YMN/ig6QXWrLsYSG0KaObOAM+l6oU2LcKPWoSAGYbkZIGEu1ViiWKA==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -216,6 +224,8 @@ snapshots:
     optional: true
 
   '@oxlint/plugins@1.80.0': {}
+
+  husky@9.1.7: {}
 
   oxlint@1.80.0:
     optionalDependencies:

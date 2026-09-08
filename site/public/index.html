@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta name="base:app_id" content="6a9f81c83c7effd83305210c">
 <link rel="canonical" href="https://rentresilience.org/">
-<meta name="description" content="Rent Resilience — agentic infrastructure that resolves housing obligations. Verified rent history, privacy-preserving proofs, x402-paid APIs on Base.">
+<meta name="description" content="Rent Resilience: agentic infrastructure that resolves housing obligations. Verified rent history, privacy-preserving proofs, x402-paid APIs on Base.">
 <meta property="og:title" content="Rent Resilience">
 <meta property="og:description" content="Rent should compound into resilience. Private facts, public proofs, portable trust.">
 <meta property="og:image" content="https://rentresilience.org/rent-resilience-thumbnail.png">
@@ -276,7 +276,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
         </div>
       </div>
       <div class="hdiag fu d4">
-        <div class="hdbar"><span class="hdot" style="background:#8b3a2a"></span><span class="hdot" style="background:#8b7030"></span><span class="hdot" style="background:#3a7040"></span><span class="hdt">architecture — what's onchain, what isn't</span></div>
+        <div class="hdbar"><span class="hdot" style="background:#8b3a2a"></span><span class="hdot" style="background:#8b7030"></span><span class="hdot" style="background:#3a7040"></span><span class="hdt">architecture: what's onchain, what isn't</span></div>
         <div class="hdbody">
 <span class="hdk">renter / landlord / platform</span><br>
 <span class="hdo">→</span> <span class="hdnode on">RentObligation ledger</span> <span class="hdo">(private, signed events)</span><br>
@@ -322,13 +322,13 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
         </div>
         <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--br)">
           <div class="fpd" style="margin-bottom:10px"><span class="tag tg">Agents</span> post to the endpoint</div>
-          <div class="ffine" style="font-size:10px;color:var(--mu);line-height:1.9">curl -X POST <span style="color:var(--go)">https://rentresilience.org/api/optin</span><br>answers 402 with scheme <span style="color:var(--go)">exact</span>, asset <span style="color:var(--go)">USDC@base-sepolia</span>, <span style="color:var(--go)">0.01</span> — pay with any x402 client and you're in.</div>
+          <div class="ffine" style="font-size:10px;color:var(--mu);line-height:1.9">curl -X POST <span style="color:var(--go)">https://rentresilience.org/api/optin</span><br>answers 402 with scheme <span style="color:var(--go)">exact</span>, asset <span style="color:var(--go)">USDC@base-sepolia</span>, <span style="color:var(--go)">0.01</span>. Pay with any x402 client and you're in.</div>
         </div>
       </div>
     </div>
     <div style="margin-top:28px;border:1px solid var(--brh);border-radius:4px;padding:20px;background:var(--sf)">
       <div class="fpd" style="margin-bottom:8px"><span class="tag tg">Or just email</span> no wallet, no payment</div>
-      <div class="ffline" style="margin-bottom:12px">Say "keep building." That's the whole signal. We only write when there's something real — proofs live, sandbox opening.</div>
+      <div class="ffline" style="margin-bottom:12px">Say "keep building." That's the whole signal. We only write when there's something real: proofs live, sandbox opening.</div>
       <form class="frow" onsubmit="return submitContact(event, this, 'email-only')" style="max-width:520px">
         <input class="fi" type="email" placeholder="you@wherever.com" required />
         <button class="fb" type="submit">Keep building →</button>
@@ -349,15 +349,15 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
     <div class="psg">
       <div class="psc bad">
         <div class="psrl"><span class="tag tr">✕ The current stack</span></div>
-        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Card rent</span><span class="psv bv">2.75% fee — $53 on $1,925</span></div></div>
-        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Split pay</span><span class="psv bv">$9.99 + 1.5% — $38.87 on $1,925</span></div></div>
+        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Card rent</span><span class="psv bv">2.75% fee: $53 on $1,925</span></div></div>
+        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Split pay</span><span class="psv bv">$9.99 + 1.5%: $38.87 on $1,925</span></div></div>
         <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Settled vs received</span><span class="psv bv">ACH days; landlord doesn't see settlement until cleared</span></div></div>
         <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Proof</span><span class="psv bv">Years on-time: invisible. One short month: a credit ding</span></div></div>
-        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">When it breaks</span><span class="psv bv">Late fee, advance, or eviction notice — no composition</span></div></div>
+        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">When it breaks</span><span class="psv bv">Late fee, advance, or eviction notice. No composition.</span></div></div>
       </div>
       <div class="psc good">
         <div class="psrl"><span class="tag tg">✓ Rent Resilience</span></div>
-        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Rail</span><span class="psv gv">USDC on Base or ACH/FedNow — cheapest rail that settles right</span></div></div>
+        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Rail</span><span class="psv gv">USDC on Base or ACH/FedNow: cheapest rail that settles right</span></div></div>
         <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Exception</span><span class="psv gv">Agent composes flex + assistance; debt is the last option</span></div></div>
         <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Settlement</span><span class="psv gv">24/7 when funds are onchain; evidence is signed and anchored</span></div></div>
         <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Proof</span><span class="psv gv">Append-only history → portable claims. 24 of 24 is a fact you own</span></div></div>
@@ -370,14 +370,14 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
       <div class="cc2" style="border-color:var(--brh);background:var(--td)"><span class="ccl">Proof a landlord reads</span><div class="cca" style="color:var(--te)">$0.05</div><p class="ccn">x402 price for a verified reliability claim.</p></div>
     </div>
     <div class="term" style="margin-top:14px">
-      <div class="tbar"><span class="tc" style="background:#8b3a2a"></span><span class="tc" style="background:#8b7030"></span><span class="tc" style="background:#3a7040"></span><span class="ttl">resolution — $1,925 due, renter holds $1,300</span></div>
+      <div class="tbar"><span class="tc" style="background:#8b3a2a"></span><span class="tc" style="background:#8b7030"></span><span class="tc" style="background:#3a7040"></span><span class="ttl">resolution: $1,925 due, renter holds $1,300</span></div>
       <div class="hdbody">
 <span class="hdo">// ObligationCreated $1,925 · status: due</span><br>
 <span class="hdo">// Month 25: renter can pay $1,300 → agent composes the stack</span><br>
 <span class="hdk">renter</span>: <span class="hdv">$1,300</span>  <span class="hdo">// now</span><br>
 <span class="hdk">assistance</span>: <span class="hdv">$  300</span>  <span class="hdo">// sandbox provider, no repayment</span><br>
 <span class="hdk">landlord_flex</span>: <span class="hdv">$  325</span>  <span class="hdo">// policy-authorized extension, due 10th</span><br>
-<span class="hdk">debt</span>: <span class="hdv">$    0</span>   <span class="hdo">// borrow last — never needed here</span><br>
+<span class="hdk">debt</span>: <span class="hdv">$    0</span>   <span class="hdo">// borrow last: never needed here</span><br>
 <span class="hdo">//</span><br>
 <span class="hdo">// ObligationSatisfied · 25/25 · 24 independ · 1 assisted</span><br>
 <span class="hdo">// Merkle root anchored to Base · no PII onchain, ever</span>
@@ -393,7 +393,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
     <p class="ss">The pipeline from a renter in a bind to a resolved obligation, in order. Full spec: <a href="https://docs.rentresilience.org/docs/protocol" style="color:var(--go)">docs →</a></p>
     <div class="flayout">
       <div class="flcard">
-        <div class="flb"><span class="hdot" style="background:#8b3a2a"></span><span class="hdot" style="background:#8b7030"></span><span class="hdot" style="background:#3a7040"></span><span class="hdt">obligation.mjs — the flow, top to bottom</span></div>
+        <div class="flb"><span class="hdot" style="background:#8b3a2a"></span><span class="hdot" style="background:#8b7030"></span><span class="hdot" style="background:#3a7040"></span><span class="hdt">obligation.mjs: the flow, top to bottom</span></div>
         <div class="flbody">
 <span class="flo">// what happens when a renter says "I can pay $1,300 by Friday"</span><br>
 <span class="flk">1.</span> renter request lands → <span class="hdnode">obligation service</span><br>
@@ -406,7 +406,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
         </div>
       </div>
       <div class="flcard">
-        <div class="flb"><span class="hdot" style="background:#8b3a2a"></span><span class="hdot" style="background:#8b7030"></span><span class="hdot" style="background:#3a7040"></span><span class="hdt">provider stack — who owns what</span></div>
+        <div class="flb"><span class="hdot" style="background:#8b3a2a"></span><span class="hdot" style="background:#8b7030"></span><span class="hdot" style="background:#3a7040"></span><span class="hdt">provider stack: who owns what</span></div>
         <div class="flbody">
 <span class="flk">landlord flex</span>   <span class="flo">// landlord authorizes once, agents enforce</span><br>
 <span class="flk">assistance</span>      <span class="flo">// nonprofit/benefit programs set eligibility</span><br>
@@ -465,7 +465,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
     <p class="ss">The chain sees Merkle roots only. Everything sensitive lives off it, and disclosure is the renter's choice. <a href="https://docs.rentresilience.org/docs/protocol" style="color:var(--go)">Full model →</a></p>
     <div class="sg2">
       <div class="sps">
-        <div class="spl"><div class="splt">No PII onchain, ever</div><div class="spld">Names, addresses, leases, income, bank IDs — none of it. The public chain holds cryptographic roots and nothing else. Not even salted hashes of guessable facts.</div></div>
+        <div class="spl"><div class="splt">No PII onchain, ever</div><div class="spld">Names, addresses, leases, income, bank IDs. None of it. The public chain holds cryptographic roots and nothing else. Not even salted hashes of guessable facts.</div></div>
         <div class="spl"><div class="splt">Minimum-disclosure claims</div><div class="spld">Prove "12 of 12 satisfied" without revealing the address, the amounts, or the history. The verifier sees only the claim you authorized.</div></div>
         <div class="spl"><div class="splt">Tamper-evident without trust</div><div class="spld">Change a record, break the root. Anyone checking the anchor on Base sees the break. No need to trust us on history.</div></div>
         <div class="spl"><div class="splt">Earn the chain</div><div class="spld">Anchoring starts on a cheap EVM L2 (Base Sepolia, then mainnet). A permissioned network is a P3, only when multiple institutions need shared governance.</div></div>
@@ -474,7 +474,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
       <div class="sc2">
         <div class="scb"><span class="scd" style="background:#8b3a2a"></span><span class="scd" style="background:#8b7030"></span><span class="scd" style="background:#3a7040"></span><span style="margin-left:7px">anchor.mjs</span></div>
         <div class="scb2">
-<span class="sco">// What actually goes onchain — a weekend prototype, not a promise</span><br>
+<span class="sco">// What actually goes onchain: a weekend prototype, not a promise</span><br>
 <span class="sck">const</span> leaves = events.<span class="scv">map</span>(h => <span class="scv">sha256</span>(<span class="scv">jcs</span>(h))); <span class="sco">// hashes only</span><br>
 <span class="sck">const</span> root = <span class="scv">merkleRoot</span>(leaves);<br>
 <span class="sck">await</span> anchor.<span class="scv">commit</span>(root, { dataSuffix: builderCode });<br>
@@ -509,11 +509,11 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
     <h2>The questions a landlord,<br>a renter, or a judge <em>actually asks</em>.</h2>
     <div class="ffine">Straight answers, no hedging. Full write-up: <a href="https://docs.rentresilience.org/docs/protocol" style="color:var(--go)">docs →</a></div>
     <div class="faq">
-      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Does this store my lease, address, or income on a public blockchain?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">No. Ever. Protocol events contain opaque identifiers and integer amounts in minor units of currency. The actual documents and identities live in a private encrypted store. The public chain only sees the periodic Merkle root of your event history — proof the record exists and hasn't been rewritten, with nothing about you in it.</div></div></div>
-      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">How is this not just rent reporting like Esusu or Bilt?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Those services report your payments to a credit bureau or give you rewards points after the fact. This resolves the exception in the moment it happens. The ledger is the substrate; the product is what an agent does with it when you come up short — composing landlord flexibility and assistance before any debt appears. Rent reporting looks backward. Resolution works forward.</div></div></div>
-      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Are you taking custody of my rent?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">No. The MVP moves no real money at all — the sandbox uses synthetic obligations and simulated providers. Payment rails are adapters: ACH, FedNow, or USDC on Base, chosen by cost and settlement truth, not by ideology. When real funds settle later, it's through licensed providers who own the custody, not this protocol.</div></div></div>
-      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">What does an "assistance event" do to my reliability record?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">It counts. Getting help doesn't erase your history — an assisted month closes the obligation and it stays in your satisfied record. An independent-satisfaction streak ends, because that streak means something narrower (you funded it alone). 24 of 24 satisfied with 1 assisted is a stronger application story than 24 of 24 alone that never had to exist.</div></div></div>
-      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">So the "paid by an agent" thing — does it already work?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Yes, in one small place. POST <span class="ci2">/api/optin</span> on this site answers 402, takes one cent in USDC on Base Sepolia, and records the paying agent's address. That's the entire mechanism. The reliability-proof endpoints arrive with the ledger; dates live on the <a href="/status" style="color:var(--go)">status page</a>. The spike exists so the rail is real before there's anything to sell behind it.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Does this store my lease, address, or income on a public blockchain?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">No. Ever. Protocol events contain opaque identifiers and integer amounts in minor units of currency. The actual documents and identities live in a private encrypted store. The public chain only sees the periodic Merkle root of your event history: proof the record exists and hasn't been rewritten, with nothing about you in it.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">How is this not just rent reporting like Esusu or Bilt?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Those services report your payments to a credit bureau or give you rewards points after the fact. This resolves the exception in the moment it happens. The ledger is the substrate; the product is what an agent does with it when you come up short, composing landlord flexibility and assistance before any debt appears. Rent reporting looks backward. Resolution works forward.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Are you taking custody of my rent?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">No. The MVP moves no real money at all: the sandbox uses synthetic obligations and simulated providers. Payment rails are adapters: ACH, FedNow, or USDC on Base, chosen by cost and settlement truth, not by ideology. When real funds settle later, it's through licensed providers who own the custody, not this protocol.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">What does an "assistance event" do to my reliability record?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">It counts. Getting help doesn't erase your history: an assisted month closes the obligation and it stays in your satisfied record. An independent-satisfaction streak ends, because that streak means something narrower (you funded it alone). 24 of 24 satisfied with 1 assisted is a stronger application story than 24 of 24 alone that never had to exist.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">So the "paid by an agent" thing: does it already work?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Yes, in one small place. POST <span class="ci2">/api/optin</span> on this site answers 402, takes one cent in USDC on Base Sepolia, and records the paying agent's address. That's the entire mechanism. The reliability-proof endpoints arrive with the ledger; dates live on the <a href="/status" style="color:var(--go)">status page</a>. The spike exists so the rail is real before there's anything to sell behind it.</div></div></div>
       <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Why Base and not an existing rental platform's own chain?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Base is where x402 agent payments and ERC-8021 builder attribution already work. Public anchoring on Base gives the record tamper evidence anyone can verify with no trust in this company. The protocol is portable; the first deployment follows the payment rail and the agents.</div></div></div>
     </div>
   </div>
@@ -523,7 +523,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
   <div class="con">
     <div class="fci">
       <h2 class="fch">Rent already moves $50B+ a year.<br>Rent <em>reliability</em> is free to earn.</h2>
-      <p class="fcs">Protocol schemas are MIT-licensed on GitHub today. And the 1¢ opt-in is live right now — one cent of USDC says you meant it.</p>
+      <p class="fcs">Protocol schemas are MIT-licensed on GitHub today. And the 1¢ opt-in is live right now. One cent of USDC says you meant it.</p>
       <div class="fclinks">
         <a class="fclink primary" data-ph="final-pay" href="/api/optin" target="_blank">Pay the 1¢ · join early access →</a>
         <a class="fclink" href="https://github.com/kylebrodeur/rent-resilience" target="_blank">Read the Protocol</a>
@@ -552,7 +552,7 @@ async function confirmOptin(ev){
     const res=await fetch('/api/confirm',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({txHash:v})});
     const body=await res.json();
     if(res.ok){window.__lastTxHash=body.txHash;document.getElementById('omsg2').style.display='block';msg.innerHTML='✓ In. Receipt: <a href="https://basescan.org/tx/'+body.txHash+'" target="_blank" style="color:var(--go)">'+body.txHash.slice(0,10)+'…</a> · <a href="https://github.com/kylebrodeur/rent-resilience" target="_blank" style="color:var(--go)">next: read the protocol</a>';phTrack('optin_confirm',{result:'joined',lane:'qr'});}
-    else if(res.status===404){msg.textContent=body.hint||'Not seen onchain yet — try again in a few seconds.';phTrack('optin_confirm',{result:'not-found-yet',lane:'qr'});}
+    else if(res.status===404){msg.textContent=body.hint||'Not seen onchain yet. Try again in a few seconds.';phTrack('optin_confirm',{result:'not-found-yet',lane:'qr'});}
     else{msg.textContent=body.error||'Check failed; retry later.';phTrack('optin_confirm',{result:'error',lane:'qr'});}
   }catch(e){msg.textContent='Check failed; retry later.';phTrack('optin_confirm',{result:'error',lane:'qr'});}
   return false;
@@ -562,7 +562,7 @@ async function submitContact(ev, form, via){
   const email = form.querySelector('input[type=email]').value.trim();
   const txHash = window.__lastTxHash || null;
   const msg = document.getElementById(via==='email-only' ? 'emsg' : 'omsg2');
-  if(!email){msg.textContent='Email first — the whole point of this box.';return false;}
+  if(!email){msg.textContent='Email first. The whole point of this box.';return false;}
   try{
     const res=await fetch('/api/contact',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:email,via:via,txHash:txHash})});
     const body=await res.json();

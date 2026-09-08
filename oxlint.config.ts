@@ -36,6 +36,7 @@ export default defineConfig({
 		"anti-slop/require-safety-comment-for-type-assertion": "error",
 		"anti-slop-rent/no-float-money": "error",
 		"anti-slop-rent/no-oversized-comments": "error",
+		"anti-slop-rent/no-slop-prose": "error",
 		"anti-slop-rent/no-weak-randomness": "error",
 	},
 });

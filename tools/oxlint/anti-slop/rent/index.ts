@@ -2,6 +2,7 @@ import { eslintCompatPlugin } from "@oxlint/plugins";
 
 import { noFloatMoneyRule } from "./rules/no-float-money.ts";
 import { noOversizedCommentsRule } from "./rules/no-oversized-comments.ts";
+import { noSlopProseRule } from "./rules/no-slop-prose.ts";
 import { noWeakRandomnessRule } from "./rules/no-weak-randomness.ts";
 
 /**
@@ -15,6 +16,7 @@ const antiSlopRentPlugin = eslintCompatPlugin({
 	rules: {
 		"no-float-money": noFloatMoneyRule,
 		"no-oversized-comments": noOversizedCommentsRule,
+		"no-slop-prose": noSlopProseRule,
 		"no-weak-randomness": noWeakRandomnessRule,
 	},
 });
