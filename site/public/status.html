@@ -23,7 +23,9 @@ a{color:var(--go)}
 .tg{color:var(--go);background:var(--gd);border:1px solid var(--gb)}
 .tt{color:var(--te);background:var(--td);border:1px solid var(--tb)}
 header.top{padding:72px 0 40px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--tx);font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:17px;letter-spacing:-.03em;margin-bottom:34px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--tx);font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:17px;letter-spacing:-.03em;margin-bottom:12px}
+header.top a[href="/"][style]{display:inline-block;margin-bottom:30px}
+header.top a[href="/"][style]:hover{color:var(--tx)}
 .brand .mark{width:30px;height:30px;border-radius:8px;box-shadow:0 0 0 1px var(--brh)}
 h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(30px,4.4vw,46px);font-weight:800;line-height:1.05;letter-spacing:-.04em;margin-bottom:14px}
 h1 em{font-style:normal;color:var(--go)}
@@ -63,12 +65,16 @@ footer a{color:var(--mu)}
     <svg class="mark" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" rx="220" fill="#1a1510"/><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M226 462L512 226L798 462" stroke="#c98d1a" stroke-width="54"/><path d="M512 788V528" stroke="#5a9e80" stroke-width="50"/><path d="M512 628C426 628 375 579 375 496C460 496 512 545 512 628Z" stroke="#5a9e80" stroke-width="50"/><path d="M512 566C598 566 649 517 649 434C564 434 512 484 512 566Z" stroke="#5a9e80" stroke-width="50"/><path d="M406 788H618" stroke="#5a9e80" stroke-width="50"/></g></svg>
     Rent Resilience
   </a>
+  <a href="/" style="font-family:'Martian Mono',monospace;font-size:11px;color:var(--mu);text-decoration:none;letter-spacing:.04em">← Back to the site</a>
   <h1>Shipped, building <em>next</em>, and the receipts.</h1>
   <p class="lede">A public view of where the protocol stands. Updated by hand as work lands; every claim links to something you can check. The working dashboard stays private.</p>
   <div class="chips">
     <span class="tag tg">Batches 004 · submitted Sep 8</span>
     <span class="tag tg">Pre-MVP · no real money moved</span>
     <span class="tag tt">Cash spend to date: $13.38</span>
+  </div>
+  <div style="margin-top:26px;border:1px solid var(--brh);border-radius:4px;overflow:hidden;aspect-ratio:16/9">
+    <iframe src="https://www.youtube-nocookie.com/embed/5gJXJnhne-E" title="Rent Resilience founder video, 2:07" style="width:100%;height:100%;border:0" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe>
   </div>
 </header>
 

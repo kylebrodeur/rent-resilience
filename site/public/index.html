@@ -45,7 +45,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .bnav{font-family:'Martian Mono',monospace;font-size:11px;font-weight:600;color:var(--bg);background:var(--go);border:none;padding:8px 14px;border-radius:2px;min-height:44px;cursor:pointer;text-decoration:none;transition:opacity .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;line-height:1}
 .bnav:hover{opacity:.82}
 
-#hero{padding:100px 0 56px;position:relative;overflow:hidden}
+#hero{padding:80px 0 48px;position:relative;overflow:hidden}
 .hglow{position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:800px;height:440px;background:radial-gradient(ellipse at center top,var(--gg) 0%,transparent 65%);pointer-events:none}
 .herogrid{display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center}
 .hpill{display:inline-flex;align-items:center;gap:11px;flex-wrap:wrap;border:1px solid var(--brh);border-radius:2px;background:var(--sf);padding:6px 13px;font-family:'Martian Mono',monospace;font-size:10px;color:var(--mu);margin-bottom:22px}
@@ -53,7 +53,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .hd2{width:5px;height:5px;background:var(--go);border-radius:50%;animation:pulse 1.6s infinite}
 .hsep{color:var(--dm)}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
-.h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,4.6vw,54px);font-weight:800;line-height:1.02;letter-spacing:-.04em;margin-bottom:20px;max-width:100%}
+.h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(30px,3.6vw,44px);font-weight:800;line-height:1.05;letter-spacing:-.04em;margin-bottom:16px;max-width:560px}
 .h1 em{font-style:normal;color:var(--go)}
 .h3brand{display:flex;align-items:center;gap:18px;margin-bottom:20px}
 .hmark{width:72px;height:72px;flex-shrink:0;border-radius:16px;box-shadow:0 0 0 1px var(--brh)}
@@ -190,6 +190,7 @@ footer a:hover{color:var(--mu)}
 
 @media(max-width:960px){.herogrid{grid-template-columns:1fr}.hdiag{order:2}}
 @media(max-width:860px){.psg,.sg2,.fg,#api .apitab{grid-template-columns:1fr}.psc.bad{border-right:none;border-bottom:1px solid var(--br)}.nl{display:none}}
+@media(max-width:640px){.bnavtxt{display:none}.bnav{padding:8px 10px}.logo{font-size:15px;white-space:nowrap}#tmlbl{display:none}.tmbtn{padding:5px 8px}.nr{gap:10px}.ni{padding:0 20px}.optgrid{grid-template-columns:1fr!important}.optgrid .flcard{max-width:220px;margin:0 auto}}
 
 :focus-visible{outline:2px solid var(--go);outline-offset:2px}
 .tmbtn:focus-visible,.bnav:focus-visible,.fqq:focus-visible,.fclink:focus-visible,.fb:focus-visible{outline:2px solid var(--go);outline-offset:2px;border-radius:2px}
@@ -222,7 +223,7 @@ footer a:hover{color:var(--mu)}
         <span id="tmicon">☀</span>
         <span id="tmlbl">Light</span>
       </button>
-      <a href="https://github.com/kylebrodeur/rent-resilience" class="bnav" target="_blank"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" style="flex-shrink:0"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>Read the Protocol</a>
+      <a href="https://github.com/kylebrodeur/rent-resilience" class="bnav" target="_blank"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" style="flex-shrink:0"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="bnavtxt">Read the Protocol</span></a>
     </div>
   </div>
 </nav>
@@ -238,29 +239,22 @@ footer a:hover{color:var(--mu)}
     </div>
     <div class="herogrid">
       <div>
-        <div class="h3brand fu d2"><svg class="hmark" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" rx="220" fill="#1a1510"/><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M226 462L512 226L798 462" stroke="#c98d1a" stroke-width="54"/><path d="M512 788V528" stroke="#5a9e80" stroke-width="50"/><path d="M512 628C426 628 375 579 375 496C460 496 512 545 512 628Z" stroke="#5a9e80" stroke-width="50"/><path d="M512 566C598 566 649 517 649 434C564 434 512 484 512 566Z" stroke="#5a9e80" stroke-width="50"/><path d="M406 788H618" stroke="#5a9e80" stroke-width="50"/></g></svg></div>
-        <h1 class="h1 fu d2">Pay rent for two years.<br>Be worth <em>something</em><br>the month you're short.</h1>
-        <p class="hsub fu d3">Years of on-time payments are proof. Right now they count for nothing the first month something goes wrong. Rent Resilience turns rent into a verifiable obligation — private facts stay off-chain, proofs anchor to Base, and agents resolve shortfalls with the least harm done.</p>
+        <h1 class="h1 fu d2">Pay rent for two years. Be worth <em>something</em> the month you're short.</h1>
+        <p class="hsub fu d3">Years of on-time payments are proof, but they count for nothing the month something goes wrong. Rent Resilience makes rent verifiable: private facts stay off-chain, proofs anchor to Base, and agents resolve shortfalls with the least harm done.</p>
         <div class="fu d4">
-          <label class="flbl">Developer? First x402 endpoint is the door in.</label>
-          <div class="frow">
-            <span class="fi"><span>GET /v1/proofs/reliability</span></span>
-            <a class="fb" href="/api/optin" target="_blank">Try the 402 →</a>
+          <div class="frow" style="max-width:320px">
+            <a class="fb" style="flex:1;border-radius:3px;justify-content:center;min-height:46px" href="#optin">Try the 402 · 1¢ USDC ↓</a>
           </div>
-          <div class="ffine">Live today: <span>POST /api/optin · $0.01 USDC · Base Sepolia</span> — the payment handshake is already on the site. Proofs at <span>$0.03–$0.05</span> land in week 3.</div>
+          <div class="ffine">Live today: <span>POST /api/optin · 0.01 USDC</span> on the site now. Proof endpoints land week 3.</div>
         </div>
         <div class="hstats fu d3">
           <div class="hst"><span class="n">$46k</span><span class="l">on-time rent counts for $0 today</span></div>
           <div class="hst"><span class="n">0</span><span class="l">PII onchain, ever</span></div>
-          <div class="hst"><span class="n">x402</span><span class="l">first revenue rail</span></div>
-          <div class="hst"><span class="n">4 wk</span><span class="l">to developer preview</span></div>
         </div>
       </div>
       <div class="hdiag fu d4">
         <div class="hdbar"><span class="hdot" style="background:#8b3a2a"></span><span class="hdot" style="background:#8b7030"></span><span class="hdot" style="background:#3a7040"></span><span class="hdt">architecture — what's onchain, what isn't</span></div>
         <div class="hdbody">
-<span class="hdo">// rent_resilience · what touches Base vs what never does</span><br>
-<br>
 <span class="hdk">renter / landlord / platform</span><br>
 <span class="hdo">→</span> <span class="hdnode on">RentObligation ledger</span> <span class="hdo">(private, signed events)</span><br>
 <span class="hdo">→</span> <span class="hdnode">reliability engine</span> <span class="hdo">(derives facts from history)</span><br>
@@ -275,52 +269,6 @@ footer a:hover{color:var(--mu)}
         </div>
       </div>
     </div>
-    <div class="term fu d4" style="margin-top:36px">
-      <div class="tbar"><span class="tc" style="background:#8b3a2a"></span><span class="tc" style="background:#8b7030"></span><span class="tc" style="background:#3a7040"></span><span class="ttl">resolution — $1,925 due, renter holds $1,300</span></div>
-      <div class="hdbody">
-<span class="hdo">// ObligationCreated $1,925 · status: due</span><br>
-<span class="hdo">//</span><br>
-<span class="hdo">// Month 25: renter can pay $1,300 → agent composes the stack</span><br>
-<span class="hdk">renter</span>: <span class="hdv">$1,300</span>  <span class="hdo">// now</span><br>
-<span class="hdk">assistance</span>: <span class="hdv">$  300</span>  <span class="hdo">// sandbox provider, no repayment</span><br>
-<span class="hdk">landlord_flex</span>: <span class="hdv">$  325</span>  <span class="hdo">// policy-authorized extension, due 10th</span><br>
-<span class="hdk">debt</span>: <span class="hdv">$    0</span>   <span class="hdo">// borrow last — never needed here</span><br>
-<span class="hdo">//</span><br>
-<span class="hdo">// ObligationSatisfied · 25/25 · 24 independ · 1 assisted</span><br>
-<span class="hdo">// Merkle root anchored to Base · no PII onchain, ever</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="problem">
-  <div class="con">
-    <div class="sl">What rent actually costs</div>
-    <h2>Reliability is invisible.<br>Hardship is <em>instantly priced.</em></h2>
-    <p class="ss">The existing stack takes a cut or sells you certainty you already earned. None of it resolves the exception. <a href="https://docs.rentresilience.org/docs/" style="color:var(--go)">How resolution works →</a></p>
-    <div class="psg">
-      <div class="psc bad">
-        <div class="psrl"><span class="tag tr">✕ The current stack</span></div>
-        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Card rent</span><span class="psv bv">2.75% fee — $53 on $1,925</span></div></div>
-        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Split pay</span><span class="psv bv">$9.99 + 1.5% — $38.87 on $1,925</span></div></div>
-        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Settled vs received</span><span class="psv bv">ACH days; landlord doesn't see settlement until cleared</span></div></div>
-        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Proof</span><span class="psv bv">Years on-time: invisible. One short month: a credit ding</span></div></div>
-        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">When it breaks</span><span class="psv bv">Late fee, advance, or eviction notice — no composition</span></div></div>
-      </div>
-      <div class="psc good">
-        <div class="psrl"><span class="tag tg">✓ Rent Resilience</span></div>
-        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Rail</span><span class="psv gv">USDC on Base or ACH/FedNow — cheapest rail that settles right</span></div></div>
-        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Exception</span><span class="psv gv">Agent composes flex + assistance; debt is the last option</span></div></div>
-        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Settlement</span><span class="psv gv">24/7 when funds are onchain; evidence is signed and anchored</span></div></div>
-        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Proof</span><span class="psv gv">Append-only history → portable claims. 24 of 24 is a fact you own</span></div></div>
-        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">When it breaks</span><span class="psv gv">Obligation resolves across providers, never silently</span></div></div>
-      </div>
-    </div>
-    <div class="crow">
-      <div class="cc2 bad"><span class="ccl">One $1,925 rent on card</span><div class="cca">$53</div><p class="ccn">2.75% fee. Every month, every card user.</p></div>
-      <div class="cc2 good"><span class="ccl">Resolving a $625 shortfall</span><div class="cca" style="color:var(--go)">$0</div><p class="ccn">Flex + assistance compose at origin. No fee on resolving.</p></div>
-      <div class="cc2" style="border-color:var(--brh);background:var(--td)"><span class="ccl">Proof a landlord reads</span><div class="cca" style="color:var(--te)">$0.05</div><p class="ccn">x402 price for a verified reliability claim.</p></div>
-    </div>
   </div>
 </section>
 
@@ -329,7 +277,7 @@ footer a:hover{color:var(--mu)}
     <div class="sl">Try it now</div>
     <h2>The Mint stopped minting pennies.<br><em>Somebody had to</em> pick up the slack.</h2>
     <p class="ss">Proving you're interested costs 1¢ and a signature on Base, or just an email if you'd rather skip the wallet. Paid-anonymous stays anonymous; paid plus email gives us a way back to you.</p>
-    <div style="display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:start;margin-top:34px">
+    <div class="optgrid" style="display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:start;margin-top:34px">
       <div class="flcard" style="text-align:center;padding:18px">
         <img src="/optin-qr.png" alt="QR code: send 1 cent USDC on Base to the Rent Resilience opt-in address" style="width:100%;max-width:160px;border-radius:3px"/><div class="hdt" style="font-size:9px;margin-top:10px">scan with a wallet app<br>1¢ USDC · Base (mainnet)</div>
         <a class="fb" style="margin-top:12px;justify-content:center;text-align:center;border-radius:3px;white-space:normal;line-height:1.45;padding:11px 14px;gap:7px" href="ethereum:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913@8453/transfer?address=0x79588BB628c741d073FD3bC47685328Cf8aD6802&uint256=10000"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg><span>On mobile? Tap to pay 1¢</span></a>
@@ -367,6 +315,51 @@ footer a:hover{color:var(--mu)}
         (The Mint actually did stop minting pennies in 2025. The cent just moved onchain.)
       </div>
         </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="con">
+    <div class="sl">What rent actually costs</div>
+    <h2>Reliability is invisible.<br>Hardship is <em>instantly priced.</em></h2>
+    <p class="ss">The existing stack takes a cut or sells you certainty you already earned. None of it resolves the exception. <a href="https://docs.rentresilience.org/docs/" style="color:var(--go)">How resolution works →</a></p>
+    <div class="psg">
+      <div class="psc bad">
+        <div class="psrl"><span class="tag tr">✕ The current stack</span></div>
+        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Card rent</span><span class="psv bv">2.75% fee — $53 on $1,925</span></div></div>
+        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Split pay</span><span class="psv bv">$9.99 + 1.5% — $38.87 on $1,925</span></div></div>
+        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Settled vs received</span><span class="psv bv">ACH days; landlord doesn't see settlement until cleared</span></div></div>
+        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">Proof</span><span class="psv bv">Years on-time: invisible. One short month: a credit ding</span></div></div>
+        <div class="psr"><span style="color:var(--ru);flex-shrink:0">✕</span><div><span class="psk">When it breaks</span><span class="psv bv">Late fee, advance, or eviction notice — no composition</span></div></div>
+      </div>
+      <div class="psc good">
+        <div class="psrl"><span class="tag tg">✓ Rent Resilience</span></div>
+        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Rail</span><span class="psv gv">USDC on Base or ACH/FedNow — cheapest rail that settles right</span></div></div>
+        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Exception</span><span class="psv gv">Agent composes flex + assistance; debt is the last option</span></div></div>
+        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Settlement</span><span class="psv gv">24/7 when funds are onchain; evidence is signed and anchored</span></div></div>
+        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">Proof</span><span class="psv gv">Append-only history → portable claims. 24 of 24 is a fact you own</span></div></div>
+        <div class="psr"><span style="color:var(--go);flex-shrink:0">✓</span><div><span class="psk">When it breaks</span><span class="psv gv">Obligation resolves across providers, never silently</span></div></div>
+      </div>
+    </div>
+    <div class="crow">
+      <div class="cc2 bad"><span class="ccl">One $1,925 rent on card</span><div class="cca">$53</div><p class="ccn">2.75% fee. Every month, every card user.</p></div>
+      <div class="cc2 good"><span class="ccl">Resolving a $625 shortfall</span><div class="cca" style="color:var(--go)">$0</div><p class="ccn">Flex + assistance compose at origin. No fee on resolving.</p></div>
+      <div class="cc2" style="border-color:var(--brh);background:var(--td)"><span class="ccl">Proof a landlord reads</span><div class="cca" style="color:var(--te)">$0.05</div><p class="ccn">x402 price for a verified reliability claim.</p></div>
+    </div>
+    <div class="term" style="margin-top:14px">
+      <div class="tbar"><span class="tc" style="background:#8b3a2a"></span><span class="tc" style="background:#8b7030"></span><span class="tc" style="background:#3a7040"></span><span class="ttl">resolution — $1,925 due, renter holds $1,300</span></div>
+      <div class="hdbody">
+<span class="hdo">// ObligationCreated $1,925 · status: due</span><br>
+<span class="hdo">// Month 25: renter can pay $1,300 → agent composes the stack</span><br>
+<span class="hdk">renter</span>: <span class="hdv">$1,300</span>  <span class="hdo">// now</span><br>
+<span class="hdk">assistance</span>: <span class="hdv">$  300</span>  <span class="hdo">// sandbox provider, no repayment</span><br>
+<span class="hdk">landlord_flex</span>: <span class="hdv">$  325</span>  <span class="hdo">// policy-authorized extension, due 10th</span><br>
+<span class="hdk">debt</span>: <span class="hdv">$    0</span>   <span class="hdo">// borrow last — never needed here</span><br>
+<span class="hdo">//</span><br>
+<span class="hdo">// ObligationSatisfied · 25/25 · 24 independ · 1 assisted</span><br>
+<span class="hdo">// Merkle root anchored to Base · no PII onchain, ever</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -507,10 +500,10 @@ footer a:hover{color:var(--mu)}
   <div class="con">
     <div class="fci">
       <h2 class="fch">Rent already moves $50B+ a year.<br>Rent <em>reliability</em> is free to earn.</h2>
-      <p class="fcs">Protocol schemas are MIT-licensed on GitHub today. Sandbox in four weeks. The first x402 endpoint is the door in — $0.05/call, no keys.</p>
+      <p class="fcs">Protocol schemas are MIT-licensed on GitHub today. Sandbox in four weeks. And the 1¢ opt-in is live right now — one cent of USDC says you meant it.</p>
       <div class="fclinks">
-        <a class="fclink primary" href="https://github.com/kylebrodeur/rent-resilience" target="_blank">Read the Protocol →</a>
-        <a class="fclink" href="https://github.com/kylebrodeur/rent-resilience/blob/main/docs/roadmap-architecture.md" target="_blank">Roadmap</a>
+        <a class="fclink primary" href="/api/optin" target="_blank">Pay the 1¢ · join early access →</a>
+        <a class="fclink" href="https://github.com/kylebrodeur/rent-resilience" target="_blank">Read the Protocol</a>
         <a class="fclink" href="https://github.com/kylebrodeur/rent-resilience/tree/main/packages/protocol/schemas" target="_blank">Schemas</a>
       </div>
       <div class="fcn2">No token · No custody · No PII onchain · Solo founder, public by default</div>
