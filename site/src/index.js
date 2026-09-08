@@ -225,9 +225,25 @@ async function handleConfirm(request, env) {
   }, 200);
 }
 
+// Docs subdomain proxies the GitHub Pages build. Serving through the Worker
+// maps root-absolute asset paths onto the Pages subpath, which shiso emits.
+const DOCS_ORIGIN = "https://kylebrodeur.github.io/rent-resilience";
+
+async function handleDocs(request) {
+  const url = new URL(request.url);
+  const upstream = DOCS_ORIGIN + url.pathname + url.search;
+  const res = await fetch(upstream, { headers: { accept: request.headers.get("accept") || "*/*" } });
+  const headers = new Headers(res.headers);
+  headers.delete("x-frame-options");
+  return new Response(res.body, { status: res.status, headers: headers });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.hostname === "docs.rentresilience.org") {
+      return handleDocs(request);
+    }
     if (REDIRECT_HOSTS.has(url.hostname)) {
       url.hostname = CANONICAL_HOST;
       return Response.redirect(url.toString(), 301);

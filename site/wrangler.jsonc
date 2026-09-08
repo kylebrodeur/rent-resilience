@@ -13,6 +13,7 @@
   ],
   "routes": [
     { "pattern": "rentresilience.org", "custom_domain": true },
+    { "pattern": "docs.rentresilience.org", "custom_domain": true },
     { "pattern": "www.rentresilience.org", "custom_domain": true },
     { "pattern": "rentresilience.xyz", "custom_domain": true },
     { "pattern": "www.rentresilience.xyz", "custom_domain": true },
