@@ -289,7 +289,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
         <a href="/status">Status</a>
         <a href="https://docs.rentresilience.org/docs/" target="_blank">Docs</a>
       </div>
-      <button class="tmbtn" onclick="toggleTheme()" id="tmbtn">
+      <button class="tmbtn" onclick="toggleTheme()">
         <span id="tmicon">☀</span>
         <span id="tmlbl">Light</span>
       </button>
@@ -376,7 +376,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
       </div>
       <div>
         <div class="fpd" style="margin-bottom:14px"><span class="tag tg">Humans</span> scan → send → confirm</div>
-        <div class="ffline" style="margin-bottom:14px">A connected wallet confirms automatically. No wallet? Pay, then paste the transaction hash.</div>
+        <div class="ffline" style="margin-bottom:14px">A connected wallet or any wallet app confirms automatically. Paid by scanning the QR? Paste the transaction hash.</div>
         <form class="frow" onsubmit="return confirmOptin(event)" style="margin-bottom:8px">
           <input class="fi" id="otx" type="text" placeholder="0x… (transaction hash from your wallet)" aria-label="Transaction hash from your wallet" />
           <button class="fb" type="submit">Confirm →</button>
@@ -610,16 +610,16 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
         </div>
       </div>
       <div class="shside">
-        <a class="shrow" id="shx" data-share="x" data-ph="share-x" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener">
+        <a class="shrow" data-share="x" data-ph="share-x" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener">
           <div><div class="shrl">Post on X</div><div class="shrd">Post text prefilled, link included</div></div>
           <span class="fqar" aria-hidden="true">→</span>
         </a>
-        <a class="shrow" id="shfc" data-share="fc" data-ph="share-farcaster" href="https://warpcast.com/~/compose" target="_blank" rel="noopener">
+        <a class="shrow" data-share="fc" data-ph="share-farcaster" href="https://warpcast.com/~/compose" target="_blank" rel="noopener">
           <div><div class="shrl">Post on Farcaster</div><div class="shrd">Opens the Warpcast composer</div></div>
           <span class="fqar" aria-hidden="true">→</span>
         </a>
-        <button class="shrow" id="shcopy" data-copylink data-ph="share-copy" type="button">
-          <div><div class="shrl">Copy the link</div><div class="shrd" id="shcopylbl">rentresilience.org</div></div>
+        <button class="shrow" data-copylink data-ph="share-copy" type="button">
+          <div><div class="shrl">Copy the link</div><div class="shrd">rentresilience.org</div></div>
           <span class="fqar" aria-hidden="true">⧉</span>
         </button>
         <div class="ffine" style="padding:12px 4px;line-height:1.9">Post text used by the buttons: <span id="shposttxt" style="color:var(--tx)">"Rent should compound into resilience. Private rent proofs on Base. #rentresilience https://rentresilience.org"</span></div>
