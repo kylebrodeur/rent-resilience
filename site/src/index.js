@@ -205,6 +205,20 @@ async function handleContact(request, env, ctx) {
   const key = "email:" + (body && body.txHash ? body.txHash : email.toLowerCase()) + ":" + Date.now();
   try {
     await env.RENT_OPTIN.put(key, row);
+    // Canonical join: fold the email into the payment record under its txHash
+    // so "paid + email" is one KV lookup, not a stitch across two rows. The
+    // separate email row above stays for the audit trail. Costs 1 extra write
+    // per paid+email signup (KV free tier: 1,000/day shared with opt-in rows).
+    const txHash = (body && body.txHash) || null;
+    if (txHash) {
+      const payRow = await env.RENT_OPTIN.get(txHash);
+      if (payRow) {
+        const pay = JSON.parse(payRow);
+        pay.email = email;
+        pay.emailAt = new Date().toISOString();
+        await env.RENT_OPTIN.put(txHash, JSON.stringify(pay));
+      }
+    }
   } catch {
     // KV failure shouldn't fail the signup response; the request is logged in analytics.
   }

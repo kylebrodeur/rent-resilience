@@ -1,0 +1,3 @@
+
+# local opt-in data pulls: emails + wallets, never commit
+.kv-data/
