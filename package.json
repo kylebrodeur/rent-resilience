@@ -1,0 +1,13 @@
+{
+  "name": "rent-resilience",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "oxlint",
+    "lint:rules:test": "node --experimental-strip-types tools/oxlint/anti-slop/rent/rules/no-oversized-comments.test.ts && node --experimental-strip-types tools/oxlint/anti-slop/rent/rules/no-float-money.test.ts && node --experimental-strip-types tools/oxlint/anti-slop/rent/rules/no-weak-randomness.test.ts"
+  },
+  "devDependencies": {
+    "@oxlint/plugins": "1.80.0",
+    "oxlint": "1.80.0"
+  }
+}

@@ -1,10 +1,10 @@
-# Rent Resilience Protocol — v0.1
+# Rent Resilience Protocol v0.1
 
 > **Private facts. Public proofs. Portable trust.**
 
 This document specifies the v0.1 protocol objects and their semantics. Schemas live in
 [`packages/protocol/schemas/`](../packages/protocol/schemas/). Everything else in the
-system — obligation status, reliability claims, proofs — is **derived from events**.
+system (obligation status, reliability claims, proofs) is **derived from events**.
 
 ## Objects
 
@@ -80,7 +80,7 @@ authorizes them to see.
 
 - Canonical bytes: JCS (RFC 8785) over the event object with `signature` removed.
 - Event hash: SHA-256 of canonical bytes.
-- Merkle batches of event hashes are anchored to Base. The public chain sees roots only —
+- Merkle batches of event hashes are anchored to Base. The public chain sees roots only:
   no identifiers, no amounts, no PII.
 - Inclusion proofs let an authorized verifier confirm an event's existence and integrity
   without the ledger operator being trusted for history.
