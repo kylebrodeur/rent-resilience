@@ -790,8 +790,11 @@ function drawWcQr(uri){
     if(ap){
       ap.innerHTML='';
       const enc=encodeURIComponent(uri);
-      [['Base app','https://go.cb-w.com/wc?uri='+enc],
-       ['MetaMask','https://metamask.app.link/wc?uri='+enc],
+      /* No Base app row: the July 2025 Coinbase Wallet -> Base app migration
+         broke the go.cb-w.com/wc?uri= deep link (app opens, no approval screen;
+         reown-com/appkit-react-native#511). Base app needs its own
+         Base Account SDK lane later. */
+      [['MetaMask','https://metamask.app.link/wc?uri='+enc],
        ['Rainbow','https://rnbwapp.com/wc?uri='+enc],
        ['Trust Wallet','https://link.trustwallet.com/wc?uri='+enc]].forEach(function(w){
         const a=document.createElement('a');a.className='srbtn';a.href=w[1];
