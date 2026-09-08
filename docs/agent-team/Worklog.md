@@ -54,3 +54,8 @@
   hidden attribute, so the picker could never dismiss. Card-rail analysis for
   Kyle: 1c Visa lane rejected (30c fixed fees vs 1c payment); card belongs in
   real-amount on-ramps later. Commits 7f9c76e, 5729744; deploy 28bc0a1f.
+- Any-wallet pay is live: Kyle created the Reown project, WC_PROJECT_ID set
+  (commit 56dcc6a, deploy d80def17). Verified end-to-end against the real
+  relay before deploy: provider init + live wc: pairing URI + client-drawn QR
+  in Playwright. Remaining manual check: scan the desktop QR with a wallet app
+  and complete a 1c transfer.
