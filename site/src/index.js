@@ -128,6 +128,29 @@ function json(body, status) {
   });
 }
 
+// Email verification via Emailable before a signup row is written. Undeliverable
+// and disposable addresses are rejected; everything else (risky, unknown, role)
+// is accepted and tagged. Fail open on any Emailable outage — a verification
+// service hiccup must never cost a real signup, and the KV rate limit above is
+// the abuse control. Each verify costs 1 credit; EMAILABLE_KEY is a wrangler
+// secret, never committed.
+async function verifyEmail(email, env) {
+  if (!env.EMAILABLE_KEY) return { state: "skipped" };
+  try {
+    const res = await fetch(
+      "https://api.emailable.com/v1/verify?email=" + encodeURIComponent(email) +
+      "&api_key=" + env.EMAILABLE_KEY + "&timeout=5"
+    );
+    if (!res.ok) return { state: "skipped" }; // 249 (timeout) and errors fail open
+    const v = await res.json();
+    if (v.disposable) return { state: "disposable" };
+    if (v.state === "undeliverable") return { state: "undeliverable", reason: v.reason || null };
+    return { state: v.state || "unknown", score: typeof v.score === "number" ? v.score : null };
+  } catch {
+    return { state: "skipped" };
+  }
+}
+
 // Email/contact capture for the opt-in section. The /api/contact route was
 // wired into the router without this handler, so signups 500'd until 2026-09-08.
 // Rate limit: 5 contact attempts per IP per 10-minute bucket. KV free tier is
@@ -165,11 +188,16 @@ async function handleContact(request, env, ctx) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return json({ error: "A valid email is required." }, 400);
   }
+  const verify = await verifyEmail(email, env);
+  if (verify.state === "undeliverable" || verify.state === "disposable") {
+    return json({ error: "That email can't receive mail. A different address works better." }, 422);
+  }
   const row = JSON.stringify({
     email: email,
     via: (body && body.via) || "email-only",
     txHash: (body && body.txHash) || null,
     at: new Date().toISOString(),
+    verify: verify,
   });
   const key = "email:" + (body && body.txHash ? body.txHash : email.toLowerCase()) + ":" + Date.now();
   try {
@@ -180,6 +208,7 @@ async function handleContact(request, env, ctx) {
   track(ctx, "email_signup", "email:" + email.toLowerCase(), {
     via: (body && body.via) || "email-only",
     has_tx: Boolean(body && body.txHash),
+    verify_state: verify.state,
   });
   return json({ status: "noted" }, 200);
 }
