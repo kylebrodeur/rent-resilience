@@ -65,5 +65,13 @@
   after a wallet-lane confirm). On touch devices the wc: link is primary and
   the QR canvas is skipped. Form focus rings on inputs replaced with a
   border-color change (outer ring made focused inputs stand taller than the
-  sibling button; both now a verified 44px). Static EIP-681 QR kept as the
-  no-JS/no-relay floor; PostHog lane data decides later whether it demotes.
+  sibling button; both now a verified 44px). Static EIP-681 QR removed after
+  Kyle's review (two QRs with different contracts invite scanning the wrong
+  one; commit dfb744d): the WalletConnect modal QR is now the only QR, the
+  ethereum: href stays as the no-JS fallback, paste survives for
+  pay-another-way cases, optin-qr.png dropped from the bundle. Dead-code
+  sweep found no dead functions anywhere (page + worker fully wired); five
+  unused id hooks and stale paste copy removed (3d78ccc). Mobile modal now
+  shows a named universal-link chooser (Base app, MetaMask, Rainbow, Trust,
+  raw wc: fallback) instead of an empty QR box, fixing the OS-default
+  Rainbow problem (commit 84301bc, deploy b4514888).
