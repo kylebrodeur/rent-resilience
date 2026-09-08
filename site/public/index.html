@@ -40,6 +40,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .nl{display:flex;gap:20px}
 .nl a{font-family:'Martian Mono',monospace;font-size:11px;color:var(--mu);text-decoration:none;transition:color .2s;letter-spacing:.04em}
 .nl a:hover{color:var(--tx)}
+.logo{white-space:nowrap;flex-shrink:0}
+.mbtn{display:none;align-items:center;justify-content:center;width:44px;height:44px;background:none;border:1px solid var(--brh);border-radius:2px;color:var(--mu);cursor:pointer;flex:none}
+.mbtn:hover{color:var(--go);border-color:var(--gb)}
+.mnav{display:none;position:fixed;top:52px;left:0;right:0;z-index:190;background:rgba(26,21,16,.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--br);padding:6px 28px 14px}
+[data-theme=light] .mnav{background:rgba(242,237,228,.98)}
+.mnav a{display:block;padding:11px 2px;font-family:'Martian Mono',monospace;font-size:12px;color:var(--tx);text-decoration:none;border-bottom:1px solid var(--br)}
+.mnav a:last-child{border-bottom:none}
+@media(max-width:860px){.mbtn{display:inline-flex}.mnav.op{display:block}}
 .tmbtn{display:flex;align-items:center;gap:6px;font-family:'Martian Mono',monospace;font-size:11px;color:var(--mu);background:none;border:1px solid var(--brh);border-radius:2px;padding:5px 10px;min-height:44px;cursor:pointer;transition:all .2s}
 .tmbtn:hover{border-color:var(--gb);color:var(--go)}
 .bnav{font-family:'Martian Mono',monospace;font-size:11px;font-weight:600;color:var(--bg);background:var(--go);border:none;padding:8px 14px;border-radius:2px;min-height:44px;cursor:pointer;text-decoration:none;transition:opacity .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;line-height:1}
@@ -265,6 +273,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
   <div class="ni">
     <a href="#" class="logo"><svg class="mark" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" rx="220" fill="#1a1510"/><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M226 462L512 226L798 462" stroke="#c98d1a" stroke-width="54"/><path d="M512 788V528" stroke="#5a9e80" stroke-width="50"/><path d="M512 628C426 628 375 579 375 496C460 496 512 545 512 628Z" stroke="#5a9e80" stroke-width="50"/><path d="M512 566C598 566 649 517 649 434C564 434 512 484 512 566Z" stroke="#5a9e80" stroke-width="50"/><path d="M406 788H618" stroke="#5a9e80" stroke-width="50"/></g></svg>Rent Resilience</a>
     <div class="nr">
+      <button class="mbtn" id="mbtn" aria-label="Menu" aria-expanded="false" onclick="toggleMenu()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <div class="nl">
         <a href="#problem">Why</a>
         <a href="#optin">Opt in</a>
@@ -284,6 +293,17 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
     </div>
   </div>
 </nav>
+<div class="mnav" id="mnav">
+  <a href="#problem">Why</a>
+  <a href="#optin">Opt in</a>
+  <a href="#flow">Flow</a>
+  <a href="#how">How</a>
+  <a href="#privacy">Privacy</a>
+  <a href="#api">API</a>
+  <a href="#faq">FAQ</a>
+  <a href="/status">Status</a>
+  <a href="https://docs.rentresilience.org/docs/" target="_blank">Docs</a>
+</div>
 
 <section id="hero">
   <div class="hglow"></div>
@@ -653,6 +673,16 @@ async function submitContact(ev, form, via){
 }
 function toggleFaq(el){const was=el.classList.contains('op');document.querySelectorAll('.fqi').forEach(i=>{i.classList.remove('op');const b=i.querySelector('.fqq');if(b)b.setAttribute('aria-expanded','false');});if(!was){el.classList.add('op');const b=el.querySelector('.fqq');if(b)b.setAttribute('aria-expanded','true');}}
 function toggleTheme(){const h=document.documentElement,g=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',g);document.getElementById('tmicon').textContent=g==='light'?'☾':'☀';document.getElementById('tmlbl').textContent=g==='light'?'Dark':'Light';}
+function toggleMenu(){const m=document.getElementById('mnav'),b=document.getElementById('mbtn');const op=m.classList.toggle('op');b.setAttribute('aria-expanded',op?'true':'false');}
+document.addEventListener('click',function(ev){
+  const m=document.getElementById('mnav');
+  if(!m||!m.classList.contains('op'))return;
+  if(!ev.target.closest('#mnav')&&!ev.target.closest('#mbtn')){m.classList.remove('op');document.getElementById('mbtn').setAttribute('aria-expanded','false');}
+});
+document.getElementById('mnav').addEventListener('click',function(ev){
+  if(ev.target.closest('a')){mnavClose();}
+});
+function mnavClose(){document.getElementById('mnav').classList.remove('op');document.getElementById('mbtn').setAttribute('aria-expanded','false');}
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}}),{threshold:.07});
 document.querySelectorAll('section > .con > *').forEach(el=>{if(!el.classList.contains('fu')&&!el.classList.contains('hglow')){el.style.opacity='0';el.style.transform='translateY(12px)';el.style.transition='opacity .55s ease,transform .55s ease';obs.observe(el);}});
 </script>
