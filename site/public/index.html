@@ -27,7 +27,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(24px,3.2vw,38px);font-weight:700;line-height:1.08;letter-spacing:-.03em;margin-bottom:12px}
 h2 em{font-style:normal;color:var(--go)}
 .ss{font-size:15px;color:var(--mu);max-width:520px;line-height:1.72}
-section{padding:84px 0;position:relative;z-index:1}
+section{padding:64px 0;position:relative;z-index:1}
 section+section{border-top:1px solid var(--br)}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--br);transition:background .3s}
@@ -44,9 +44,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .bnav{font-family:'Martian Mono',monospace;font-size:11px;font-weight:600;color:var(--bg);background:var(--go);border:none;padding:8px 14px;border-radius:2px;min-height:44px;cursor:pointer;text-decoration:none;transition:opacity .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;line-height:1}
 .bnav:hover{opacity:.82}
 
-#hero{padding:124px 0 72px;position:relative;overflow:hidden}
+#hero{padding:100px 0 56px;position:relative;overflow:hidden}
 .hglow{position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:800px;height:440px;background:radial-gradient(ellipse at center top,var(--gg) 0%,transparent 65%);pointer-events:none}
-.herogrid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.herogrid{display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center}
 .hpill{display:inline-flex;align-items:center;gap:11px;flex-wrap:wrap;border:1px solid var(--brh);border-radius:2px;background:var(--sf);padding:6px 13px;font-family:'Martian Mono',monospace;font-size:10px;color:var(--mu);margin-bottom:22px}
 .hlv{color:var(--go);display:flex;align-items:center;gap:6px}
 .hd2{width:5px;height:5px;background:var(--go);border-radius:50%;animation:pulse 1.6s infinite}
@@ -66,7 +66,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .ffine{font-family:'Martian Mono',monospace;font-size:11px;color:var(--dm)}
 .ffine span{color:var(--go)}
 .ffline{margin-top:8px;font-family:'Martian Mono',monospace;font-size:10px;color:var(--dm)}
-.hstats{display:flex;gap:30px;margin-top:40px;padding-top:32px;border-top:1px solid var(--br);flex-wrap:wrap}
+.hstats{display:flex;gap:24px;margin-top:30px;padding-top:24px;border-top:1px solid var(--br);flex-wrap:wrap}
 .hst .n{font-family:'Martian Mono',monospace;font-size:22px;font-weight:600;color:var(--go);display:block}
 .hst .l{font-size:11px;color:var(--mu);margin-top:3px}
 
@@ -83,7 +83,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 
 /* Problem */
 #problem{background:var(--sf)}
-.psg{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:44px;border:1px solid var(--brh);border-radius:4px;overflow:hidden}
+.psg{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:34px;border:1px solid var(--brh);border-radius:4px;overflow:hidden}
 .psc{padding:30px}
 .psc.bad{background:rgba(204,96,48,.04);border-right:1px solid var(--br)}
 .psc.good{background:rgba(90,158,128,.04)}
@@ -92,7 +92,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .psr:last-child{border-bottom:none}
 .psk{color:var(--mu);font-size:9px;display:block;margin-bottom:2px;letter-spacing:.07em;text-transform:uppercase}
 .psv{color:var(--tx)}.bv{color:var(--ru)}.gv{color:var(--go)}
-.crow{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+.crow{display:flex;gap:14px;margin-top:22px;flex-wrap:wrap}
 .cc2{flex:1;min-width:160px;border:1px solid var(--brh);border-radius:3px;padding:18px}
 .cc2.bad{border-color:var(--rb);background:var(--rd)}.cc2.good{border-color:var(--gb);background:var(--gd)}
 .ccl{font-family:'Martian Mono',monospace;font-size:9px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em}
@@ -101,7 +101,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .ccn{font-size:13px;color:var(--mu)}
 
 /* Architecture diagram section */
-#flow .flayout{margin-top:44px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+#flow .flayout{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .flcard{border:1px solid var(--brh);border-radius:4px;overflow:hidden}
 .flb{background:var(--sf2);padding:9px 14px;border-bottom:1px solid var(--br);font-family:'Martian Mono',monospace;font-size:9px;color:var(--mu);display:flex;gap:5px;align-items:center}
 .flbody{padding:20px;font-family:'Martian Mono',monospace;font-size:11px;line-height:2.1;background:var(--sf)}
@@ -114,7 +114,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .ftext small{display:block;color:var(--mu);margin-top:2px}
 
 /* How it works */
-#how .fg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:44px}
+#how .fg{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:34px}
 .fp{border:1px solid var(--brh);border-radius:4px;overflow:hidden;transition:border-color .22s}
 .fp:hover{border-color:var(--gb)}
 .fph{padding:24px 26px;border-bottom:1px solid var(--br);background:var(--sf)}
@@ -133,7 +133,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .fpid{font-size:13px;color:var(--mu);line-height:1.6}
 
 /* Privacy */
-#privacy .sg2{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start;margin-top:44px}
+#privacy .sg2{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;margin-top:34px}
 .sps{display:flex;flex-direction:column;gap:2px}
 .spl{border:1px solid var(--brh);border-radius:3px;padding:18px 22px;background:var(--sf);transition:border-color .2s}
 .spl:hover{border-color:var(--gb)}
@@ -147,13 +147,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .sco{color:var(--dm)}.sck{color:#9bbfdf}.scv{color:var(--go)}
 
 /* API */
-#api .apitab{margin-top:44px;border:1px solid var(--brh);border-radius:4px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--br)}
+#api .apitab{margin-top:34px;border:1px solid var(--brh);border-radius:4px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--br)}
 .ac{background:var(--sf);padding:18px 20px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
 .am{font-family:'Martian Mono',monospace;font-size:11px;color:var(--tx)}
 .apr{font-family:'Martian Mono',monospace;font-size:11px;color:var(--go);white-space:nowrap}
 
 /* FAQ */
-#faq .faq{margin-top:44px;display:flex;flex-direction:column;gap:2px}
+#faq .faq{margin-top:34px;display:flex;flex-direction:column;gap:2px}
 .fqi{border:1px solid var(--brh);border-radius:3px;overflow:hidden;transition:border-color .2s}
 .fqi.op{border-color:var(--gb)}
 .fqq{width:100%;text-align:left;background:var(--sf);border:none;cursor:pointer;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:14px}
@@ -165,8 +165,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .fqi.op .fqa{max-height:320px}
 .ci2{font-family:'Martian Mono',monospace;font-size:11px;color:var(--go);background:var(--gd);padding:1px 5px;border-radius:2px}
 
-#fcta{padding:80px 0}
-.fci{text-align:center;padding:64px 24px;background:radial-gradient(ellipse at center,var(--gg) 0%,transparent 65%);border:1px solid var(--brh);border-radius:6px}
+#fcta{padding:64px 0}
+.fci{text-align:center;padding:48px 24px;background:radial-gradient(ellipse at center,var(--gg) 0%,transparent 65%);border:1px solid var(--brh);border-radius:6px}
 .fch{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,4.4vw,48px);font-weight:800;letter-spacing:-.035em;line-height:1.04;margin-bottom:16px}
 .fch em{font-style:normal;color:var(--go)}
 .fcs{font-size:15px;color:var(--mu);margin-bottom:28px}
@@ -214,6 +214,7 @@ footer a:hover{color:var(--mu)}
         <a href="#privacy">Privacy</a>
         <a href="#api">API</a>
         <a href="#faq">FAQ</a>
+        <a href="https://docs.rentresilience.org/docs/" target="_blank">Docs</a>
       </div>
       <button class="tmbtn" onclick="toggleTheme()" id="tmbtn">
         <span id="tmicon">☀</span>
@@ -229,7 +230,7 @@ footer a:hover{color:var(--mu)}
   <div class="con">
     <div class="hpill fu d1">
       <span class="hlv"><span class="hd2"></span>Building in public</span>
-      <span class="hsep">·</span><span>Pre-MPV · Sandbox week 1</span>
+      <span class="hsep">·</span><span>Pre-MVP · Sandbox week 1</span>
       <span class="hsep">·</span>
       <span>Base · x402 · USDC</span>
     </div>
@@ -272,7 +273,7 @@ footer a:hover{color:var(--mu)}
         </div>
       </div>
     </div>
-    <div class="term fu d4" style="margin-top:48px">
+    <div class="term fu d4" style="margin-top:36px">
       <div class="tbar"><span class="tc" style="background:#8b3a2a"></span><span class="tc" style="background:#8b7030"></span><span class="tc" style="background:#3a7040"></span><span class="ttl">resolution — $1,925 due, renter holds $1,300</span></div>
       <div class="hdbody">
 <span class="hdo">// ObligationCreated $1,925 · status: due</span><br>
@@ -294,7 +295,7 @@ footer a:hover{color:var(--mu)}
   <div class="con">
     <div class="sl">What rent actually costs</div>
     <h2>Reliability is invisible.<br>Hardship is <em>instantly priced.</em></h2>
-    <p class="ss">The existing layers each take a cut or sell you certainty you already earned. None of them resolve the exception.</p>
+    <p class="ss">The existing stack takes a cut or sells you certainty you already earned. None of it resolves the exception. <a href="https://docs.rentresilience.org/docs/" style="color:var(--go)">How resolution works →</a></p>
     <div class="psg">
       <div class="psc bad">
         <div class="psrl"><span class="tag tr">✕ The current stack</span></div>
@@ -325,8 +326,8 @@ footer a:hover{color:var(--mu)}
   <div class="con">
     <div class="sl">Try it now</div>
     <h2>The Mint stopped minting pennies.<br><em>Somebody had to</em> pick up the slack.</h2>
-    <p class="ss">So proving you're interested costs 1¢ and one signature on Base. An email is "keep building" — free, still counts. An agent hitting <span class="ci2">/api/optin</span> pays its way in. One list for all three; pay-anonymous stays anonymous, pay + email gives us a way back to you.</p>
-    <div style="display:grid;grid-template-columns:200px 1fr;gap:36px;align-items:start;margin-top:44px">
+    <p class="ss">Proving you're interested costs 1¢ and a signature on Base, or just an email if you'd rather skip the wallet. Paid-anonymous stays anonymous; paid plus email gives us a way back to you.</p>
+    <div style="display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:start;margin-top:34px">
       <div class="flcard" style="text-align:center;padding:18px">
         <img src="/optin-qr.png" alt="QR code: send 1 cent USDC on Base to the Rent Resilience opt-in address" style="width:100%;max-width:160px;border-radius:3px"/><div class="hdt" style="font-size:9px;margin-top:10px">scan with a wallet app<br>1¢ USDC · Base (mainnet)</div>
         <a class="fb" style="margin-top:12px;justify-content:center;text-align:center;border-radius:3px" href="ethereum:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913@8453/transfer?address=0x79588BB628c741d073FD3bC47685328Cf8aD6802&uint256=10000">On mobile? Tap to pay 1¢ →</a>
@@ -364,8 +365,6 @@ footer a:hover{color:var(--mu)}
         (The Mint actually did stop minting pennies in 2025. The cent just moved onchain.)
       </div>
         </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -373,7 +372,7 @@ footer a:hover{color:var(--mu)}
   <div class="con">
     <div class="sl">How it flows</div>
     <h2>Agents interpret.<br><em>Policy</em> decides.</h2>
-    <p class="ss">The pipeline from a renter in a bind to a resolved obligation, in order. Each step is its own thing; the whole system is composition.</p>
+    <p class="ss">The pipeline from a renter in a bind to a resolved obligation, in order. Full spec: <a href="https://docs.rentresilience.org/docs/protocol" style="color:var(--go)">docs →</a></p>
     <div class="flayout">
       <div class="flcard">
         <div class="flb"><span class="hdot" style="background:#8b3a2a"></span><span class="hdot" style="background:#8b7030"></span><span class="hdot" style="background:#3a7040"></span><span class="hdt">obligation.mjs — the flow, top to bottom</span></div>
@@ -409,7 +408,7 @@ footer a:hover{color:var(--mu)}
   <div class="con">
     <div class="sl">The protocol</div>
     <h2>Four objects.<br><em>Three weeks</em> to the first paid call.</h2>
-    <p class="ss">Append-only ledger, deterministic policy, privacy-preserving proofs, paid APIs. Each piece is shippable on its own; together they're the resolution network.</p>
+    <p class="ss">Append-only ledger, deterministic policy, privacy-preserving proofs, paid APIs: four objects, each shippable on its own. <a href="https://github.com/kylebrodeur/rent-resilience/tree/main/packages/protocol/schemas" style="color:var(--go)">Schemas on GitHub →</a></p>
     <div class="fg">
       <div class="fp">
         <div class="fph">
@@ -445,7 +444,7 @@ footer a:hover{color:var(--mu)}
   <div class="con">
     <div class="sl">Privacy</div>
     <h2>Public proof.<br><em>Private</em> facts.</h2>
-    <p class="ss">The chain sees Merkle roots only. Everything sensitive lives off it, and disclosure is the renter's choice.</p>
+    <p class="ss">The chain sees Merkle roots only. Everything sensitive lives off it, and disclosure is the renter's choice. <a href="https://docs.rentresilience.org/docs/protocol" style="color:var(--go)">Full model →</a></p>
     <div class="sg2">
       <div class="sps">
         <div class="spl"><div class="splt">No PII onchain, ever</div><div class="spld">Names, addresses, leases, income, bank IDs — none of it. The public chain holds cryptographic roots and nothing else. Not even salted hashes of guessable facts.</div></div>
@@ -473,16 +472,16 @@ footer a:hover{color:var(--mu)}
   <div class="con">
     <div class="sl">x402 API</div>
     <h2>The first money is a <em>cent.</em><br>Paid by an agent, not a person.</h2>
-    <p class="ss">The opt-in endpoint is already live and paying out one cent in USDC. Agents discover it, get an HTTP 402, pay, and land on the waitlist. The proof endpoints below are the next tier, priced in hypotheses until something actual bills them.</p>
+    <p class="ss">The opt-in endpoint is live: HTTP 402, one cent in USDC, straight onto the waitlist. Proof endpoints below are priced in hypotheses until something bills them.</p>
     <div class="apitab">
-      <div class="ac" style="opacity:.75"><span class="am">POST <span class="ci2">/api/optin</span> <span style="color:var(--mu);font-size:9px">(live)</span></span><span class="apr">$0.01</span></div>
+      <a class="ac" href="/api/optin" target="_blank" style="opacity:.75;text-decoration:none;color:inherit"><span class="am">POST <span class="ci2">/api/optin</span> <span style="color:var(--mu);font-size:9px">(live)</span></span><span class="apr">$0.01</span></a>
       <div class="ac"><span class="am">GET <span class="ci2">/v1/proofs/reliability/{party}</span></span><span class="apr">$0.10</span></div>
       <div class="ac"><span class="am">POST <span class="ci2">/v1/verify/obligation</span></span><span class="apr">$0.10</span></div>
       <div class="ac"><span class="am">POST <span class="ci2">/v1/providers/discover</span></span><span class="apr">$0.01</span></div>
       <div class="ac"><span class="am">POST <span class="ci2">/v1/providers/evaluate</span></span><span class="apr">$0.25</span></div>
       <div class="ac"><span class="am">POST <span class="ci2">/v1/resolution/quote</span></span><span class="apr">$0.50</span></div>
     </div>
-    <div class="ffine" style="margin-top:18px">Prices are hypotheses. Validation starts when an unrelated agent pays for one. <span>x402 is not the rent rail</span> — machine-payable trust at these price points is what card rails can't serve.</div>
+    <div class="ffine" style="margin-top:18px">Prices are hypotheses until an unrelated agent pays for one. <span>x402 is not the rent rail</span>: it's machine-payable trust at price points card rails can't serve. <a href="https://docs.rentresilience.org/docs/protocol" style="color:var(--go)">Protocol spec →</a></div>
   </div>
 </section>
 
@@ -490,6 +489,7 @@ footer a:hover{color:var(--mu)}
   <div class="con">
     <div class="sl">FAQ</div>
     <h2>The questions a landlord,<br>a renter, or a judge <em>actually asks</em>.</h2>
+    <div class="ffine">Straight answers, no hedging. Full write-up: <a href="https://docs.rentresilience.org/docs/protocol" style="color:var(--go)">docs →</a></div>
     <div class="faq">
       <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Does this store my lease, address, or income on a public blockchain?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">No. Ever. Protocol events contain opaque identifiers and integer amounts in minor units of currency. The actual documents and identities live in a private encrypted store. The public chain only sees the periodic Merkle root of your event history — proof the record exists and hasn't been rewritten, with nothing about you in it.</div></div></div>
       <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">How is this not just rent reporting like Esusu or Bilt?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Those services report your payments to a credit bureau or give you rewards points after the fact. This resolves the exception in the moment it happens. The ledger is the substrate; the product is what an agent does with it when you come up short — composing landlord flexibility and assistance before any debt appears. Rent reporting looks backward. Resolution works forward.</div></div></div>
@@ -504,7 +504,7 @@ footer a:hover{color:var(--mu)}
 <section id="fcta">
   <div class="con">
     <div class="fci">
-      <div class="fch">Rent already moves $50B+ a year.<br>Rent <em>reliability</em> is free to earn.</div>
+      <h2 class="fch">Rent already moves $50B+ a year.<br>Rent <em>reliability</em> is free to earn.</h2>
       <p class="fcs">Protocol schemas are MIT-licensed on GitHub today. Sandbox in four weeks. The first x402 endpoint is the door in — $0.05/call, no keys.</p>
       <div class="fclinks">
         <a class="fclink primary" href="https://github.com/kylebrodeur/rent-resilience" target="_blank">Read the Protocol →</a>
