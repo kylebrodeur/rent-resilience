@@ -55,12 +55,15 @@ async function facilitatorCall(path, paymentPayload, requirements) {
   return res.json();
 }
 
-async function handleOptin(request, env) {
+async function handleOptin(request, env, ctx) {
   const resourceUrl = new URL(request.url).origin + "/api/optin";
   const requirements = paymentRequirements(resourceUrl);
 
   const paymentHeader = request.headers.get("X-PAYMENT");
   if (!paymentHeader) {
+    track(ctx, "optin_402_served", "anonymous-agent:" + (request.headers.get("user-agent") || "unknown").slice(0, 60), {
+      $current_url: resourceUrl,
+    });
     return paymentRequired(resourceUrl);
   }
 
@@ -73,6 +76,9 @@ async function handleOptin(request, env) {
 
   const verified = await facilitatorCall("/verify", paymentPayload, requirements);
   if (verified.httpError || !verified.isValid) {
+    track(ctx, "optin_verify_failed", "agent:" + ((paymentPayload.authorization && paymentPayload.authorization.from) || "unknown"), {
+      reason: verified.invalidReason || ("http_" + verified.httpError),
+    });
     return json({
       x402Version: 1,
       error: verified.invalidReason || "payment verification failed",
@@ -82,6 +88,7 @@ async function handleOptin(request, env) {
   const settled = await facilitatorCall("/settle", paymentPayload, requirements);
   const txHash = settled.transaction || settled.txHash || null;
   if (!settled.success || !txHash) {
+    track(ctx, "optin_settle_failed", "agent:" + ((paymentPayload.authorization && paymentPayload.authorization.from) || "unknown"), {});
     return json({ error: "settlement failed; payment not recorded" }, 402);
   }
 
@@ -89,6 +96,11 @@ async function handleOptin(request, env) {
     "unknown";
   const now = new Date().toISOString();
   const row = JSON.stringify({ payer: payer, txHash: txHash, network: X402.network, at: now });
+  track(ctx, "optin_settled", "agent:" + payer, {
+    txHash: txHash,
+    network: X402.network,
+    amount_usdc: 0.01,
+  });
 
   // WHY: settlement is confirmed before this write; if KV fails we still hand the
   // payer the tx hash in the 200 body — the chain is the source of truth, KV is
@@ -116,6 +128,66 @@ function json(body, status) {
   });
 }
 
+// Email/contact capture for the opt-in section. The /api/contact route was
+// wired into the router without this handler, so signups 500'd until 2026-09-08.
+async function handleContact(request, env, ctx) {
+  if (request.method !== "POST") return json({ error: "POST only" }, 405);
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return json({ error: "JSON body required" }, 400);
+  }
+  const email = ((body && body.email) || "").trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return json({ error: "A valid email is required." }, 400);
+  }
+  const row = JSON.stringify({
+    email: email,
+    via: (body && body.via) || "email-only",
+    txHash: (body && body.txHash) || null,
+    at: new Date().toISOString(),
+  });
+  const key = "email:" + (body && body.txHash ? body.txHash : email.toLowerCase()) + ":" + Date.now();
+  try {
+    await env.RENT_OPTIN.put(key, row);
+  } catch {
+    // KV failure shouldn't fail the signup response; the request is logged in analytics.
+  }
+  track(ctx, "email_signup", "email:" + email.toLowerCase(), {
+    via: (body && body.via) || "email-only",
+    has_tx: Boolean(body && body.txHash),
+  });
+  return json({ status: "noted" }, 200);
+}
+
+// PostHog server-side capture. Public write-only project token; wallet
+// addresses travel as pseudonymous distinct_ids, never as names/emails.
+const POSTHOG = {
+  key: "phc_t6hMPtdC3JaYtbvtLdFfSd3haQoeN38VfycSWQBs84QH",
+  host: "https://us.i.posthog.com",
+};
+
+function track(ctx, event, distinctId, props) {
+  if (!ctx) return;
+  try {
+    ctx.waitUntil(
+      fetch(POSTHOG.host + "/capture/", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          api_key: POSTHOG.key,
+          event: event,
+          distinct_id: distinctId,
+          properties: Object.assign({ source: "worker", $lib: "rent-worker" }, props),
+        }),
+      }).catch(function () {})
+    );
+  } catch {
+    // analytics must never break the payment flow
+  }
+}
+
 // Human flow: wallet-app scan sends a plain EIP-681 USDC transfer on Base
 // mainnet, and /api/confirm verifies Receipt → Transfer log → amount before
 // logging the opt-in. Agents keep the strict 402 handshake on /api/optin.
@@ -129,7 +201,7 @@ const MAINNET = {
   rpc: "https://mainnet.base.org",
 };
 
-async function handleConfirm(request, env) {
+async function handleConfirm(request, env, ctx) {
   if (request.method !== "POST") return json({ error: "POST only" }, 405);
   let body;
   try {
@@ -140,6 +212,7 @@ async function handleConfirm(request, env) {
   const txHash = (body && body.txHash) || null;
   const payer = (body && body.payer) || null;
   if (!txHash && !payer) return json({ error: "txHash or payer is required" }, 400);
+  const qrId = "qr:" + (payer || txHash).toLowerCase();
 
   const existing = txHash ? await env.RENT_OPTIN.get(txHash) : null;
   if (existing) return json({ status: "already-logged", txHash: txHash }, 200);
@@ -194,6 +267,7 @@ async function handleConfirm(request, env) {
   }
 
   if (!matched) {
+    track(ctx, "qr_confirm_result", qrId, { result: "not-found-yet" });
     return json({
       status: "not-found-yet",
       hint: txHash
@@ -201,6 +275,12 @@ async function handleConfirm(request, env) {
         : "No recent 0.01+ USDC transfer from that payer address was found on Base mainnet.",
     }, 404);
   }
+
+  track(ctx, "qr_confirm_result", qrId, {
+    result: "joined",
+    txHash: matched.transactionHash,
+    amount_usdc: 0.01,
+  });
 
   const now = new Date().toISOString();
   const row = JSON.stringify({
@@ -240,7 +320,7 @@ async function handleDocs(request) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.hostname === "docs.rentresilience.org") {
       return handleDocs(request);
@@ -250,13 +330,13 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
     if (url.pathname === "/api/optin") {
-      return handleOptin(request, env);
+      return handleOptin(request, env, ctx);
     }
     if (url.pathname === "/api/confirm") {
-      return handleConfirm(request, env);
+      return handleConfirm(request, env, ctx);
     }
     if (url.pathname === "/api/contact") {
-      return handleContact(request, env);
+      return handleContact(request, env, ctx);
     }
     return env.ASSETS.fetch(request);
   },

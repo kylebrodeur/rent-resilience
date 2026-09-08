@@ -201,6 +201,12 @@ footer a:hover{color:var(--mu)}
   html{scroll-behavior:auto}
 }
 </style>
+<script>!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init('phc_t6hMPtdC3JaYtbvtLdFfSd3haQoeN38VfycSWQBs84QH',{api_host:'https://us.i.posthog.com',defaults:'2026-05-30',autocapture:true,session_recording:false,disable_surveys:true});</script>
+<script>
+function phTrack(name,props){try{if(window.posthog)posthog.capture(name,props||{});}catch(e){}}
+document.addEventListener('click',function(ev){var a=ev.target.closest('[data-ph]');if(a)phTrack('cta_click',{location:a.getAttribute('data-ph'),text:(a.textContent||'').trim().slice(0,60)});});
+</script>
 </head>
 <body>
 
@@ -243,7 +249,7 @@ footer a:hover{color:var(--mu)}
         <p class="hsub fu d3">Years of on-time payments are proof, but they count for nothing the month something goes wrong. Rent Resilience makes rent verifiable: private facts stay off-chain, proofs anchor to Base, and agents resolve shortfalls with the least harm done.</p>
         <div class="fu d4">
           <div class="frow" style="max-width:320px">
-            <a class="fb" style="flex:1;border-radius:3px;justify-content:center;min-height:46px" href="#optin">Try the 402 · 1¢ USDC ↓</a>
+            <a class="fb" data-ph="hero-try" style="flex:1;border-radius:3px;justify-content:center;min-height:46px" href="#optin">Try the 402 · 1¢ USDC ↓</a>
           </div>
           <div class="ffine">Live today: <span>POST /api/optin · 0.01 USDC</span> on the site now. What ships next: <a href="/status" style="color:var(--go);text-decoration:none">the status page</a>.</div>
         </div>
@@ -280,7 +286,7 @@ footer a:hover{color:var(--mu)}
     <div class="optgrid" style="display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:start;margin-top:34px">
       <div class="flcard" style="text-align:center;padding:18px">
         <img src="/optin-qr.png" alt="QR code: send 1 cent USDC on Base to the Rent Resilience opt-in address" style="width:100%;max-width:160px;border-radius:3px"/><div class="hdt" style="font-size:9px;margin-top:10px">scan with a wallet app<br>1¢ USDC · Base (mainnet)</div>
-        <a class="fb" style="margin-top:12px;justify-content:center;text-align:center;border-radius:3px;white-space:normal;line-height:1.45;padding:11px 14px;gap:7px" href="ethereum:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913@8453/transfer?address=0x79588BB628c741d073FD3bC47685328Cf8aD6802&uint256=10000"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg><span>On mobile? Tap to pay 1¢</span></a>
+        <a class="fb" data-ph="tap-to-pay" style="margin-top:12px;justify-content:center;text-align:center;border-radius:3px;white-space:normal;line-height:1.45;padding:11px 14px;gap:7px" href="ethereum:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913@8453/transfer?address=0x79588BB628c741d073FD3bC47685328Cf8aD6802&uint256=10000"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg><span>On mobile? Tap to pay 1¢</span></a>
       </div>
       <div>
         <div class="fpd" style="margin-bottom:14px"><span class="tag tg">Humans</span> scan → send → confirm</div>
@@ -502,7 +508,7 @@ footer a:hover{color:var(--mu)}
       <h2 class="fch">Rent already moves $50B+ a year.<br>Rent <em>reliability</em> is free to earn.</h2>
       <p class="fcs">Protocol schemas are MIT-licensed on GitHub today. And the 1¢ opt-in is live right now — one cent of USDC says you meant it.</p>
       <div class="fclinks">
-        <a class="fclink primary" href="/api/optin" target="_blank">Pay the 1¢ · join early access →</a>
+        <a class="fclink primary" data-ph="final-pay" href="/api/optin" target="_blank">Pay the 1¢ · join early access →</a>
         <a class="fclink" href="https://github.com/kylebrodeur/rent-resilience" target="_blank">Read the Protocol</a>
         <a class="fclink" href="https://github.com/kylebrodeur/rent-resilience/tree/main/packages/protocol/schemas" target="_blank">Schemas</a>
       </div>
@@ -528,10 +534,10 @@ async function confirmOptin(ev){
   try{
     const res=await fetch('/api/confirm',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({txHash:v})});
     const body=await res.json();
-    if(res.ok){window.__lastTxHash=body.txHash;document.getElementById('omsg2').style.display='block';msg.innerHTML='✓ In. Receipt: <a href="https://sepolia.basescan.org/tx/'+body.txHash+'" target="_blank" style="color:var(--go)">'+body.txHash.slice(0,10)+'…</a> · <a href="https://github.com/kylebrodeur/rent-resilience" target="_blank" style="color:var(--go)">next: read the protocol</a>';}
-    else if(res.status===404){msg.textContent=body.hint||'Not seen onchain yet — try again in a few seconds.';}
-    else{msg.textContent=body.error||'Check failed; retry later.';}
-  }catch(e){msg.textContent='Check failed; retry later.';}
+    if(res.ok){window.__lastTxHash=body.txHash;document.getElementById('omsg2').style.display='block';msg.innerHTML='✓ In. Receipt: <a href="https://basescan.org/tx/'+body.txHash+'" target="_blank" style="color:var(--go)">'+body.txHash.slice(0,10)+'…</a> · <a href="https://github.com/kylebrodeur/rent-resilience" target="_blank" style="color:var(--go)">next: read the protocol</a>';phTrack('optin_confirm',{result:'joined',lane:'qr'});}
+    else if(res.status===404){msg.textContent=body.hint||'Not seen onchain yet — try again in a few seconds.';phTrack('optin_confirm',{result:'not-found-yet',lane:'qr'});}
+    else{msg.textContent=body.error||'Check failed; retry later.';phTrack('optin_confirm',{result:'error',lane:'qr'});}
+  }catch(e){msg.textContent='Check failed; retry later.';phTrack('optin_confirm',{result:'error',lane:'qr'});}
   return false;
 }
 async function submitContact(ev, form, via){
@@ -543,9 +549,9 @@ async function submitContact(ev, form, via){
   try{
     const res=await fetch('/api/contact',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:email,via:via,txHash:txHash})});
     const body=await res.json();
-    if(res.ok){msg.innerHTML='✓ Noted. <span style="color:var(--go)">You\'re on the list.</span>';form.querySelector('input').disabled=true;form.querySelector('button').disabled=true;}
-    else{msg.textContent=body.error||'Check failed; retry later.';}
-  }catch(e){msg.textContent='Check failed; retry later.';}
+    if(res.ok){msg.innerHTML='✓ Noted. <span style="color:var(--go)">You\'re on the list.</span>';form.querySelector('input').disabled=true;form.querySelector('button').disabled=true;phTrack('email_signup',{intent:via,had_payment:Boolean(txHash)});}
+    else{msg.textContent=body.error||'Check failed; retry later.';phTrack('email_signup_failed',{intent:via});}
+  }catch(e){msg.textContent='Check failed; retry later.';phTrack('email_signup_failed',{intent:via});}
   return false;
 }
 function toggleFaq(el){const was=el.classList.contains('op');document.querySelectorAll('.fqi').forEach(i=>{i.classList.remove('op');const b=i.querySelector('.fqq');if(b)b.setAttribute('aria-expanded','false');});if(!was){el.classList.add('op');const b=el.querySelector('.fqq');if(b)b.setAttribute('aria-expanded','true');}}
