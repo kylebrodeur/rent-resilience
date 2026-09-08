@@ -616,7 +616,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
           <div><div class="shrl">Copy the link</div><div class="shrd" id="shcopylbl">rentresilience.org</div></div>
           <span class="fqar" aria-hidden="true">⧉</span>
         </button>
-        <div class="ffine" style="padding:12px 4px;line-height:1.9">Post text used by the buttons: <span style="color:var(--tx)">"Rent should compound into resilience. I'm in for 1¢: private rent proofs on Base. #rentresilience https://rentresilience.org"</span></div>
+        <div class="ffine" style="padding:12px 4px;line-height:1.9">Post text used by the buttons: <span id="shposttxt" style="color:var(--tx)">"Rent should compound into resilience. Private rent proofs on Base. #rentresilience https://rentresilience.org"</span></div>
       </div>
     </div>
   </div>
@@ -701,6 +701,7 @@ document.querySelectorAll('section > .con > *').forEach(el=>{if(!el.classList.co
   const shBtn=document.getElementById('imin-share');
   const tIn=document.getElementById('tab-imin'),tSup=document.getElementById('tab-sup');
   const SHARE_TEXT="Rent should compound into resilience. I'm in for 1¢: private rent proofs on Base. #rentresilience https://rentresilience.org";
+  const SHARE_TEXT_PLAIN="Rent should compound into resilience. Private rent proofs on Base. #rentresilience https://rentresilience.org";
   const CARD_FILE='im-in-rent-resilience.png';
   let mode='imin';
   // Paints the card at any canvas size; everything is laid out on a fixed
@@ -771,18 +772,29 @@ document.querySelectorAll('section > .con > *').forEach(el=>{if(!el.classList.co
     }else{download();}
   }
   function nmSafe(){return (nameInp.value||'').trim();}
-  function setMode(m){mode=m;tIn.classList.toggle('on',m==='imin');tSup.classList.toggle('on',m==='sup');draw();phTrack('im_in_card',{action:'mode',mode:m});}
+  function setMode(m){
+    mode=m;
+    tIn.classList.toggle('on',m==='imin');tSup.classList.toggle('on',m==='sup');
+    const txt=m==='sup'?SHARE_TEXT:SHARE_TEXT_PLAIN;
+    shareHrefs(shareSec,txt);
+    const px=document.getElementById('shposttxt');
+    if(px)px.textContent='"'+txt+'"';
+    draw();
+    phTrack('im_in_card',{action:'mode',mode:m});
+  }
   tIn.addEventListener('click',function(){setMode('imin');});
   tSup.addEventListener('click',function(){setMode('sup');});
   nameInp.addEventListener('input',draw);
   dlBtn.addEventListener('click',download);
   shBtn.addEventListener('click',shareCard);
   if(navigator.canShare){shBtn.style.display='';}
-  // Wires every share surface on the page (hero rail, footer, share section,
-  // post-optin confirmation) from data attributes.
+  // Sets the prefilled post text on every share anchor under root.
+  function shareHrefs(root,text){
+    root.querySelectorAll('[data-share="x"]').forEach(function(a){a.href='https://twitter.com/intent/tweet?text='+encodeURIComponent(text);});
+    root.querySelectorAll('[data-share="fc"]').forEach(function(a){a.href='https://warpcast.com/~/compose?text='+encodeURIComponent(text);});
+  }
+  // Wires copy buttons on every share surface from data attributes.
   function wireShare(root){
-    root.querySelectorAll('[data-share="x"]').forEach(function(a){a.href='https://twitter.com/intent/tweet?text='+encodeURIComponent(SHARE_TEXT);});
-    root.querySelectorAll('[data-share="fc"]').forEach(function(a){a.href='https://warpcast.com/~/compose?text='+encodeURIComponent(SHARE_TEXT);});
     root.querySelectorAll('[data-copylink]').forEach(function(b){
       if(b.__rrcopy)return;b.__rrcopy=true;
       b.addEventListener('click',async function(){
@@ -794,6 +806,13 @@ document.querySelectorAll('section > .con > *').forEach(el=>{if(!el.classList.co
     });
   }
   wireShare(document);
+  // Spread-the-word surfaces (hero rail, footer, and the share section in its
+  // default "I'm in" state) carry the plain text; the 1¢ text only appears
+  // once the card is in "I supported" mode, i.e. after opting in.
+  const shareSec=document.getElementById('share');
+  shareHrefs(document.getElementById('hero'),SHARE_TEXT_PLAIN);
+  shareHrefs(document.querySelector('footer'),SHARE_TEXT_PLAIN);
+  shareHrefs(shareSec,SHARE_TEXT_PLAIN);
   // Post-optin confirmation: a compact "I supported." card plus share links,
   // shown after either opt-in lane (1¢ confirmation or email-only) succeeds.
   function confirmInto(el){
@@ -809,6 +828,7 @@ document.querySelectorAll('section > .con > *').forEach(el=>{if(!el.classList.co
         +'<a class="srbtn" data-ph="confirm-share-full" href="#share">Full-size card ↓</a>'
         +'</div></div>';
       wireShare(el);
+      shareHrefs(el,SHARE_TEXT);
     }
     el.hidden=false;
     setMode('sup');
