@@ -49,9 +49,12 @@ screening and 1,000 free settled transactions/month), network/asset fields switc
 - What we don't do: no refunds flow (it's a cent), no recurring charge, no address
   harvesting elsewhere on the page.
 - KV namespace `RENT_OPTIN` is append-only by convention; deletes only for a requester.
-- Builder Code `bc_1utyhkys` is not in the settlement calldata (receivers don't control
+- Builder Code `bc_eo4fiinm` is not in the settlement calldata (receivers don't control
   payer transactions). It *is* in the anchor/x402-seller flows we originate; the opt-in
   attribution arrives via the facilitator's settlement activity on our address.
+  The app carries one code per registered domain: `bc_eo4fiinm` (rentresilience.org,
+  the surface most traffic hits), `bc_1utyhkys` (rent.kylebrodeur.xyz), and
+  `bc_dfz4n9gi` (rentresilience.xyz).
 
 ## Failure behavior
 

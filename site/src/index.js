@@ -1,9 +1,10 @@
 const CANONICAL_HOST = "rentresilience.org";
 
-// Hosts that 301 to the canonical domain. rent.kylebrodeur.xyz deliberately
-// keeps serving content directly: it is a verified Base app domain.
+// Hosts that 301 to the canonical domain. rent.kylebrodeur.xyz and
+// rentresilience.xyz deliberately keep serving content directly: they are
+// registered Base app domains, and domain verification reads the metatag at
+// the domain itself, not after a redirect.
 const REDIRECT_HOSTS = new Set([
-  "rentresilience.xyz",
   "www.rentresilience.xyz",
   "www.rentresilience.org",
 ]);

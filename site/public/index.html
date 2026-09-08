@@ -265,7 +265,7 @@ footer a:hover{color:var(--mu)}
 <span class="hdo">→</span> <span class="hdnode">Merkle tree per batch</span><br>
 <br>
 <span class="hdo">onchain (Base):</span><br>
-<span class="hdo">→</span> <span class="hdnode on">root commitment</span> <span class="hdo">+ builder code bc_1utyhkys</span><br>
+<span class="hdo">→</span> <span class="hdnode on">root commitment</span> <span class="hdo">+ builder code bc_eo4fiinm</span><br>
 <span class="hdo">→</span> <span class="hdnode on">x402 payments</span> <span class="hdo">(agent pays in USDC)</span><br>
 <br>
 <span class="hdo">never onchain:</span> names, addresses, amounts, leases<br>
@@ -330,7 +330,7 @@ footer a:hover{color:var(--mu)}
     <div style="display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:start;margin-top:34px">
       <div class="flcard" style="text-align:center;padding:18px">
         <img src="/optin-qr.png" alt="QR code: send 1 cent USDC on Base to the Rent Resilience opt-in address" style="width:100%;max-width:160px;border-radius:3px"/><div class="hdt" style="font-size:9px;margin-top:10px">scan with a wallet app<br>1¢ USDC · Base (mainnet)</div>
-        <a class="fb" style="margin-top:12px;justify-content:center;text-align:center;border-radius:3px" href="ethereum:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913@8453/transfer?address=0x79588BB628c741d073FD3bC47685328Cf8aD6802&uint256=10000">On mobile? Tap to pay 1¢ →</a>
+        <a class="fb" style="margin-top:12px;justify-content:center;text-align:center;border-radius:3px;white-space:normal;line-height:1.45;padding:11px 14px;gap:7px" href="ethereum:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913@8453/transfer?address=0x79588BB628c741d073FD3bC47685328Cf8aD6802&uint256=10000"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg><span>On mobile? Tap to pay 1¢</span></a>
       </div>
       <div>
         <div class="fpd" style="margin-bottom:14px"><span class="tag tg">Humans</span> scan → send → confirm</div>
@@ -460,7 +460,7 @@ footer a:hover{color:var(--mu)}
 <span class="sck">const</span> leaves = events.<span class="scv">map</span>(h => <span class="scv">sha256</span>(<span class="scv">jcs</span>(h))); <span class="sco">// hashes only</span><br>
 <span class="sck">const</span> root = <span class="scv">merkleRoot</span>(leaves);<br>
 <span class="sck">await</span> anchor.<span class="scv">commit</span>(root, { dataSuffix: builderCode });<br>
-<span class="sco">// the anchor transaction carries bc_1utyhkys (ERC-8021)</span><br>
+<span class="sco">// the anchor transaction carries bc_eo4fiinm (ERC-8021)</span><br>
 <span class="sco">// and nothing else. no rent amount, no address, no name.</span>
         </div>
       </div>

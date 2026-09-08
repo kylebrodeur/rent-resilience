@@ -72,7 +72,7 @@ objects, agents orchestrate but deterministic policy decides, integer money ever
 - Event signatures: detached issuer signatures over RFC 8785 JCS serialization (with
   `signature` removed), EdDSA/ES256/ES256K.
 - Anchoring: Merkle roots of event batches commit to Base. Root anchors carry the
-  builder code `bc_1utyhkys` (ERC-8021).
+  builder code `bc_eo4fiinm` (ERC-8021; rentresilience.org is the primary app domain).
 - Nothing about renters goes onchain: no names, addresses, amounts detail, or lease
   references. The chain only proves the ledger wasn't rewritten.
 
