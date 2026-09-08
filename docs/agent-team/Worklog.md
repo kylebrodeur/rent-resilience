@@ -85,7 +85,13 @@
   provider contract as WC so payFlow is unchanged): first row on the mobile
   chooser, own row in the desktop picker, verified to open the real
   keys.coinbase.com connect popup in Playwright (commit c195108, deploy
-  7e6a7919). Hash-return fallback direction documented: the tx hash
+  7e6a7919). Smart-wallet edge case pre-built: Base-app sends may resolve
+  eth_sendTransaction with a userOperation hash, which fails a plain
+  receipt lookup; /api/confirm now maps it through the EntryPoint v0.7
+  UserOperationEvent (windowed eth_getLogs, verified against live Base
+  logs; note v0.6's canonical EntryPoint has no code on Base) and tags
+  via_userop telemetry (commit fddddf5, deploy f5160eb3). Hash-return
+  fallback direction documented: the tx hash
   travels over the WC relay to the pending eth_sendTransaction promise,
   not via the redirect, so a manual swipe back to the browser still
   resolves; a killed tab falls back to the paste field, which is why it
