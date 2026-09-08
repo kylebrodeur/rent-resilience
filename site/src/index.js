@@ -152,6 +152,80 @@ async function verifyEmail(email, env) {
 }
 
 /**
+ * "You're in" confirmation email, sent via Resend's plain HTTPS API from the
+ * edge. Fired once, when the first email is folded into a confirmed payment
+ * record; the KV lookup doubles as the abuse gate (no verified payment, no
+ * send). RESEND_API_KEY is a wrangler secret; send failures are telemetry
+ * only and never fail the signup.
+ */
+function youreInEmail(txHash) {
+  const confirmUrl = "https://rentresilience.org/?tx=" + txHash;
+  return {
+    from: "Kyle Brodeur <kyle@rentresilience.org>",
+    reply_to: "kyle@rentresilience.org",
+    subject: "You're in",
+    text: "You're in.\n\n" +
+      "Your 1-cent opt-in is confirmed onchain on Base and your spot on the early-access list is recorded. The transaction hash is your receipt; no keys, no personal data.\n\n" +
+      "Verify it live: " + confirmUrl + "\n" +
+      "Onchain receipt: https://basescan.org/tx/" + txHash + "\n\n" +
+      "You're getting this because you joined the early-access list at rentresilience.org. Questions? Just reply. Unsubscribe: help@rentresilience.org?subject=unsubscribe",
+    html: '<div style="background:#f6f4ef;padding:28px 12px;font-family:-apple-system,\'Segoe UI\',Helvetica,Arial,sans-serif;">' +
+      '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;margin:0 auto;background:#ffffff;border-radius:8px;">' +
+      '<tr><td style="padding:30px 32px 0;"><img src="https://rentresilience.org/rent-resilience-app-icon.png" alt="Rent Resilience" width="40" height="40" style="display:block;border-radius:8px;" /></td></tr>' +
+      '<tr><td style="padding:20px 32px 0;font-size:26px;font-weight:700;color:#141414;">You&#39;re in.</td></tr>' +
+      '<tr><td style="padding:12px 32px 6px;font-size:15px;line-height:1.6;color:#3a3a3a;">' +
+      "Your 1-cent opt-in is confirmed onchain on Base and your spot on the early-access list is recorded. The transaction hash is your receipt; no keys, no personal data." +
+      '</td></tr>' +
+      '<tr><td style="padding:22px 32px 28px;">' +
+      '<a href="' + confirmUrl + '" style="display:inline-block;background:#141414;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 24px;border-radius:6px;">View your confirmation live</a>' +
+      '</td></tr>' +
+      '<tr><td style="padding:20px 32px 26px;border-top:1px solid #ececec;font-size:12px;line-height:1.8;color:#8a8a8a;">' +
+      '<a href="https://basescan.org/tx/' + txHash + '" style="color:#8a8a8a;">Onchain receipt</a> &nbsp;&middot;&nbsp; ' +
+      '<a href="https://github.com/kylebrodeur/rent-resilience" style="color:#8a8a8a;">Read the protocol</a> &nbsp;&middot;&nbsp; ' +
+      '<a href="mailto:help@rentresilience.org?subject=unsubscribe" style="color:#8a8a8a;">Unsubscribe</a>' +
+      '</td></tr>' +
+      '</table></div>',
+  };
+}
+
+async function sendYoureIn(ctx, env, email, txHash) {
+  // WHY: exactly one send per address, even across repeated payments — the
+  // flag is written only after Resend accepts the message. The pre-check is
+  // eventually consistent, so two near-simultaneous contact submissions could
+  // both pass it; the contact rate limit (5/10min/IP) bounds that.
+  const flagKey = "yourein:" + email.toLowerCase();
+  try {
+    if (await env.RENT_OPTIN.get(flagKey)) return;
+  } catch {}
+  if (!env.RESEND_API_KEY) return;
+  const body = youreInEmail(txHash);
+  body.to = [email];
+  try {
+    await ctx.waitUntil(
+      fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          authorization: "Bearer " + env.RESEND_API_KEY,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }).then(async (res) => {
+        if (res.ok) {
+          track(ctx, "yourein_sent", "email:" + email.toLowerCase(), { txHash: txHash });
+          try {
+            await env.RENT_OPTIN.put(flagKey, new Date().toISOString());
+          } catch {}
+        } else {
+          track(ctx, "yourein_send_failed", "email:" + email.toLowerCase(), { http: res.status });
+        }
+      }).catch(() => {})
+    );
+  } catch {
+    // an email outage must never fail the signup response
+  }
+}
+
+/**
  * Email/contact capture for the opt-in section. The /api/contact route was
  * wired into the router without this handler, so signups 500'd until 2026-09-08.
  *
@@ -214,6 +288,10 @@ async function handleContact(request, env, ctx) {
       const payRow = await env.RENT_OPTIN.get(txHash);
       if (payRow) {
         const pay = JSON.parse(payRow);
+        // First email on a confirmed payment triggers the one-shot "you're
+        // in"; re-folds (email change, repeat contact) never re-send here,
+        // and sendYoureIn's KV flag blocks repeats across other payments.
+        if (!pay.email) await sendYoureIn(ctx, env, email, txHash);
         pay.email = email;
         pay.emailAt = new Date().toISOString();
         await env.RENT_OPTIN.put(txHash, JSON.stringify(pay));

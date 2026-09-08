@@ -944,6 +944,17 @@ document.getElementById('mnav').addEventListener('click',function(ev){
 function mnavClose(){document.getElementById('mnav').classList.remove('op');document.getElementById('mbtn').setAttribute('aria-expanded','false');}
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}}),{threshold:.07});
 document.querySelectorAll('section > .con > *').forEach(el=>{if(!el.classList.contains('fu')&&!el.classList.contains('hglow')){el.style.opacity='0';el.style.transform='translateY(12px)';el.style.transition='opacity .55s ease,transform .55s ease';obs.observe(el);}});
+/* Backup lane: the "you're in" email links here with ?tx=<hash>; the page
+   prefills the field, scrolls to the opt-in section, and verifies on load. */
+(function(){
+  const t=(new URLSearchParams(location.search).get('tx')||'').trim();
+  if(!/^0x[0-9a-fA-F]{64}$/.test(t))return;
+  const pf=document.getElementById('otx');
+  if(pf)pf.value=t;
+  const sec=document.getElementById('optin');
+  if(sec&&sec.scrollIntoView)sec.scrollIntoView({behavior:'smooth',block:'start'});
+  confirmTx(t,'link');
+})();
 </script>
 <script>
 // I'm-in card: drawn entirely client-side from page content. The name field is
