@@ -43,11 +43,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .logo{white-space:nowrap;flex-shrink:0}
 .mbtn{display:none;align-items:center;justify-content:center;width:44px;height:44px;background:none;border:1px solid var(--brh);border-radius:2px;color:var(--mu);cursor:pointer;flex:none}
 .mbtn:hover{color:var(--go);border-color:var(--gb)}
-.mnav{display:none;position:fixed;top:52px;left:0;right:0;z-index:190;background:rgba(26,21,16,.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--br);padding:6px 28px 14px}
-[data-theme=light] .mnav{background:rgba(242,237,228,.98)}
-.mnav a{display:block;padding:11px 2px;font-family:'Martian Mono',monospace;font-size:12px;color:var(--tx);text-decoration:none;border-bottom:1px solid var(--br)}
-.mnav a:last-child{border-bottom:none}
-@media(max-width:860px){.mbtn{display:inline-flex}.mnav.op{display:block}}
+.mnav{display:none;position:fixed;top:58px;right:12px;width:min(260px,calc(100vw - 24px));z-index:190;background:var(--sf);border:1px solid var(--brh);border-radius:4px;padding:4px 0;box-shadow:0 14px 40px rgba(0,0,0,.45);transform-origin:top right}
+.mnav a,.mnav button{display:flex;align-items:center;gap:10px;width:100%;padding:11px 16px;font-family:'Martian Mono',monospace;font-size:12px;color:var(--tx);text-decoration:none;background:none;border:none;border-top:1px solid var(--br);cursor:pointer;text-align:left}
+.mnav a:first-child,.mnav button:first-child{border-top:none}
+.mnav a:hover,.mnav button:hover{background:var(--gd);color:var(--go)}
+.mproto{color:var(--go);font-weight:600}
+@media(max-width:860px){.mbtn{display:inline-flex}.tmbtn,.bnav{display:none}.mnav.op{display:block}}
 .tmbtn{display:flex;align-items:center;gap:6px;font-family:'Martian Mono',monospace;font-size:11px;color:var(--mu);background:none;border:1px solid var(--brh);border-radius:2px;padding:5px 10px;min-height:44px;cursor:pointer;transition:all .2s}
 .tmbtn:hover{border-color:var(--gb);color:var(--go)}
 .bnav{font-family:'Martian Mono',monospace;font-size:11px;font-weight:600;color:var(--bg);background:var(--go);border:none;padding:8px 14px;border-radius:2px;min-height:44px;cursor:pointer;text-decoration:none;transition:opacity .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;line-height:1}
@@ -303,6 +304,8 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
   <a href="#faq">FAQ</a>
   <a href="/status">Status</a>
   <a href="https://docs.rentresilience.org/docs/" target="_blank">Docs</a>
+  <button id="mtheme" type="button" onclick="toggleTheme()">☀ Light</button>
+  <a class="mproto" href="https://github.com/kylebrodeur/rent-resilience" target="_blank" rel="noopener">Read the Protocol</a>
 </div>
 
 <section id="hero">
@@ -672,7 +675,7 @@ async function submitContact(ev, form, via){
   return false;
 }
 function toggleFaq(el){const was=el.classList.contains('op');document.querySelectorAll('.fqi').forEach(i=>{i.classList.remove('op');const b=i.querySelector('.fqq');if(b)b.setAttribute('aria-expanded','false');});if(!was){el.classList.add('op');const b=el.querySelector('.fqq');if(b)b.setAttribute('aria-expanded','true');}}
-function toggleTheme(){const h=document.documentElement,g=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',g);document.getElementById('tmicon').textContent=g==='light'?'☾':'☀';document.getElementById('tmlbl').textContent=g==='light'?'Dark':'Light';}
+function toggleTheme(){const h=document.documentElement,g=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',g);document.getElementById('tmicon').textContent=g==='light'?'☾':'☀';document.getElementById('tmlbl').textContent=g==='light'?'Dark':'Light';const mt=document.getElementById('mtheme');if(mt)mt.textContent=g==='light'?'☾ Dark':'☀ Light';}
 function toggleMenu(){const m=document.getElementById('mnav'),b=document.getElementById('mbtn');const op=m.classList.toggle('op');b.setAttribute('aria-expanded',op?'true':'false');}
 document.addEventListener('click',function(ev){
   const m=document.getElementById('mnav');
