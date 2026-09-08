@@ -110,11 +110,11 @@
   Base app lane (tx 0x66869a5b…49e96a); /api/confirm 404'd it twice, and
   wrangler tail with temporary rpc() diagnostics root-caused two independent
   bugs: (1) mainnet.base.org answers 429 "over rate limit" to Worker egress
-  IPs, which the old `if (!res.ok) return null` flattened into "not found" —
+  IPs, which the old `if (!res.ok) return null` flattened into "not found";
   rpc() now rotates across four Base endpoints (mainnet.base.org, Tenderly
   gateway, publicnode, drpc) per call and logs which one answered; (2)
   logMatches compared a lowercased log address against the checksummed
-  MAINNET.asset constant, so every log ever seen failed matching — both
+  MAINNET.asset constant, so every log ever seen failed matching; both
   sides now normalized. Client side, confirmTx polls /api/confirm on 404
   every 3s up to 10 rounds with visible "Confirming onchain… (n/10)"
   progress, since a Base-app smart-wallet op lands seconds after the wallet
@@ -125,3 +125,18 @@
   KV record has an email) plus a backup link that opens the site with the tx
   hash prefilled and runs verification on load; in-flow hash redirect stays
   primary, the prefilled link is the fallback lane.
+- You're-in email is live (commit 5ce1780, worker 7e0e9b82): Resend HTTPS API
+  from the edge, no SDK. Send fires once, on the first email fold into a
+  confirmed payment record inside /api/contact; a KV flag keyed by the email
+  address (written only after Resend accepts) blocks re-sends across repeat
+  payments or abuse. From Kyle personally (kyle at rentresilience dot org), replies
+  and unsubscribe go to the new help-at box; email routing/receiving enabled on
+  the domain. Copy per Kyle's review: logo, one heading, one paragraph, one
+  button, three footer links; "sent once" phrasing cut. The button links to
+  the site with ?tx=&lt;hash&gt;, and the page now verifies on load: prefill
+  the paste field, scroll to the opt-in section, confirm, show the receipt
+  card (verified live in Playwright). RESEND_API_KEY set as a wrangler
+  secret from Kyle's personal 1Password vault (the UofD Resend account stays
+  out of this project); rentresilience.org registered in Resend and DKIM/
+  SPF/MX/tracking records added to the Cloudflare zone, verification pending
+  at write time.
