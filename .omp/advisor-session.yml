@@ -1,0 +1,34 @@
+# Advisor session config — keeps memory and docs, drops code-heavy subsystems.
+# Layered via --config in dashboard-agent-terminal.sh for advisor only.
+speechgen:
+  enabled: false
+tts:
+  enabled: false
+inspect_image:
+  enabled: false
+vault:
+  enabled: false
+github:
+  enabled: false
+autolearn:
+  enabled: false
+checkpoint:
+  enabled: false
+branchSummary:
+  enabled: false
+plan:
+  defaultOnStartup: false
+  enabled: false
+task:
+  agentAdvisor: "off"
+  maxConcurrency: 4
+  enableLsp: false
+compaction:
+  remoteEnabled: false
+  idleEnabled: false
+secrets:
+  enabled: false
+startup:
+  quiet: true
+  checkUpdate: false
+  changelogMode: hidden

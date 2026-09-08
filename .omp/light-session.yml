@@ -1,0 +1,45 @@
+# Lightweight session config for dashboard implementation roles.
+# Layered via --config in dashboard-agent-terminal.sh for ui-lab, live-ui, artifact-qa.
+# Disables subsystems they don't need to reduce per-session RSS from ~500MB toward ~200MB.
+advisor:
+  enabled: false
+speechgen:
+  enabled: false
+tts:
+  enabled: false
+inspect_image:
+  enabled: false
+vault:
+  enabled: false
+github:
+  enabled: false
+memory:
+  backend: off
+autolearn:
+  enabled: false
+checkpoint:
+  enabled: false
+branchSummary:
+  enabled: false
+contextPromotion:
+  enabled: false
+plan:
+  defaultOnStartup: false
+  enabled: false
+task:
+  agentAdvisor: "off"
+  maxConcurrency: 4
+  enableLsp: false
+  isolation:
+    mode: auto
+    merge: branch
+    commits: ai
+compaction:
+  remoteEnabled: false
+  idleEnabled: false
+secrets:
+  enabled: false
+startup:
+  quiet: true
+  checkUpdate: false
+  changelogMode: hidden

@@ -1,0 +1,25 @@
+layout {
+    pane split_direction="vertical" {
+        pane split_direction="horizontal" {
+            pane split_direction="vertical" {
+                pane name="Schemas" command="zsh" {
+                    args "-lc" "exec ./scripts/rr-agent-terminal.sh schemas"
+                }
+                pane name="Ledger" command="zsh" {
+                    args "-lc" "exec ./scripts/rr-agent-terminal.sh ledger"
+                }
+            }
+            pane split_direction="vertical" {
+                pane name="Dataset" command="zsh" {
+                    args "-lc" "exec ./scripts/rr-agent-terminal.sh dataset"
+                }
+                pane name="Verifier" command="zsh" {
+                    args "-lc" "exec ./scripts/rr-agent-terminal.sh verifier"
+                }
+            }
+        }
+        pane name="Advisor" focus=true command="zsh" {
+            args "-lc" "exec ./scripts/rr-agent-terminal.sh advisor"
+        }
+    }
+}
