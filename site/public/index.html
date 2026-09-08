@@ -13,8 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Martian+Mono:wght@300;400;500;600&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
-:root,[data-theme=dark]{--bg:#1a1510;--sf:#231c14;--sf2:#2c2418;--br:#3a3020;--brh:#4e4030;--tx:#e8dfd0;--mu:#907e68;--dm:#7a6a58;--go:#5a9e80;--gd:rgba(90,158,128,.10);--gm:rgba(90,158,128,.22);--gb:rgba(90,158,128,.28);--gg:rgba(90,158,128,.07);--ru:#cc6030;--rd:rgba(204,96,48,.10);--rb:rgba(204,96,48,.26);--te:#c98d1a;--td:rgba(201,141,26,.10);--tb:rgba(201,141,26,.26)}
-[data-theme=light]{--bg:#f2ede4;--sf:#e8e1d6;--sf2:#ded6c8;--br:#ccc0ac;--brh:#b8a894;--tx:#1e1510;--mu:#6a5a48;--dm:#a89078;--go:#2a6a4c;--gd:rgba(42,106,76,.10);--gm:rgba(42,106,76,.20);--gb:rgba(42,106,76,.30);--gg:rgba(42,106,76,.06);--ru:#a83e18;--rd:rgba(168,62,24,.10);--rb:rgba(168,62,24,.26);--te:#8a6010;--td:rgba(136,96,16,.10);--tb:rgba(136,96,16,.26)}
+:root,[data-theme=dark]{--bg:#1a1510;--sf:#231c14;--sf2:#2c2418;--br:#3a3020;--brh:#4e4030;--tx:#e8dfd0;--mu:#907e68;--dm:#8f7d69;--go:#5a9e80;--gd:rgba(90,158,128,.10);--gm:rgba(90,158,128,.22);--gb:rgba(90,158,128,.28);--gg:rgba(90,158,128,.07);--ru:#cc6030;--rd:rgba(204,96,48,.10);--rb:rgba(204,96,48,.26);--te:#c98d1a;--td:rgba(201,141,26,.10);--tb:rgba(201,141,26,.26)}
+[data-theme=light]{--bg:#f2ede4;--sf:#e8e1d6;--sf2:#ded6c8;--br:#ccc0ac;--brh:#b8a894;--tx:#1e1510;--mu:#6a5a48;--dm:#7d6850;--go:#2a6a4c;--gd:rgba(42,106,76,.10);--gm:rgba(42,106,76,.20);--gb:rgba(42,106,76,.30);--gg:rgba(42,106,76,.06);--ru:#a83e18;--rd:rgba(168,62,24,.10);--rb:rgba(168,62,24,.26);--te:#8a6010;--td:rgba(136,96,16,.10);--tb:rgba(136,96,16,.26)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--tx);font-family:'Barlow',sans-serif;font-weight:300;line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s}
@@ -112,9 +112,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 
 /* Architecture diagram section */
 #flow .flayout{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.flcard{border:1px solid var(--brh);border-radius:4px;overflow:hidden}
+.flcard{border:1px solid var(--brh);border-radius:4px;overflow:hidden;display:flex;flex-direction:column}
 .flb{background:var(--sf2);padding:9px 14px;border-bottom:1px solid var(--br);font-family:'Martian Mono',monospace;font-size:9px;color:var(--mu);display:flex;gap:5px;align-items:center}
-.flbody{padding:20px;font-family:'Martian Mono',monospace;font-size:11px;line-height:2.1;background:var(--sf)}
+.flbody{padding:20px;font-family:'Martian Mono',monospace;font-size:11px;line-height:2.1;background:var(--sf);flex:1}
 .flk{color:#9bbfdf}.flv{color:var(--go)}.flo{color:var(--dm)}
 .flowsteps{display:flex;flex-direction:column;gap:14px;padding:20px;background:var(--sdark)}
 .fstep{display:flex;gap:14px;align-items:flex-start}
@@ -274,7 +274,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
   <div class="ni">
     <a href="#" class="logo"><svg class="mark" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" rx="220" fill="#1a1510"/><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M226 462L512 226L798 462" stroke="#c98d1a" stroke-width="54"/><path d="M512 788V528" stroke="#5a9e80" stroke-width="50"/><path d="M512 628C426 628 375 579 375 496C460 496 512 545 512 628Z" stroke="#5a9e80" stroke-width="50"/><path d="M512 566C598 566 649 517 649 434C564 434 512 484 512 566Z" stroke="#5a9e80" stroke-width="50"/><path d="M406 788H618" stroke="#5a9e80" stroke-width="50"/></g></svg>Rent Resilience</a>
     <div class="nr">
-      <button class="mbtn" id="mbtn" aria-label="Menu" aria-expanded="false" onclick="toggleMenu()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="mbtn" id="mbtn" aria-label="Menu" aria-controls="mnav" aria-expanded="false" onclick="toggleMenu()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <div class="nl">
         <a href="#problem">Why</a>
         <a href="#optin">Opt in</a>
@@ -372,13 +372,13 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
         <div class="fpd" style="margin-bottom:14px"><span class="tag tg">Humans</span> scan → send → confirm</div>
         <div class="ffline" style="margin-bottom:14px">Confirm with the transaction hash once it lands.</div>
         <form class="frow" onsubmit="return confirmOptin(event)" style="margin-bottom:8px">
-          <input class="fi" id="otx" type="text" placeholder="0x… (transaction hash from your wallet)" />
+          <input class="fi" id="otx" type="text" placeholder="0x… (transaction hash from your wallet)" aria-label="Transaction hash from your wallet" />
           <button class="fb" type="submit">Confirm →</button>
         </form>
         <div class="ffine" id="omsg"></div>
         <div class="ffine" id="omsg2" style="margin-top:10px;display:none">
           <form class="frow" onsubmit="return submitContact(event, this, 'post-payment')" style="margin-top:8px">
-            <input class="fi" name="email" type="email" placeholder="Optional: email for updates when proofs ship" />
+            <input class="fi" name="email" type="email" placeholder="Optional: email for updates when proofs ship" aria-label="Optional email for updates when proofs ship" />
             <button class="fb" type="submit">Notify me →</button>
           </form>
           <span style="font-size:9px;color:var(--dm)">paid intent + email = we reach you; paid only = anonymous signal.</span>
@@ -394,7 +394,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
       <div class="fpd" style="margin-bottom:8px"><span class="tag tg">Or just email</span> no wallet, no payment</div>
       <div class="ffline" style="margin-bottom:12px">Say "keep building." That's the whole signal. We only write when there's something real: proofs live, sandbox opening.</div>
       <form class="frow" onsubmit="return submitContact(event, this, 'email-only')" style="max-width:520px">
-        <input class="fi" type="email" placeholder="you@wherever.com" required />
+        <input class="fi" type="email" placeholder="you@wherever.com" aria-label="Your email address" required />
         <button class="fb" type="submit">Keep building →</button>
       </form>
       <div class="ffine" style="margin-top:8px" id="emsg"></div>
@@ -577,12 +577,12 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
     <h2>The questions a landlord,<br>a renter, or a judge <em>actually asks</em>.</h2>
     <div class="ffine">Straight answers, no hedging. Full write-up: <a href="https://docs.rentresilience.org/docs/protocol" style="color:var(--go)">docs →</a></div>
     <div class="faq">
-      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Does this store my lease, address, or income on a public blockchain?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">No. Ever. Protocol events contain opaque identifiers and integer amounts in minor units of currency. The actual documents and identities live in a private encrypted store. The public chain only sees the periodic Merkle root of your event history: proof the record exists and hasn't been rewritten, with nothing about you in it.</div></div></div>
-      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">How is this not just rent reporting like Esusu or Bilt?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Those services report your payments to a credit bureau or give you rewards points after the fact. This resolves the exception in the moment it happens. The ledger is the substrate; the product is what an agent does with it when you come up short, composing landlord flexibility and assistance before any debt appears. Rent reporting looks backward. Resolution works forward.</div></div></div>
-      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Are you taking custody of my rent?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">No. The MVP moves no real money at all: the sandbox uses synthetic obligations and simulated providers. Payment rails are adapters: ACH, FedNow, or USDC on Base, chosen by cost and settlement truth, not by ideology. When real funds settle later, it's through licensed providers who own the custody, not this protocol.</div></div></div>
-      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">What does an "assistance event" do to my reliability record?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">It counts. Getting help doesn't erase your history: an assisted month closes the obligation and it stays in your satisfied record. An independent-satisfaction streak ends, because that streak means something narrower (you funded it alone). 24 of 24 satisfied with 1 assisted is a stronger application story than 24 of 24 alone that never had to exist.</div></div></div>
-      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">So the "paid by an agent" thing: does it already work?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Yes, in one small place. POST <span class="ci2">/api/optin</span> on this site answers 402, takes one cent in USDC on Base Sepolia, and records the paying agent's address. That's the entire mechanism. The reliability-proof endpoints arrive with the ledger; dates live on the <a href="/status" style="color:var(--go)">status page</a>. The spike exists so the rail is real before there's anything to sell behind it.</div></div></div>
-      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Why Base and not an existing rental platform's own chain?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Base is where x402 agent payments and ERC-8021 builder attribution already work. Public anchoring on Base gives the record tamper evidence anyone can verify with no trust in this company. The protocol is portable; the first deployment follows the payment rail and the agents.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Does this store my lease, address, or income on a public blockchain?</span><span class="fqar" aria-hidden="true">+</span></button><div class="fqa"><div class="fqai">No. Ever. Protocol events contain opaque identifiers and integer amounts in minor units of currency. The actual documents and identities live in a private encrypted store. The public chain only sees the periodic Merkle root of your event history: proof the record exists and hasn't been rewritten, with nothing about you in it.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">How is this not just rent reporting like Esusu or Bilt?</span><span class="fqar" aria-hidden="true">+</span></button><div class="fqa"><div class="fqai">Those services report your payments to a credit bureau or give you rewards points after the fact. This resolves the exception in the moment it happens. The ledger is the substrate; the product is what an agent does with it when you come up short, composing landlord flexibility and assistance before any debt appears. Rent reporting looks backward. Resolution works forward.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Are you taking custody of my rent?</span><span class="fqar" aria-hidden="true">+</span></button><div class="fqa"><div class="fqai">No. The MVP moves no real money at all: the sandbox uses synthetic obligations and simulated providers. Payment rails are adapters: ACH, FedNow, or USDC on Base, chosen by cost and settlement truth, not by ideology. When real funds settle later, it's through licensed providers who own the custody, not this protocol.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">What does an "assistance event" do to my reliability record?</span><span class="fqar" aria-hidden="true">+</span></button><div class="fqa"><div class="fqai">It counts. Getting help doesn't erase your history: an assisted month closes the obligation and it stays in your satisfied record. An independent-satisfaction streak ends, because that streak means something narrower (you funded it alone). 24 of 24 satisfied with 1 assisted is a stronger application story than 24 of 24 alone that never had to exist.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">So the "paid by an agent" thing: does it already work?</span><span class="fqar" aria-hidden="true">+</span></button><div class="fqa"><div class="fqai">Yes, in one small place. POST <span class="ci2">/api/optin</span> on this site answers 402, takes one cent in USDC on Base Sepolia, and records the paying agent's address. That's the entire mechanism. The reliability-proof endpoints arrive with the ledger; dates live on the <a href="/status" style="color:var(--go)">status page</a>. The spike exists so the rail is real before there's anything to sell behind it.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Why Base and not an existing rental platform's own chain?</span><span class="fqar" aria-hidden="true">+</span></button><div class="fqa"><div class="fqai">Base is where x402 agent payments and ERC-8021 builder attribution already work. Public anchoring on Base gives the record tamper evidence anyone can verify with no trust in this company. The protocol is portable; the first deployment follows the payment rail and the agents.</div></div></div>
     </div>
   </div>
 </section>
@@ -594,7 +594,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
     <p class="ss">The card below is drawn in your browser from nothing but this page: no upload, no account, nothing you type leaves your machine. Download it and attach it to your post, or share the link straight from the buttons.</p>
     <div class="shg">
       <div class="shcard">
-        <canvas id="imincard" width="1200" height="630" aria-label="Preview of your shareable support card"></canvas>
+        <canvas id="imincard" width="1200" height="630" role="img" aria-label="Preview of your shareable support card"></canvas>
         <div class="shbar">
           <input class="shin" id="iminname" type="text" maxlength="24" placeholder="Name on the card (optional)" aria-label="Name on the card"/>
           <button class="shtab on" id="tab-imin" type="button">I'm in</button>
