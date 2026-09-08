@@ -71,9 +71,14 @@ history will corrupt it.
 4. Nothing merges without Kyle's explicit approval. Agents never deploy
    (`wrangler deploy` is Kyle's word only).
 
-## Learnings carried from the other two agent teams
+## Learnings carried from earlier agent teams
 
-From **enviro-grow-pico** (the template):
+Two agent teams ran before this one. They are past projects, not references:
+nothing in this repo points at their code, and no agent should go looking for
+them. These notes are everything that carried over.
+
+**enviro-grow-pico**, the agent-team setup this repo's runner scripts were
+adapted from:
 
 - omp runs synchronously in the foreground inside the Zellij pane; backgrounding it
   corrupts PTY capability routing and spins the restart loop.
@@ -82,7 +87,8 @@ From **enviro-grow-pico** (the template):
 - Advisor starts first and wins the Pi Link hub bind (port 9900); other lanes poll.
 - Session history lives on disk (`omp -r` resumable); `--fresh` is the only deleter.
 
-From **btc-market-learning-lab** (the stricter governance):
+**btc-market-learning-lab**, an earlier team whose stricter governance rules were
+adopted here:
 
 - Single-writer control board; concurrent edits to shared registers caused real
   merge pain there. Specialists write handoffs, never the registers.
@@ -90,7 +96,7 @@ From **btc-market-learning-lab** (the stricter governance):
 - Verification honesty: passing synthetic checks are not provider conformance; report
   exactly what ran. Failed streams are evidence, never discarded silently.
 - Pi Link was DISABLED there pending runtime verification. Here it starts enabled
-  (enviro proved the mechanics); if it misbehaves, fall back to handoff-file
+  (enviro-grow-pico proved the mechanics); if it misbehaves, fall back to handoff-file
   coordination and note it in the conflict register rather than blocking.
 
 ## Quick start
