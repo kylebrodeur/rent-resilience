@@ -71,6 +71,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .frow{display:flex;max-width:520px;margin-bottom:10px}
 .fi{flex:1;background:var(--sf);border:1px solid var(--brh);border-right:none;border-radius:3px 0 0 3px;padding:13px 16px;font-family:'Martian Mono',monospace;font-size:12px;color:var(--tx);min-height:44px;outline:none;transition:border-color .2s;display:flex;align-items:center}
 .fi span{color:var(--tx)}
+/* Focus = border color, not an outer ring: the ring draws outside the box and
+   makes a focused input stand taller than its sibling button. */
+.fi:focus-visible,.shin:focus-visible{outline:none;border-color:var(--go)}
 .fb{line-height:1;background:var(--go);color:var(--bg);border:none;border-radius:0 3px 3px 0;padding:13px 20px;font-family:'Martian Mono',monospace;font-size:11px;font-weight:600;min-height:44px;cursor:pointer;white-space:nowrap;transition:opacity .2s;text-decoration:none;display:flex;align-items:center}
 .fb:hover{opacity:.83}
 .ffine{font-family:'Martian Mono',monospace;font-size:11px;color:var(--dm)}
@@ -662,9 +665,9 @@ function payClick(ev){
   if(!wl.length&&window.ethereum)wl.push({info:{name:'Browser wallet',rdns:'legacy',icon:null},provider:window.ethereum});
   const msg=document.getElementById('omsg');
   if(!wl.length){
-    /* Desktop with no extension: relay to any wallet app over WalletConnect.
-       Mobile stays on the ethereum: deep link (Base app handles it natively). */
-    if(WC_PROJECT_ID&&!window.matchMedia('(pointer:coarse)').matches){
+    /* No injected wallet: relay to any wallet app over WalletConnect, mobile
+       included (wc: link opens it; the hash comes back through the relay). */
+    if(WC_PROJECT_ID){
       ev.preventDefault();
       phTrack('optin_wallet_pay',{result:'picker-open',wallets:0});
       wcPay();
@@ -672,7 +675,7 @@ function payClick(ev){
     }
     if(msg)msg.textContent='No wallet detected in this browser. Scan the QR code with a wallet app, then paste the transaction hash below.';
     phTrack('optin_wallet_pay',{result:'no-wallet'});
-    return true; /* let the deep link through for mobile wallet apps */
+    return true; /* fallback when the relay is off: let the deep link through */
   }
   ev.preventDefault();
   phTrack('optin_wallet_pay',{result:'picker-open',wallets:wl.length});
@@ -763,7 +766,7 @@ function openWcModal(){
     document.getElementById('wcx').addEventListener('click',function(){ov.style.display='none';});
     document.addEventListener('keydown',function(e){if(e.key==='Escape'&&ov.style.display==='flex')ov.style.display='none';});
   }
-  document.getElementById('wcqr').innerHTML='<span style="color:var(--dm);font-size:12px">Generating QR…</span>';
+  document.getElementById('wcqr').innerHTML='<span style="color:var(--dm);font-size:12px">'+(window.matchMedia('(pointer:coarse)').matches?'Opening any-wallet connect…':'Generating QR…')+'</span>';
   document.getElementById('wclink').style.display='none';
   ov.style.display='flex';
   return ov;
@@ -772,6 +775,14 @@ function openWcModal(){
 function drawWcQr(uri){
   const box=document.getElementById('wcqr');
   if(!box)return;
+  /* A phone cannot scan its own screen: on touch devices the wc: link is the
+     primary control, so skip the canvas entirely. */
+  if(window.matchMedia('(pointer:coarse)').matches){
+    box.innerHTML='';
+    const ln=document.getElementById('wclink');
+    if(ln){ln.href=uri;ln.style.display='flex';}
+    return;
+  }
   box.innerHTML='';
   try{
     const q=window.qrcode(0,'M');
@@ -823,7 +834,7 @@ async function confirmTx(v,lane){
   try{
     const res=await fetch('/api/confirm',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({txHash:v})});
     const body=await res.json();
-    if(res.ok){window.__lastTxHash=body.txHash;document.getElementById('omsg2').style.display='block';msg.innerHTML='✓ In. Receipt: <a href="https://basescan.org/tx/'+body.txHash+'" target="_blank" style="color:var(--go)">'+body.txHash.slice(0,10)+'…</a> · <a href="https://github.com/kylebrodeur/rent-resilience" target="_blank" style="color:var(--go)">next: read the protocol</a>';if(window.rrShare)rrShare.confirmInto(document.getElementById('osup'));phTrack('optin_confirm',{result:'joined',lane:lane,txHash:body.txHash});}
+    if(res.ok){window.__lastTxHash=body.txHash;document.getElementById('omsg2').style.display='block';if(lane!=='qr'){const pf=document.getElementById('otx');if(pf&&pf.closest('form'))pf.closest('form').style.display='none';}msg.innerHTML='✓ In. Receipt: <a href="https://basescan.org/tx/'+body.txHash+'" target="_blank" style="color:var(--go)">'+body.txHash.slice(0,10)+'…</a> · <a href="https://github.com/kylebrodeur/rent-resilience" target="_blank" style="color:var(--go)">next: read the protocol</a>';if(window.rrShare)rrShare.confirmInto(document.getElementById('osup'));phTrack('optin_confirm',{result:'joined',lane:lane,txHash:body.txHash});}
     else if(res.status===404){msg.textContent=body.hint||'Not seen onchain yet. Try again in a few seconds.';phTrack('optin_confirm',{result:'not-found-yet',lane:lane});}
     else{msg.textContent=body.error||'Check failed; retry later.';phTrack('optin_confirm',{result:'error',lane:lane});}
   }catch(e){msg.textContent='Check failed; retry later.';phTrack('optin_confirm',{result:'error',lane:lane});}
