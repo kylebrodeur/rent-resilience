@@ -755,17 +755,26 @@ async function wcPay(){
 }
 
 function openWcModal(){
+  const coarse=window.matchMedia('(pointer:coarse)').matches;
   let ov=document.getElementById('wcpay');
   if(!ov){
-    ov=document.createElement('div');ov.id='wcpay';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','Scan with any wallet app to pay 1 cent');
+    ov=document.createElement('div');ov.id='wcpay';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','Pay 1 cent with any wallet app');
     ov.style.cssText='position:fixed;inset:0;background:rgba(10,8,4,.72);align-items:center;justify-content:center;z-index:300;padding:16px';
-    ov.innerHTML='<div style="background:var(--sf);border:1px solid var(--brh);border-radius:4px;padding:20px;width:min(340px,100%);box-shadow:0 20px 60px rgba(0,0,0,.5);text-align:center"><div class="fpd" style="margin-bottom:12px"><span class="tag tg">Pay 1¢</span> scan with any wallet</div><div id="wcqr" style="display:flex;justify-content:center;align-items:center;min-height:220px"><span style="color:var(--dm);font-size:12px">Generating QR…</span></div><a id="wclink" class="fb" style="display:none;margin-top:12px;justify-content:center;text-align:center" href="#">Open wallet app</a><button class="srbtn" type="button" id="wcx" style="margin-top:12px;width:100%;justify-content:center">Cancel</button></div>';
+    ov.innerHTML='<div style="background:var(--sf);border:1px solid var(--brh);border-radius:4px;padding:20px;width:min(340px,100%);box-shadow:0 20px 60px rgba(0,0,0,.5);text-align:center"><div class="fpd" style="margin-bottom:12px"><span class="tag tg">Pay 1¢</span> <span id="wctitle"></span></div><div id="wcapps" style="display:none"></div><div id="wcqr" style="display:flex;justify-content:center;align-items:center;min-height:220px"><span style="color:var(--dm);font-size:12px">Generating QR…</span></div><a id="wclink" class="fb" style="display:none;margin-top:12px;justify-content:center;text-align:center" href="#">Open wallet app</a><button class="srbtn" type="button" id="wcx" style="margin-top:12px;width:100%;justify-content:center">Cancel</button></div>';
     document.body.appendChild(ov);
     ov.addEventListener('click',function(e){if(e.target===ov)ov.style.display='none';});
     document.getElementById('wcx').addEventListener('click',function(){ov.style.display='none';});
     document.addEventListener('keydown',function(e){if(e.key==='Escape'&&ov.style.display==='flex')ov.style.display='none';});
   }
-  document.getElementById('wcqr').innerHTML='<span style="color:var(--dm);font-size:12px">'+(window.matchMedia('(pointer:coarse)').matches?'Opening any-wallet connect…':'Generating QR…')+'</span>';
+  document.getElementById('wctitle').textContent=coarse?'choose your wallet app':'scan with any wallet';
+  /* A phone cannot scan its own screen: on touch devices the QR is replaced
+     by a per-wallet chooser filled in once the pairing URI arrives. */
+  const qr=document.getElementById('wcqr');
+  qr.style.display=coarse?'none':'flex';
+  qr.innerHTML='<span style="color:var(--dm);font-size:12px">Generating QR…</span>';
+  const ap=document.getElementById('wcapps');
+  ap.style.display=coarse?'block':'none';
+  ap.innerHTML=coarse?'<span style="color:var(--dm);font-size:12px">Opening connect…</span>':'';
   document.getElementById('wclink').style.display='none';
   ov.style.display='flex';
   return ov;
@@ -774,12 +783,27 @@ function openWcModal(){
 function drawWcQr(uri){
   const box=document.getElementById('wcqr');
   if(!box)return;
-  /* A phone cannot scan its own screen: on touch devices the wc: link is the
-     primary control, so skip the canvas entirely. */
+  /* Touch devices get a per-wallet chooser instead of a QR: universal links
+     name the wallet explicitly, so the OS never picks a default handler. */
   if(window.matchMedia('(pointer:coarse)').matches){
-    box.innerHTML='';
-    const ln=document.getElementById('wclink');
-    if(ln){ln.href=uri;ln.style.display='flex';}
+    const ap=document.getElementById('wcapps');
+    if(ap){
+      ap.innerHTML='';
+      const enc=encodeURIComponent(uri);
+      [['Base app','https://go.cb-w.com/wc?uri='+enc],
+       ['MetaMask','https://metamask.app.link/wc?uri='+enc],
+       ['Rainbow','https://rnbwapp.com/wc?uri='+enc],
+       ['Trust Wallet','https://link.trustwallet.com/wc?uri='+enc]].forEach(function(w){
+        const a=document.createElement('a');a.className='srbtn';a.href=w[1];
+        a.style.cssText='width:100%;justify-content:center;margin-top:6px;color:var(--fg)';
+        a.textContent=w[0];
+        ap.appendChild(a);
+      });
+      const a=document.createElement('a');a.className='srbtn';a.href=uri;
+      a.style.cssText='width:100%;justify-content:center;margin-top:6px;color:var(--dm)';
+      a.textContent='Another wallet app';
+      ap.appendChild(a);
+    }
     return;
   }
   box.innerHTML='';
