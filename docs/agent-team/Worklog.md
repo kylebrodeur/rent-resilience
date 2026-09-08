@@ -106,3 +106,22 @@
   track wider than its container; fixed with minmax(0,1fr), min-width:0 on
   form inputs, stacked input/button below 360px, and wrapping footer
   links. Page is now scroll-clean at 320 and 390.
+- First real 1c opt-in landed and recorded. Kyle paid 0.01 USDC through the
+  Base app lane (tx 0x66869a5b…49e96a); /api/confirm 404'd it twice, and
+  wrangler tail with temporary rpc() diagnostics root-caused two independent
+  bugs: (1) mainnet.base.org answers 429 "over rate limit" to Worker egress
+  IPs, which the old `if (!res.ok) return null` flattened into "not found" —
+  rpc() now rotates across four Base endpoints (mainnet.base.org, Tenderly
+  gateway, publicnode, drpc) per call and logs which one answered; (2)
+  logMatches compared a lowercased log address against the checksummed
+  MAINNET.asset constant, so every log ever seen failed matching — both
+  sides now normalized. Client side, confirmTx polls /api/confirm on 404
+  every 3s up to 10 rounds with visible "Confirming onchain… (n/10)"
+  progress, since a Base-app smart-wallet op lands seconds after the wallet
+  returns the userOp hash and the old one-shot 404 read as "nothing
+  happened". Both paths verified live in Playwright against the deployed
+  site; the KV row for Kyle's payment is written.
+- Queued from Kyle: automated "you're in" email confirmation (send where the
+  KV record has an email) plus a backup link that opens the site with the tx
+  hash prefilled and runs verification on load; in-flow hash redirect stays
+  primary, the prefilled link is the fallback lane.

@@ -891,11 +891,20 @@ async function payFlow(w){
 async function confirmTx(v,lane){
   const msg=document.getElementById('omsg');
   msg.textContent='Checking the chain…';
+  const attempt=async()=>await fetch('/api/confirm',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({txHash:v})});
   try{
-    const res=await fetch('/api/confirm',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({txHash:v})});
-    const body=await res.json();
+    let res=await attempt(),body=null;
+    /* A 404 right after the wallet hands back the hash is usually a
+       smart-wallet op still landing (Base app sends resolve before inclusion),
+       not a failed payment. Poll briefly before falling back to manual retry. */
+    for(let i=0;res.status===404&&i<10;i++){
+      msg.textContent='Confirming onchain… ('+(i+1)+'/10)';
+      await new Promise(z=>setTimeout(z,3000));
+      res=await attempt();
+    }
+    body=await res.json();
     if(res.ok){window.__lastTxHash=body.txHash;document.getElementById('omsg2').style.display='block';if(lane!=='qr'){const pf=document.getElementById('otx');if(pf){pf.value=body.txHash;pf.readOnly=true;}}msg.innerHTML='✓ In. Receipt: <a href="https://basescan.org/tx/'+body.txHash+'" target="_blank" style="color:var(--go)">'+body.txHash.slice(0,10)+'…</a> · <a href="https://github.com/kylebrodeur/rent-resilience" target="_blank" style="color:var(--go)">next: read the protocol</a>';if(window.rrShare)rrShare.confirmInto(document.getElementById('osup'));phTrack('optin_confirm',{result:'joined',lane:lane,txHash:body.txHash});}
-    else if(res.status===404){msg.textContent=body.hint||'Not seen onchain yet. Try again in a few seconds.';phTrack('optin_confirm',{result:'not-found-yet',lane:lane});}
+    else if(res.status===404){msg.textContent=body.hint||'Not seen onchain yet. Paste the hash again in a few seconds, or check the tx on basescan.org.';phTrack('optin_confirm',{result:'not-found-yet',lane:lane});}
     else{msg.textContent=body.error||'Check failed; retry later.';phTrack('optin_confirm',{result:'error',lane:lane});}
   }catch(e){msg.textContent='Check failed; retry later.';phTrack('optin_confirm',{result:'error',lane:lane});}
   return false;

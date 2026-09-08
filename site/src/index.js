@@ -267,7 +267,16 @@ const TRANSFER_TOPIC = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a
 const MAINNET = {
   chainId: 8453,
   asset: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", // USDC on Base
-  rpc: "https://mainnet.base.org",
+  // WHY a chain, not one endpoint: mainnet.base.org rate-limits by IP, and
+  // Workers share egress IPs across tenants — a live-test 1c confirm 404'd
+  // forever because every call came back 429 and rpc() flattened it to null.
+  // Each call rotates to the first endpoint that returns a result.
+  rpcs: [
+    "https://mainnet.base.org",
+    "https://base.gateway.tenderly.co",
+    "https://base-rpc.publicnode.com",
+    "https://base.drpc.org",
+  ],
   // ERC-4337 EntryPoint v0.7, the one actually deployed on Base (v0.6's
   // canonical address has no code here). Base-app smart-wallet sends may
   // resolve to a userOperation hash, and this contract's UserOperationEvent
@@ -291,18 +300,36 @@ async function handleConfirm(request, env, ctx) {
   const existing = txHash ? await env.RENT_OPTIN.get(txHash) : null;
   if (existing) return json({ status: "already-logged", txHash: txHash }, 200);
 
+  // WHY: a response only counts as a result when the HTTP status is OK and the
+  // body carries "result" — public endpoints answer 429 or JSON-RPC error
+  // bodies, and both must fall through to the next endpoint rather than
+  // masquerade as "receipt not found".
   async function rpc(method, params) {
-    const res = await fetch(MAINNET.rpc, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: method, params: params }),
-    });
-    if (!res.ok) return null;
-    return (await res.json()).result;
+    for (const rpcUrl of MAINNET.rpcs) {
+      try {
+        const res = await fetch(rpcUrl, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: method, params: params }),
+        });
+        const parsed = await res.json().catch(() => null);
+        if (res.ok && parsed && "result" in parsed) {
+          console.log("rpc", method, "via", new URL(rpcUrl).host);
+          return parsed.result;
+        }
+        console.log("rpc", method, "fail", new URL(rpcUrl).host, "http", res.status,
+          parsed && parsed.error ? JSON.stringify(parsed.error) : "no-result");
+      } catch (e) {
+        console.log("rpc", method, "threw", new URL(rpcUrl).host, String(e).slice(0, 80));
+      }
+    }
+    return null;
   }
 
   function logMatches(log, wantPayer) {
-    if (log.address.toLowerCase() !== MAINNET.asset) return false;
+    // Compare normalized on both sides: MAINNET.asset is the checksummed
+    // constant, and a lowercased log address can never equal it verbatim.
+    if (log.address.toLowerCase() !== MAINNET.asset.toLowerCase()) return false;
     if (parseInt(log.data, 16) < parseInt(X402.priceAtomic, 10)) return false;
     const toAddr = "0x" + log.topics[2].slice(26).toLowerCase();
     if (toAddr !== X402.payTo.toLowerCase()) return false;
