@@ -268,6 +268,11 @@ const MAINNET = {
   chainId: 8453,
   asset: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", // USDC on Base
   rpc: "https://mainnet.base.org",
+  // ERC-4337 EntryPoint v0.7, the one actually deployed on Base (v0.6's
+  // canonical address has no code here). Base-app smart-wallet sends may
+  // resolve to a userOperation hash, and this contract's UserOperationEvent
+  // is what maps that hash back to a real transaction hash.
+  entryPoint: "0x0000000071727De22E5E9d8BAf0edAC6f37da032",
 };
 
 async function handleConfirm(request, env, ctx) {
@@ -311,8 +316,30 @@ async function handleConfirm(request, env, ctx) {
   // Preferred path: exact tx. Public RPCs refuse full-history log scans, so the
   // payer-only fallback windows the scan to recent blocks.
   let matched = null;
+  let viaUserOp = false;
   if (txHash) {
-    const receipt = await rpc("eth_getTransactionReceipt", [txHash]);
+    let receipt = await rpc("eth_getTransactionReceipt", [txHash]);
+    if (!receipt) {
+      // Smart-wallet sends (Base app lane) can return a userOperation hash
+      // rather than a tx hash; it resolves to null here. The EntryPoint's
+      // UserOperationEvent carries the real transactionHash — window the
+      // lookup like the payer fallback instead of relying on a bundler RPC.
+      const latestHex = await rpc("eth_blockNumber", []);
+      if (latestHex) {
+        const fromHex = "0x" + (parseInt(latestHex, 16) - 50000).toString(16);
+        const opLogs = await rpc("eth_getLogs", [{
+          address: MAINNET.entryPoint,
+          topics: [null, txHash.toLowerCase()],
+          fromBlock: fromHex,
+          toBlock: "latest",
+        }]) || [];
+        const opTx = opLogs.length && opLogs[0].transactionHash;
+        if (opTx) {
+          receipt = await rpc("eth_getTransactionReceipt", [opTx]);
+          if (receipt) viaUserOp = true;
+        }
+      }
+    }
     if (receipt && receipt.status === "0x1" && Array.isArray(receipt.logs)) {
       for (const log of receipt.logs) {
         if (logMatches(log, payer)) { matched = log; break; }
@@ -349,6 +376,7 @@ async function handleConfirm(request, env, ctx) {
     result: "joined",
     txHash: matched.transactionHash,
     amount_usdc: 0.01,
+    via_userop: viaUserOp,
   });
 
   const now = new Date().toISOString();
