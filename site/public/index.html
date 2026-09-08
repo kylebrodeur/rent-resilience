@@ -236,7 +236,7 @@ footer a:hover{color:var(--mu)}
 
 @media(max-width:960px){.herogrid{grid-template-columns:1fr}.hdiag{order:2}}
 @media(max-width:860px){.psg,.sg2,.fg,#api .apitab,#flow .flayout{grid-template-columns:1fr}.psc.bad{border-right:none;border-bottom:1px solid var(--br)}.nl{display:none}}
-@media(max-width:640px){.bnavtxt{display:none}.bnav{padding:8px 10px}.logo{font-size:15px;white-space:nowrap}#tmlbl{display:none}.tmbtn{padding:5px 8px}.nr{gap:10px}.ni{padding:0 20px}.optgrid{grid-template-columns:1fr!important}.optgrid .flcard{max-width:none;margin:0;display:flex;align-items:center;gap:14px;text-align:left;padding:14px 16px}.optgrid .flcard img{width:96px!important;max-width:96px!important;flex:none}.optgrid .qrside{flex:1;display:flex;flex-direction:column}.optgrid .qrside .hdt{margin-top:0!important;text-align:center}.optgrid .qrside .fb{margin-top:8px!important}}
+@media(max-width:640px){.bnavtxt{display:none}.bnav{padding:8px 10px}.logo{font-size:15px;white-space:nowrap}#tmlbl{display:none}.tmbtn{padding:5px 8px}.nr{gap:10px}.ni{padding:0 20px}.optgrid{grid-template-columns:1fr!important}.optgrid .flcard{max-width:none;margin:0;text-align:center;padding:14px 16px}.optgrid .qrside{display:flex;flex-direction:column;align-items:center}.optgrid .qrside .fb{margin-top:8px!important}}
 
 :focus-visible{outline:2px solid var(--go);outline-offset:2px}
 .tmbtn:focus-visible,.bnav:focus-visible,.fqq:focus-visible,.fclink:focus-visible,.fb:focus-visible{outline:2px solid var(--go);outline-offset:2px;border-radius:2px}
@@ -368,15 +368,14 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
     <p class="ss">Proving you're interested costs 1¢ and a signature on Base, or just an email if you'd rather skip the wallet. Paid-anonymous stays anonymous; paid plus email gives us a way back to you.</p>
     <div class="optgrid" style="display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:start;margin-top:34px">
       <div class="flcard" style="text-align:center;padding:18px">
-        <img src="/optin-qr.png" alt="QR code: send 1 cent USDC on Base to the Rent Resilience opt-in address" style="width:100%;max-width:160px;border-radius:3px"/>
         <div class="qrside">
-          <div class="hdt" style="font-size:9px;margin-top:10px">scan with a wallet app<br>1¢ USDC · Base (mainnet)</div>
+          <div class="hdt" style="font-size:9px;margin-bottom:10px">any wallet app works<br>1¢ USDC · Base (mainnet)</div>
           <a class="fb" data-ph="tap-to-pay" style="margin-top:12px;justify-content:center;text-align:center;border-radius:3px;white-space:normal;line-height:1.45;padding:11px 14px;gap:7px" href="ethereum:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913@8453/transfer?address=0x79588BB628c741d073FD3bC47685328Cf8aD6802&uint256=10000" onclick="return payClick(event)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg><span>Pay 1¢ with your wallet</span></a>
         </div>
       </div>
       <div>
-        <div class="fpd" style="margin-bottom:14px"><span class="tag tg">Humans</span> scan → send → confirm</div>
-        <div class="ffline" style="margin-bottom:14px">A connected wallet or any wallet app confirms automatically. Paid by scanning the QR? Paste the transaction hash.</div>
+        <div class="fpd" style="margin-bottom:14px"><span class="tag tg">Humans</span> connect → send → confirm</div>
+        <div class="ffline" style="margin-bottom:14px">A connected wallet or any wallet app confirms automatically. Paid another way? Paste the transaction hash.</div>
         <form class="frow" onsubmit="return confirmOptin(event)" style="margin-bottom:8px">
           <input class="fi" id="otx" type="text" placeholder="0x… (transaction hash from your wallet)" aria-label="Transaction hash from your wallet" />
           <button class="fb" type="submit">Confirm →</button>
@@ -673,7 +672,7 @@ function payClick(ev){
       wcPay();
       return false;
     }
-    if(msg)msg.textContent='No wallet detected in this browser. Scan the QR code with a wallet app, then paste the transaction hash below.';
+    if(msg)msg.textContent='No wallet detected in this browser. Pay from any wallet app, then paste the transaction hash below.';
     phTrack('optin_wallet_pay',{result:'no-wallet'});
     return true; /* fallback when the relay is off: let the deep link through */
   }
@@ -751,7 +750,7 @@ async function wcPay(){
   }catch(e){
     ov.style.display='none';
     if(e&&/rejected|closed|declined/i.test(e.message||'')){msg.textContent='Any-wallet connect cancelled.';phTrack('optin_wallet_pay',{result:'wc-cancelled'});}
-    else{msg.textContent='Any-wallet connect didn\'t start. Scan the QR code with a wallet app, then paste the transaction hash below.';phTrack('optin_wallet_pay',{result:'wc-error'});}
+    else{msg.textContent='Any-wallet connect didn\'t start. Pay from your wallet app, then paste the transaction hash below.';phTrack('optin_wallet_pay',{result:'wc-error'});}
   }
 }
 
@@ -824,7 +823,7 @@ async function payFlow(w){
     else{msg.textContent='No transaction hash came back. Paste the hash below once the transfer lands.';phTrack('optin_wallet_pay',{result:'no-hash'});}
   }catch(e){
     if(e&&(e.code===4001||/denied|rejected/i.test(e.message||''))){msg.textContent='Payment cancelled in '+nm+'.';phTrack('optin_wallet_pay',{result:'cancelled'});}
-    else{msg.textContent='Wallet payment didn\'t go through. Scan the QR, or paste the transaction hash below once the transfer lands.';phTrack('optin_wallet_pay',{result:'error'});}
+    else{msg.textContent='Wallet payment didn\'t go through. Paste the transaction hash below once the transfer lands.';phTrack('optin_wallet_pay',{result:'error'});}
   }
 }
 
