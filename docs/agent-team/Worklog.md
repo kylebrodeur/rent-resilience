@@ -59,3 +59,11 @@
   relay before deploy: provider init + live wc: pairing URI + client-drawn QR
   in Playwright. Remaining manual check: scan the desktop QR with a wallet app
   and complete a 1c transfer.
+- Mobile moved onto the relay too (commit fbe66fc, deploy 461b31bc): no
+  injected wallet means WalletConnect on every platform, so the hash returns
+  automatically on every lane and paste demoted to pure fallback (hidden
+  after a wallet-lane confirm). On touch devices the wc: link is primary and
+  the QR canvas is skipped. Form focus rings on inputs replaced with a
+  border-color change (outer ring made focused inputs stand taller than the
+  sibling button; both now a verified 44px). Static EIP-681 QR kept as the
+  no-JS/no-relay floor; PostHog lane data decides later whether it demotes.
