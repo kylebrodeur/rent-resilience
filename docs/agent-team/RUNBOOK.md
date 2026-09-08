@@ -299,6 +299,11 @@ zellij delete-all-sessions --yes              # after EXITED state, then recreat
 # models
 omp models                                    # what omp can route to
 ollama list                                   # ollama local + cloud
+
+# quality gates (run on every commit via husky; CI enforces too)
+pnpm lint                                     # oxlint: anti-slop + rent rules
+pnpm lint:rules:test                          # rule unit tests (RuleTester)
+pnpm gate:prose                               # publish gate on site pages
 ```
 
 Files that matter:

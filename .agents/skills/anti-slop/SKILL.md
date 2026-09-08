@@ -36,3 +36,9 @@ no bare `object` params; no conditional empty-object spreads; no `vi.mock`/`jest
 - **`no-oversized-comments`** — comment blocks over 4 lines are rejected unless they are
   JSDoc (`/** ... */`), tooling directives, or marked `WHY:` / `SAFETY:` for genuinely
   hard logic. Prefer self-documenting names and small functions.
+- **`no-slop-prose`** — reader-facing prose (string literals, template strings, comments)
+  rejects AI filler words (delve, leverage, robust, seamless, streamline, and the rest of
+  Kyle's no-ai-slop list). Replace the word with the concrete fact it stands in for.
+  Reader-facing copy in markdown/HTML runs through the separate publish gate
+  (`pnpm gate:prose`, vendored from Kyle's publishing system) and the
+  [rent-writing](../rent-writing/SKILL.md) skill.

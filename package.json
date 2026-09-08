@@ -5,6 +5,7 @@
   "scripts": {
     "lint": "oxlint",
     "lint:rules:test": "node --experimental-strip-types tools/oxlint/anti-slop/rent/rules/no-oversized-comments.test.ts && node --experimental-strip-types tools/oxlint/anti-slop/rent/rules/no-float-money.test.ts && node --experimental-strip-types tools/oxlint/anti-slop/rent/rules/no-weak-randomness.test.ts && node --experimental-strip-types tools/oxlint/anti-slop/rent/rules/no-slop-prose.test.ts",
+    "gate:prose": "python3 tools/validate_publish_markdown.py site/public/index.html site/public/status.html",
     "prepare": "husky"
   },
   "devDependencies": {
