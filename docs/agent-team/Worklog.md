@@ -27,3 +27,21 @@
   aria-controls on the mobile menu, FAQ glyphs aria-hidden, `--dm` token raised
   to WCAG AA contrast in both themes. Commits b1f3f0a..d20c6c8, deploys
   aa6802ae..5f25ebbf.
+- Desktop wallet pay (zero SDK): EIP-6963 injected-wallet discovery, on-brand
+  picker, Base chain switch, hand-encoded USDC transfer (68-byte calldata
+  verified against selector/recipient/amount), auto-confirm into /api/confirm.
+  Fallback to the ethereum: deep link preserved for mobile wallet apps. Wallet
+  flow sends tx hash to PostHog on optin_confirm and email_signup for Kyle's
+  funnel tracking; email lane merges the email into the payment KV record so
+  "paid + email" is one lookup.
+- KV pull tool: `pnpm kv:pull [founding|paid|emails|all]` (site/scripts/kv-pull.mjs,
+  wrangler --remote) writes local gitignored JSON; runbook in docs/kv-data-pulls.md.
+  Legacy `contact:*` key shape covered. wrangler pinned as devDependency;
+  pnpm-workspace allowBuilds filled in.
+- Windows-ready: .gitattributes (LF normalize + binary exceptions),
+  packageManager pinned to pnpm@12.3.4, README Setup section (Node 24,
+  corepack pnpm, uv PowerShell install; agent-team scripts documented as
+  mac/Linux-only with gates cross-platform).
+- Week 1 build runbook written (docs/agent-team/wk1-build-runbook.md): day
+  plan Wed schemas, Thu dataset, Fri-Sat ledger, Sun reliability, Mon ritual,
+  with per-day checklists and handoff discipline.
