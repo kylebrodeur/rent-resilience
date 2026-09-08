@@ -652,7 +652,7 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
 const RRPAY={to:'0x79588BB628c741d073FD3bC47685328Cf8aD6802',usdc:'0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',chainId:'0x2105'};
 /* WalletConnect relay for wallets without an extension (mobile apps, hardware, embedded).
    Create a free project at dashboard.reown.com and paste the id here. Empty = option hidden. */
-const WC_PROJECT_ID='';
+const WC_PROJECT_ID='bf466ab890609f75363485e6f0ae0fad';
 const _wl=[];
 window.addEventListener('eip6963:announceProvider',function(e){if(e.detail&&e.detail.info&&!_wl.some(function(w){return w.info.rdns===e.detail.info.rdns;}))_wl.push(e.detail);});
 window.dispatchEvent(new Event('eip6963:requestProvider'));
