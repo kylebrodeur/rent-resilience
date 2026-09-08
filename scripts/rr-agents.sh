@@ -10,7 +10,7 @@ session_root="$repo_root/.omp/rr-agents"
 usage() {
   print -u2 "usage: $0 [--fresh [role ...]]"
   print -u2 "  (default)  attach or create, resuming all role sessions"
-  print -u2 "  --fresh    reset all five roles, then start clean"
+  print -u2 "  --fresh    reset all six roles, then start clean"
   print -u2 "  --fresh ledger verifier  reset only named roles, resume the rest"
 }
 

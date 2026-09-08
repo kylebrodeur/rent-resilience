@@ -12,7 +12,7 @@ usage() {
   print -u2 "commands:"
   print -u2 "  new <role>     Start a fresh session (old session preserved on disk, resumable via omp -r)."
   print -u2 "  stop <role>    Stop one terminal — no restart."
-  print -u2 "  new-all        Reset all four lanes (keeps advisor)."
+  print -u2 "  new-all        Reset the four build lanes (keeps teacher and advisor)."
   print -u2 "  status         Show all session states."
   print -u2 ""
   print -u2 "roles: schemas, dataset, ledger, verifier, teacher, advisor"

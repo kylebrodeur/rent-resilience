@@ -2,6 +2,7 @@
 
 Six OMP sessions in one Zellij layout: four implementation/verification lanes, a
 teacher, and an advisor/coordinator. Started with `./scripts/rr-agents.sh`.
+Commands and per-tool usage: `RUNBOOK.md` in this directory.
 
 ## Roles
 
