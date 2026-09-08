@@ -75,3 +75,14 @@
   shows a named universal-link chooser (Base app, MetaMask, Rainbow, Trust,
   raw wc: fallback) instead of an empty QR box, fixing the OS-default
   Rainbow problem (commit 84301bc, deploy b4514888).
+- Kyle's live mobile test: Rainbow works end to end (chooser opens the app,
+  connection prompt appears); the Base app row did not (app opened to the
+  home screen, no approval prompt). Root cause is upstream: the July 2025
+  Coinbase Wallet -> Base app migration broke the go.cb-w.com/wc?uri=
+  deep link (reown-com/appkit-react-native#511); Base app needs a separate
+  Base Account SDK / Mobile Wallet Protocol lane later. Base app row removed
+  from the chooser (commit 7f6c5ca, deploy 021eda2b). Hash-return fallback
+  direction documented: the tx hash travels over the WC relay to the pending
+  eth_sendTransaction promise, not via the redirect, so a manual swipe back
+  to the browser still resolves; a killed tab falls back to the paste field,
+  which is why it stays.

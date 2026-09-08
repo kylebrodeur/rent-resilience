@@ -69,7 +69,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .hsub{font-size:16px;color:var(--mu);line-height:1.7;max-width:480px;margin-bottom:30px}
 .flbl{font-family:'Martian Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--mu);margin-bottom:8px;display:block}
 .frow{display:flex;max-width:520px;margin-bottom:10px}
-.fi{flex:1;background:var(--sf);border:1px solid var(--brh);border-right:none;border-radius:3px 0 0 3px;padding:13px 16px;font-family:'Martian Mono',monospace;font-size:12px;color:var(--tx);min-height:44px;outline:none;transition:border-color .2s;display:flex;align-items:center}
+.fi{flex:1;min-width:0;background:var(--sf);border:1px solid var(--brh);border-right:none;border-radius:3px 0 0 3px;padding:13px 16px;font-family:'Martian Mono',monospace;font-size:12px;color:var(--tx);min-height:44px;outline:none;transition:border-color .2s;display:flex;align-items:center}
 .fi span{color:var(--tx)}
 /* Focus = border color, not an outer ring: the ring draws outside the box and
    makes a focused input stand taller than its sibling button. */
@@ -228,7 +228,7 @@ footer{border-top:1px solid var(--br);padding:28px 0}
 .fi2{max-width:1100px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
 footer span,footer a{font-family:'Martian Mono',monospace;font-size:10px;color:var(--dm);text-decoration:none}
 footer a:hover{color:var(--mu)}
-.flinks{display:flex;gap:18px}
+.flinks{display:flex;gap:12px 18px;flex-wrap:wrap}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .fu{opacity:0;animation:fadeUp .55s ease both}
@@ -236,7 +236,8 @@ footer a:hover{color:var(--mu)}
 
 @media(max-width:960px){.herogrid{grid-template-columns:1fr}.hdiag{order:2}}
 @media(max-width:860px){.psg,.sg2,.fg,#api .apitab,#flow .flayout{grid-template-columns:1fr}.psc.bad{border-right:none;border-bottom:1px solid var(--br)}.nl{display:none}}
-@media(max-width:640px){.bnavtxt{display:none}.bnav{padding:8px 10px}.logo{font-size:15px;white-space:nowrap}#tmlbl{display:none}.tmbtn{padding:5px 8px}.nr{gap:10px}.ni{padding:0 20px}.optgrid{grid-template-columns:1fr!important}.optgrid .flcard{max-width:none;margin:0;text-align:center;padding:14px 16px}.optgrid .qrside{display:flex;flex-direction:column;align-items:center}.optgrid .qrside .fb{margin-top:8px!important}}
+@media(max-width:640px){.bnavtxt{display:none}.bnav{padding:8px 10px}.logo{font-size:15px;white-space:nowrap}#tmlbl{display:none}.tmbtn{padding:5px 8px}.nr{gap:10px}.ni{padding:0 20px}.optgrid{grid-template-columns:minmax(0,1fr)!important}.optgrid .flcard{max-width:none;margin:0;text-align:center;padding:14px 16px}.optgrid .qrside{display:flex;flex-direction:column;align-items:center}.optgrid .qrside .fb{margin-top:8px!important}}
+@media(max-width:360px){.frow{flex-wrap:wrap}.frow .fi{flex:1 1 100%;border-right:1px solid var(--brh);border-radius:3px}.frow .fb{flex:1 1 100%;border-radius:3px;margin-top:8px}}
 
 :focus-visible{outline:2px solid var(--go);outline-offset:2px}
 .tmbtn:focus-visible,.bnav:focus-visible,.fqq:focus-visible,.fclink:focus-visible,.fb:focus-visible{outline:2px solid var(--go);outline-offset:2px;border-radius:2px}
@@ -365,17 +366,18 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
   <div class="con">
     <div class="sl">Try it now</div>
     <h2>The Mint stopped minting pennies.<br><em>Somebody had to</em> pick up the slack.</h2>
-    <p class="ss">Proving you're interested costs 1¢ and a signature on Base, or just an email if you'd rather skip the wallet. Paid-anonymous stays anonymous; paid plus email gives us a way back to you.</p>
+    <p class="ss">Proving you're interested costs 1¢ on Base, or just an email. Paid-only stays anonymous; adding email gives us a way back to you.</p>
     <div class="optgrid" style="display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:start;margin-top:34px">
       <div class="flcard" style="text-align:center;padding:18px">
         <div class="qrside">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--te)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" x2="17" y1="12" y2="12"/></svg>
           <div class="hdt" style="font-size:9px;margin-bottom:10px">any wallet app works<br>1¢ USDC · Base (mainnet)</div>
-          <a class="fb" data-ph="tap-to-pay" style="margin-top:12px;justify-content:center;text-align:center;border-radius:3px;white-space:normal;line-height:1.45;padding:11px 14px;gap:7px" href="ethereum:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913@8453/transfer?address=0x79588BB628c741d073FD3bC47685328Cf8aD6802&uint256=10000" onclick="return payClick(event)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg><span>Pay 1¢ with your wallet</span></a>
+          <a class="fb" data-ph="tap-to-pay" style="margin-top:12px;justify-content:center;text-align:center;border-radius:3px;white-space:normal;line-height:1.45;padding:11px 14px;gap:7px;background:var(--te);color:var(--bg)" href="ethereum:0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913@8453/transfer?address=0x79588BB628c741d073FD3bC47685328Cf8aD6802&uint256=10000" onclick="return payClick(event)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg><span>Pay 1¢ with your wallet</span></a>
         </div>
       </div>
       <div>
         <div class="fpd" style="margin-bottom:14px"><span class="tag tg">Humans</span> connect → send → confirm</div>
-        <div class="ffline" style="margin-bottom:14px">A connected wallet or any wallet app confirms automatically. Paid another way? Paste the transaction hash.</div>
+        <div class="ffline" style="margin-bottom:14px">Connected wallets confirm automatically. Paid another way? Paste the hash.</div>
         <form class="frow" onsubmit="return confirmOptin(event)" style="margin-bottom:8px">
           <input class="fi" id="otx" type="text" placeholder="0x… (transaction hash from your wallet)" aria-label="Transaction hash from your wallet" />
           <button class="fb" type="submit">Confirm →</button>
@@ -397,16 +399,13 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
     </div>
     <div style="margin-top:28px;border:1px solid var(--brh);border-radius:4px;padding:20px;background:var(--sf)">
       <div class="fpd" style="margin-bottom:8px"><span class="tag tg">Or just email</span> no wallet, no payment</div>
-      <div class="ffline" style="margin-bottom:12px">Say "keep building." That's the whole signal. We only write when there's something real: proofs live, sandbox opening.</div>
+      <div class="ffline" style="margin-bottom:12px">Say "keep building." We only write when there's something real.</div>
       <form class="frow" onsubmit="return submitContact(event, this, 'email-only')" style="max-width:520px">
         <input class="fi" type="email" placeholder="you@wherever.com" aria-label="Your email address" required />
         <button class="fb" type="submit">Keep building →</button>
       </form>
       <div class="ffine" style="margin-top:8px" id="emsg"></div>
       <div id="esup" hidden></div>
-      <div class="ffine" style="margin-top:16px;padding-top:14px;border-top:1px solid var(--br);font-size:10px;color:var(--dm);line-height:1.8">
-        (The Mint actually did stop minting pennies in 2025. The cent just moved onchain.)
-      </div>
         </div>
   </div>
 </section>
@@ -709,7 +708,38 @@ function walletPicker(wl){
     b.addEventListener('click',function(){ov.style.display='none';wcPay();});
     list.appendChild(b);
   }
+  /* Base app has its own lane: its WC deep link is dead, so it gets the
+     Base Account SDK (own popup/QR on desktop, own app-open on mobile). */
+  const bb=document.createElement('button');bb.type='button';bb.className='srbtn';bb.style.cssText='width:100%;justify-content:flex-start;gap:9px;margin-top:6px;padding:9px 11px;color:var(--fg)';
+  bb.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span></span>';
+  bb.querySelector('span:last-child').textContent='Base app';
+  bb.addEventListener('click',function(){ov.style.display='none';basePay();});
+  list.appendChild(bb);
   ov.style.display='flex';
+}
+
+/* Base app lane: the Base Account SDK (Coinbase's own mobile protocol). The
+   legacy go.cb-w.com/wc?uri= deep link died in the July 2025 Coinbase Wallet
+   -> Base app migration (reown-com/appkit-react-native#511), so WalletConnect
+   cannot reach the Base app; this SDK is the supported path. Lazy-loaded on
+   first pick, same zero-build pattern as the WC provider. Its provider speaks
+   the same JSON-RPC methods, so payFlow handles it unchanged. */
+async function basePay(){
+  const msg=document.getElementById('omsg');
+  phTrack('optin_wallet_pay',{result:'base-open'});
+  const wcv=document.getElementById('wcpay');
+  if(wcv)wcv.style.display='none'; /* abandon the pending WC pairing; it expires harmlessly */
+  try{
+    msg.textContent='Opening Base app…';
+    const mod=await import('https://cdn.jsdelivr.net/npm/@base-org/account/+esm');
+    const sdk=mod.createBaseAccountSDK({appName:'Rent Resilience',appLogoUrl:'https://rentresilience.org/rent-resilience-app-icon.png',appChainIds:[8453]});
+    const p=sdk.getProvider();
+    phTrack('optin_wallet_pay',{result:'base-paired'});
+    await payFlow({info:{name:'Base app',rdns:'base.app'},provider:p});
+  }catch(e){
+    if(e&&/rejected|closed|declined|denied/i.test(e.message||'')){msg.textContent='Base app connect cancelled.';phTrack('optin_wallet_pay',{result:'base-cancelled'});}
+    else{msg.textContent='Base app connect didn\'t start. Pay from your wallet app, then paste the transaction hash below.';phTrack('optin_wallet_pay',{result:'base-error'});}
+  }
 }
 
 /* WalletConnect relay: raw @walletconnect/ethereum-provider, our own QR modal,
@@ -790,10 +820,14 @@ function drawWcQr(uri){
     if(ap){
       ap.innerHTML='';
       const enc=encodeURIComponent(uri);
-      /* No Base app row: the July 2025 Coinbase Wallet -> Base app migration
-         broke the go.cb-w.com/wc?uri= deep link (app opens, no approval screen;
-         reown-com/appkit-react-native#511). Base app needs its own
-         Base Account SDK lane later. */
+      /* No Base app deep-link row: the July 2025 Coinbase Wallet -> Base app
+         migration broke go.cb-w.com/wc?uri= (reown-com/appkit-react-native#511).
+         Base app users get the Base Account SDK row below instead. */
+      const ba=document.createElement('a');ba.className='srbtn';ba.href='#';
+      ba.style.cssText='width:100%;justify-content:center;margin-top:6px;color:var(--fg)';
+      ba.textContent='Base app';
+      ba.addEventListener('click',function(e){e.preventDefault();basePay();});
+      ap.appendChild(ba);
       [['MetaMask','https://metamask.app.link/wc?uri='+enc],
        ['Rainbow','https://rnbwapp.com/wc?uri='+enc],
        ['Trust Wallet','https://link.trustwallet.com/wc?uri='+enc]].forEach(function(w){
