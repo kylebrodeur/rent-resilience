@@ -695,14 +695,14 @@ function walletPicker(wl){
   const list=document.getElementById('wpklist');list.innerHTML='';
   wl.forEach(function(w){
     const b=document.createElement('button');b.type='button';b.className='srbtn';b.style.cssText='width:100%;justify-content:flex-start;gap:9px;margin-top:6px;padding:9px 11px;color:var(--fg)';
-    b.innerHTML=(w.info.icon?'<img src="'+w.info.icon+'" alt="" width="18" height="18" style="border-radius:3px">':'<span aria-hidden="true">🔗</span>')+'<span></span>';
+    b.innerHTML=(w.info.icon?'<img src="'+w.info.icon+'" alt="" width="18" height="18" style="border-radius:3px">':'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>')+'<span></span>';
     b.querySelector('span:last-child').textContent=w.info.name||'Wallet';
     b.addEventListener('click',function(){ov.style.display='none';payFlow(w);});
     list.appendChild(b);
   });
   if(WC_PROJECT_ID){
     const b=document.createElement('button');b.type='button';b.className='srbtn';b.style.cssText='width:100%;justify-content:flex-start;gap:9px;margin-top:6px;padding:9px 11px;color:var(--fg)';
-    b.innerHTML='<span aria-hidden="true">📱</span><span></span><span style="margin-left:auto;color:var(--dm);font-size:11px">QR</span>';
+    b.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg><span></span><span style="margin-left:auto;color:var(--dm);font-size:11px">QR</span>';
     b.querySelectorAll('span')[1].textContent='Any wallet app';
     b.addEventListener('click',function(){ov.style.display='none';wcPay();});
     list.appendChild(b);
