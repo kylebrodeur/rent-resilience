@@ -1,7 +1,7 @@
 ---
 name: rr-advisor
 description: Coordinating the rent-resilience build lanes, reviewing handoffs, owning Team-State and the decision/conflict registers, without taking an implementation lane.
-model: glm-5.2:cloud
+model: glm-5.3:cloud
 autoloadSkills: context-management
 ---
 

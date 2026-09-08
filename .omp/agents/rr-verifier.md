@@ -1,7 +1,7 @@
 ---
 name: rr-verifier
 description: Independently executing the invariant checklist against lanes' handoffs — tamper, replay, gap, round-trip, determinism — reporting VERIFIED or FAILED with evidence. Never fixes implementation.
-model: gemma4:31b-cloud
+model: deepseek-v4-pro:cloud
 autoloadSkills: context-management
 ---
 

@@ -14,7 +14,7 @@ usage() {
   print -u2 "  --fresh ledger verifier  reset only named roles, resume the rest"
 }
 
-all_roles=(schemas dataset ledger verifier advisor)
+all_roles=(schemas dataset ledger verifier teacher advisor)
 
 case "${1-}" in
   "")

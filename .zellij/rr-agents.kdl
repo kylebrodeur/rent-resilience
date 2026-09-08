@@ -18,8 +18,13 @@ layout {
                 }
             }
         }
-        pane name="Advisor" focus=true command="zsh" {
-            args "-lc" "exec ./scripts/rr-agent-terminal.sh advisor"
+        pane split_direction="horizontal" {
+            pane name="Teacher" command="zsh" {
+                args "-lc" "exec ./scripts/rr-agent-terminal.sh teacher"
+            }
+            pane name="Advisor" focus=true command="zsh" {
+                args "-lc" "exec ./scripts/rr-agent-terminal.sh advisor"
+            }
         }
     }
 }

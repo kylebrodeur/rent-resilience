@@ -6,7 +6,7 @@ repo_root=${0:A:h:h}
 cd "$repo_root"
 
 if (( $# != 1 )); then
-  print -u2 "usage: $0 {schemas|dataset|ledger|verifier|advisor}"
+  print -u2 "usage: $0 {schemas|dataset|ledger|verifier|teacher|advisor}"
   exit 64
 fi
 
@@ -28,12 +28,17 @@ case "$role" in
     first_turn_note="Read your scratchpad at $repo_root/docs/agent-team/handoffs/scratchpads/ledger.md for environment state, and .agents/skills/protocol-dev/SKILL.md plus docs/protocol.md before any code, then await Kyle's next request."
     ;;
   verifier)
-    model="gemma4:31b-cloud"
+    model="deepseek-v4-pro:cloud"
     working_dir="$repo_root"
     first_turn_note="Read your scratchpad at $repo_root/docs/agent-team/handoffs/scratchpads/verifier.md and .agents/skills/protocol-dev/SKILL.md for the invariant checklist, then await a lane handoff to verify."
     ;;
+  teacher)
+    model="kimi-k3:cloud"
+    working_dir="$repo_root"
+    first_turn_note="Read your scratchpad at $repo_root/docs/agent-team/handoffs/scratchpads/teacher.md, the homework doc at $repo_root/../rent-resilience-dev/docs/wk1-prep-homework.md, and docs/agent-team/learning/notes.md for progress so far, then greet Kyle with the next unfinished homework item."
+    ;;
   advisor)
-    model="glm-5.2:cloud"
+    model="glm-5.3:cloud"
     working_dir="$repo_root"
     first_turn_note="Read docs/agent-team/ for the team structure, workflow, and documentation flow, and .omp/RULES.md. The four lanes (schemas, dataset, ledger, verifier) have persistent scratchpads at docs/agent-team/handoffs/scratchpads/. Await Kyle's question."
     ;;
@@ -88,8 +93,9 @@ else
   omp_args+=(--config "$repo_root/.omp/light-session.yml")
 fi
 
-# Disable LSP for roles that don't edit code (advisor reads docs, verifier runs tests).
-if [[ "$role" == "advisor" || "$role" == "verifier" ]]; then
+# Disable LSP for roles that don't edit code (advisor reads docs, teacher teaches,
+# verifier runs tests).
+if [[ "$role" == "advisor" || "$role" == "verifier" || "$role" == "teacher" ]]; then
   omp_args+=(--no-lsp)
 fi
 

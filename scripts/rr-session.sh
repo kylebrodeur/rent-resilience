@@ -15,7 +15,7 @@ usage() {
   print -u2 "  new-all        Reset all four lanes (keeps advisor)."
   print -u2 "  status         Show all session states."
   print -u2 ""
-  print -u2 "roles: schemas, dataset, ledger, verifier, advisor"
+  print -u2 "roles: schemas, dataset, ledger, verifier, teacher, advisor"
   print -u2 ""
   print -u2 "For fork/branch/restore, use OMP's built-in commands from inside the session:"
   print -u2 "  /fork   — clone session to a new file (original untouched)"
@@ -67,7 +67,7 @@ case "${1:-}" in
     ;;
 
   status)
-    for role in schemas dataset ledger verifier advisor; do
+    for role in schemas dataset ledger verifier teacher advisor; do
       session_dir="$session_root/$role"
       pid=$(pgrep -f -- "--session-dir $session_dir " | head -1) || true
       session_files=("$session_dir"/*.jsonl(N))

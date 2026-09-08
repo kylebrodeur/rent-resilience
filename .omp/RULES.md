@@ -44,7 +44,7 @@ Private project context (dashboard, costs, applications) lives in `../rent-resil
 ## Session management
 
 - OMP sessions are append-only trees: `/fork`, `/branch`, `/tree`, `omp -r`. Nothing destroyed.
-- `./scripts/rr-agents.sh` — attach or create the five-pane team (advisor first, wins the
+- `./scripts/rr-agents.sh` — attach or create the six-pane team (advisor first, wins the
   Pi Link hub on port 9900).
 - `./scripts/rr-agents.sh --fresh [role ...]` — hard reset named roles (or all).
 - `./scripts/rr-session.sh new <role>` — fresh session, old history preserved on disk.
@@ -54,6 +54,11 @@ Private project context (dashboard, costs, applications) lives in `../rent-resil
 ## Handoff discipline (learned in btc-market-learning-lab — keep it)
 
 - Handoffs are commit-pinned: name the exact commit SHA you built on. "Latest" is not a pin.
+- The teacher (rr-teacher) guides Kyle through homework and owns
+  `docs/agent-team/learning/**` only. Completed katas are flagged to the advisor for a
+  verifier-lane handoff. Model alternates (gemini/claude/codex families via
+  `google-antigravity`, `google-gemini-cli`, `openai-codex` providers) are listed in
+  `docs/agent-team/README.md` under "Model roster and alternates".
 - The advisor is the SINGLE writer of Team-State.md, the decision register, and the
   conflict register. Specialists write only their scratchpad and their handoffs.
 - Shared registers are never edited concurrently. Report through your handoff; the
