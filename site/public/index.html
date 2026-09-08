@@ -41,7 +41,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .nl a:hover{color:var(--tx)}
 .tmbtn{display:flex;align-items:center;gap:6px;font-family:'Martian Mono',monospace;font-size:11px;color:var(--mu);background:none;border:1px solid var(--brh);border-radius:2px;padding:5px 10px;min-height:44px;cursor:pointer;transition:all .2s}
 .tmbtn:hover{border-color:var(--gb);color:var(--go)}
-.bnav{font-family:'Martian Mono',monospace;font-size:11px;font-weight:600;color:var(--bg);background:var(--go);border:none;padding:8px 14px;border-radius:2px;min-height:44px;cursor:pointer;text-decoration:none;transition:opacity .2s;white-space:nowrap}
+.bnav{font-family:'Martian Mono',monospace;font-size:11px;font-weight:600;color:var(--bg);background:var(--go);border:none;padding:8px 14px;border-radius:2px;min-height:44px;cursor:pointer;text-decoration:none;transition:opacity .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;line-height:1}
 .bnav:hover{opacity:.82}
 
 #hero{padding:124px 0 72px;position:relative;overflow:hidden}
@@ -61,7 +61,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(26,21,16,.93
 .frow{display:flex;max-width:520px;margin-bottom:10px}
 .fi{flex:1;background:var(--sf);border:1px solid var(--brh);border-right:none;border-radius:3px 0 0 3px;padding:13px 16px;font-family:'Martian Mono',monospace;font-size:12px;color:var(--tx);min-height:44px;outline:none;transition:border-color .2s;display:flex;align-items:center}
 .fi span{color:var(--tx)}
-.fb{background:var(--go);color:var(--bg);border:none;border-radius:0 3px 3px 0;padding:13px 20px;font-family:'Martian Mono',monospace;font-size:11px;font-weight:600;min-height:44px;cursor:pointer;white-space:nowrap;transition:opacity .2s;text-decoration:none;display:flex;align-items:center}
+.fb{line-height:1;background:var(--go);color:var(--bg);border:none;border-radius:0 3px 3px 0;padding:13px 20px;font-family:'Martian Mono',monospace;font-size:11px;font-weight:600;min-height:44px;cursor:pointer;white-space:nowrap;transition:opacity .2s;text-decoration:none;display:flex;align-items:center}
 .fb:hover{opacity:.83}
 .ffine{font-family:'Martian Mono',monospace;font-size:11px;color:var(--dm)}
 .ffine span{color:var(--go)}
@@ -208,6 +208,7 @@ footer a:hover{color:var(--mu)}
     <div class="nr">
       <div class="nl">
         <a href="#problem">Why</a>
+        <a href="#optin">Opt in</a>
         <a href="#flow">Flow</a>
         <a href="#how">How</a>
         <a href="#privacy">Privacy</a>
@@ -218,7 +219,7 @@ footer a:hover{color:var(--mu)}
         <span id="tmicon">☀</span>
         <span id="tmlbl">Light</span>
       </button>
-      <a href="https://github.com/kylebrodeur/rent-resilience" class="bnav" target="_blank">Read the Protocol →</a>
+      <a href="https://github.com/kylebrodeur/rent-resilience" class="bnav" target="_blank"><svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" style="flex-shrink:0"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>Read the Protocol</a>
     </div>
   </div>
 </nav>
@@ -241,9 +242,9 @@ footer a:hover{color:var(--mu)}
           <label class="flbl">Developer? First x402 endpoint is the door in.</label>
           <div class="frow">
             <span class="fi"><span>GET /v1/proofs/reliability</span></span>
-            <a class="fb" href="https://github.com/kylebrodeur/rent-resilience/tree/main/packages/protocol/schemas" target="_blank">Schemas →</a>
+            <a class="fb" href="/api/optin" target="_blank">Try the 402 →</a>
           </div>
-          <div class="ffine">Sandbox week 3: <span>HTTP 402 · USDC · ~$0.05/call</span>. No API keys, no onboarding.</div>
+          <div class="ffine">Live today: <span>POST /api/optin · $0.01 USDC · Base Sepolia</span> — the payment handshake is already on the site. Proofs at <span>$0.03–$0.05</span> land in week 3.</div>
         </div>
         <div class="hstats fu d3">
           <div class="hst"><span class="n">$46k</span><span class="l">on-time rent counts for $0 today</span></div>
@@ -316,6 +317,54 @@ footer a:hover{color:var(--mu)}
       <div class="cc2 bad"><span class="ccl">One $1,925 rent on card</span><div class="cca">$53</div><p class="ccn">2.75% fee. Every month, every card user.</p></div>
       <div class="cc2 good"><span class="ccl">Resolving a $625 shortfall</span><div class="cca" style="color:var(--go)">$0</div><p class="ccn">Flex + assistance compose at origin. No fee on resolving.</p></div>
       <div class="cc2" style="border-color:var(--brh);background:var(--td)"><span class="ccl">Proof a landlord reads</span><div class="cca" style="color:var(--te)">$0.05</div><p class="ccn">x402 price for a verified reliability claim.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="optin">
+  <div class="con">
+    <div class="sl">Try it now</div>
+    <h2>Show you're interested.<br>One cent, an email, or <em>an agent.</em></h2>
+    <p class="ss">Paying 1¢ is skin in the game. An email is "keep building." An agent hitting /api/optin is a future customer. All three add you to the same list; only the paying and email paths can be contacted later.</p>
+    <div style="display:grid;grid-template-columns:200px 1fr;gap:36px;align-items:start;margin-top:44px">
+      <div class="flcard" style="text-align:center;padding:18px">
+        <img src="/optin-qr.png" alt="QR code for 1 cent USDC on Base Sepolia to the Rent Resilience opt-in address" style="width:100%;max-width:160px;border-radius:3px"/><div class="hdt" style="font-size:9px;margin-top:10px">scan with a wallet app<br>1¢ USDC · Base (mainnet)</div>
+      </div>
+      <div>
+        <div class="fpd" style="margin-bottom:14px"><span class="tag tg">Humans</span> scan → send → confirm</div>
+        <div class="ffline" style="margin-bottom:14px">Confirm with the transaction hash once it lands.</div>
+        <form class="frow" onsubmit="return confirmOptin(event)" style="margin-bottom:8px">
+          <input class="fi" id="otx" type="text" placeholder="0x… (transaction hash from your wallet)" />
+          <button class="fb" type="submit">Confirm →</button>
+        </form>
+        <div class="ffine" id="omsg"></div>
+        <div class="ffine" id="omsg2" style="margin-top:10px;display:none">
+          <form class="frow" onsubmit="return submitContact(event, this, 'post-payment')" style="margin-top:8px">
+            <input class="fi" name="email" type="email" placeholder="Optional: email for updates when proofs ship" />
+            <button class="fb" type="submit">Notify me →</button>
+          </form>
+          <span style="font-size:9px;color:var(--dm)">paid intent + email = we reach you; paid only = anonymous signal.</span>
+        </div>
+        <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--br)">
+          <div class="fpd" style="margin-bottom:10px"><span class="tag tg">Agents</span> post to the endpoint</div>
+          <div class="ffine" style="font-size:10px;color:var(--mu);line-height:1.9">curl -X POST <span style="color:var(--go)">https://rentresilience.org/api/optin</span><br>answers 402 with scheme <span style="color:var(--go)">exact</span>, asset <span style="color:var(--go)">USDC@base-sepolia</span>, <span style="color:var(--go)">0.01</span> — pay with any x402 client and you're in.</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:28px;border:1px solid var(--brh);border-radius:4px;padding:20px;background:var(--sf)">
+      <div class="fpd" style="margin-bottom:8px"><span class="tag tg">Or just email</span> no wallet, no payment</div>
+      <div class="ffline" style="margin-bottom:12px">Say "keep building." That's the whole signal. We only write when there's something real — proofs live, sandbox opening.</div>
+      <form class="frow" onsubmit="return submitContact(event, this, 'email-only')" style="max-width:520px">
+        <input class="fi" type="email" placeholder="you@wherever.com" required />
+        <button class="fb" type="submit">Keep building →</button>
+      </form>
+      <div class="ffine" style="margin-top:8px" id="emsg"></div>
+      <div class="ffine" style="margin-top:16px;padding-top:14px;border-top:1px solid var(--br);font-size:10px;color:var(--dm);line-height:1.8">
+        The US Mint stopped minting pennies in 2025, so proving you care now costs one cent and one signature on Base. Somebody had to pick up the slack.<br>
+        <span style="color:var(--mu)">Pay only = anonymous signal we can't answer. Pay + email = we can. Email only = free and still counts.</span>
+      </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -423,10 +472,10 @@ footer a:hover{color:var(--mu)}
 <section id="api">
   <div class="con">
     <div class="sl">x402 API</div>
-    <h2>The first money is a <em>dime.</em><br>Paid by an agent, not a person.</h2>
-    <p class="ss">Other agents discover the capability, get an HTTP 402, pay in USDC, and get the verified result. No onboarding, no sales call, no card rail that can't settle a $0.10 charge.</p>
+    <h2>The first money is a <em>cent.</em><br>Paid by an agent, not a person.</h2>
+    <p class="ss">The opt-in endpoint is already live and paying out one cent in USDC. Agents discover it, get an HTTP 402, pay, and land on the waitlist. The proof endpoints below are the next tier, priced in hypotheses until something actual bills them.</p>
     <div class="apitab">
-      <div class="ac"><span class="am">GET <span class="ci2">/v1/proofs/obligation/{id}</span></span><span class="apr">$0.05</span></div>
+      <div class="ac" style="opacity:.75"><span class="am">POST <span class="ci2">/api/optin</span> <span style="color:var(--mu);font-size:9px">(live)</span></span><span class="apr">$0.01</span></div>
       <div class="ac"><span class="am">GET <span class="ci2">/v1/proofs/reliability/{party}</span></span><span class="apr">$0.10</span></div>
       <div class="ac"><span class="am">POST <span class="ci2">/v1/verify/obligation</span></span><span class="apr">$0.10</span></div>
       <div class="ac"><span class="am">POST <span class="ci2">/v1/providers/discover</span></span><span class="apr">$0.01</span></div>
@@ -446,6 +495,7 @@ footer a:hover{color:var(--mu)}
       <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">How is this not just rent reporting like Esusu or Bilt?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Those services report your payments to a credit bureau or give you rewards points after the fact. This resolves the exception in the moment it happens. The ledger is the substrate; the product is what an agent does with it when you come up short — composing landlord flexibility and assistance before any debt appears. Rent reporting looks backward. Resolution works forward.</div></div></div>
       <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Are you taking custody of my rent?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">No. The MVP moves no real money at all — the sandbox uses synthetic obligations and simulated providers. Payment rails are adapters: ACH, FedNow, or USDC on Base, chosen by cost and settlement truth, not by ideology. When real funds settle later, it's through licensed providers who own the custody, not this protocol.</div></div></div>
       <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">What does an "assistance event" do to my reliability record?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">It counts. Getting help doesn't erase your history — an assisted month closes the obligation and it stays in your satisfied record. An independent-satisfaction streak ends, because that streak means something narrower (you funded it alone). 24 of 24 satisfied with 1 assisted is a stronger application story than 24 of 24 alone that never had to exist.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">So the "paid by an agent" thing — does it already work?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Yes, in one small place. POST <span class="ci2">/api/optin</span> on this site answers 402, takes one cent in USDC on Base Sepolia, and records the paying agent's address. That's the entire mechanism. The reliability-proof endpoints arrive with the ledger in week 3. The spike exists so the rail is real before there's anything to sell behind it.</div></div></div>
       <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Why Base and not an existing rental platform's own chain?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Base is where x402 agent payments and ERC-8021 builder attribution already work. Public anchoring on Base gives the record tamper evidence anyone can verify with no trust in this company. The protocol is portable; the first deployment follows the payment rail and the agents.</div></div></div>
     </div>
   </div>
@@ -474,6 +524,35 @@ footer a:hover{color:var(--mu)}
 </footer>
 
 <script>
+async function confirmOptin(ev){
+  ev.preventDefault();
+  const inp=document.getElementById('otx'),msg=document.getElementById('omsg');
+  const v=(inp.value||'').trim();
+  if(!v){msg.textContent='Paste the transaction hash from your wallet after the 1¢ transfer lands.';return;}
+  msg.textContent='Checking the chain…';
+  try{
+    const res=await fetch('/api/confirm',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({txHash:v})});
+    const body=await res.json();
+    if(res.ok){window.__lastTxHash=body.txHash;document.getElementById('omsg2').style.display='block';msg.innerHTML='✓ In. Receipt: <a href="https://sepolia.basescan.org/tx/'+body.txHash+'" target="_blank" style="color:var(--go)">'+body.txHash.slice(0,10)+'…</a> · <a href="https://github.com/kylebrodeur/rent-resilience" target="_blank" style="color:var(--go)">next: read the protocol</a>';}
+    else if(res.status===404){msg.textContent=body.hint||'Not seen onchain yet — try again in a few seconds.';}
+    else{msg.textContent=body.error||'Check failed; retry later.';}
+  }catch(e){msg.textContent='Check failed; retry later.';}
+  return false;
+}
+async function submitContact(ev, form, via){
+  ev.preventDefault();
+  const email = form.querySelector('input[type=email]').value.trim();
+  const txHash = window.__lastTxHash || null;
+  const msg = document.getElementById(via==='email-only' ? 'emsg' : 'omsg2');
+  if(!email){msg.textContent='Email first — the whole point of this box.';return false;}
+  try{
+    const res=await fetch('/api/contact',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:email,via:via,txHash:txHash})});
+    const body=await res.json();
+    if(res.ok){msg.innerHTML='✓ Noted. <span style="color:var(--go)">You\'re on the list.</span>';form.querySelector('input').disabled=true;form.querySelector('button').disabled=true;}
+    else{msg.textContent=body.error||'Check failed; retry later.';}
+  }catch(e){msg.textContent='Check failed; retry later.';}
+  return false;
+}
 function toggleFaq(el){const was=el.classList.contains('op');document.querySelectorAll('.fqi').forEach(i=>{i.classList.remove('op');const b=i.querySelector('.fqq');if(b)b.setAttribute('aria-expanded','false');});if(!was){el.classList.add('op');const b=el.querySelector('.fqq');if(b)b.setAttribute('aria-expanded','true');}}
 function toggleTheme(){const h=document.documentElement,g=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',g);document.getElementById('tmicon').textContent=g==='light'?'☾':'☀';document.getElementById('tmlbl').textContent=g==='light'?'Dark':'Light';}
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}}),{threshold:.07});

@@ -6,7 +6,11 @@
     "directory": "./public",
     "binding": "ASSETS",
     "run_worker_first": true
-  },
+  }
+  ,
+  "kv_namespaces": [
+    { "binding": "RENT_OPTIN", "id": "039f4c5eb7d649898f3908c09a3b9977" }
+  ],
   "routes": [
     { "pattern": "rentresilience.org", "custom_domain": true },
     { "pattern": "www.rentresilience.org", "custom_domain": true },

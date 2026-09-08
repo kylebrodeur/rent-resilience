@@ -1,0 +1,41 @@
+# Rent Resilience
+
+> Agentic infrastructure that resolves housing obligations and turns verified rent
+> history into portable, privacy-preserving financial resilience, on Base with
+> x402-paid proof and payment APIs.
+
+Rent Resilience represents rent as verifiable obligations in an append-only,
+event-sourced ledger. Private facts (PII, leases, amounts detail) never touch the
+chain; periodic Merkle commitments anchor event history to Base. Agents resolve
+shortfalls by composing landlord flexibility, assistance, and financing in that order —
+borrowing last. External agents pay in USDC over x402 for proofs, verification,
+provider discovery, and resolution quotes.
+
+This is Kyle Brodeur's project; built in public. MIT licensed.
+
+## Docs
+
+- Protocol specification: https://github.com/kylebrodeur/rent-resilience/blob/main/docs/protocol.md
+- Product research: https://github.com/kylebrodeur/rent-resilience/blob/main/docs/research.md
+- Roadmap and architecture: https://github.com/kylebrodeur/rent-resilience/blob/main/docs/roadmap-architecture.md
+- Base/x402 commercialization: https://github.com/kylebrodeur/rent-resilience/blob/main/docs/base-x402-monetization.md
+- x402 opt-in spike (this site's paid endpoint): https://github.com/kylebrodeur/rent-resilience/blob/main/docs/x402-opt-in-spike.md
+- Agent skill package: https://github.com/kylebrodeur/rent-resilience/tree/main/skills/rent-resilience
+
+## Schemas
+
+- RentObligation v0.1: https://github.com/kylebrodeur/rent-resilience/blob/main/packages/protocol/schemas/rent-obligation.v0.1.schema.json
+- RentEvent v0.1: https://github.com/kylebrodeur/rent-resilience/blob/main/packages/protocol/schemas/rent-event.v0.1.schema.json
+
+## Paid endpoints (x402)
+
+- POST https://rentresilience.org/api/optin — 0.01 USDC on Base Sepolia → early-access receipt. Live spike.
+- GET  https://rentresilience.org/api/optin — returns the 402 price sheet without payment.
+- POST https://rentresilience.org/api/confirm — verify a plain 0.01 USDC transfer by tx hash (wallet-app flow, Base mainnet).
+
+Two lanes: agents use the strict 402 handshake on Base Sepolia (free, x402 facilitator). Humans with a wallet app use the EIP-681 QR, send 0.01 USDC on Base mainnet, and confirm by tx hash.
+
+x402 price sheet fields: scheme exact, asset USDC 0x036CbD53842c5426634e7929541eC2318f3dCF7e, network base-sepolia, maxAmountRequired 10000 atomic units (0.01 USDC), payTo 0x79588BB628c741d073FD3bC47685328Cf8aD6802.
+
+Verification endpoints (/v1/proofs/*, /v1/verify/*, /v1/resolution/*) ship with the
+sandbox in four weeks; see the roadmap.
