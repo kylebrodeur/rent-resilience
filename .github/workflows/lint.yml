@@ -16,8 +16,11 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm lint:rules:test
       - run: pnpm lint:md
-      - run: pnpm gate:prose
+      - run: uv run tools/validate_publish_markdown.py site/public/index.html site/public/status.html

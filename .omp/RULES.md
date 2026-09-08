@@ -41,6 +41,13 @@ Private project context (dashboard, costs, applications) lives in `../rent-resil
 - Commits: no AI attribution lines, ever.
 - GitHub: use `gh` CLI (authenticated). No tokens in the repo.
 
+## Tooling
+
+- Python runs only through uv: `uv run <script.py>`. Never bare `python3`/`python`
+  in scripts, hooks, docs, or one-off commands; add a PEP 723 `# /// script` block
+  when creating a new script.
+- Packages: pnpm for Node work (never npm), uv for Python work (never pip).
+
 ## Session management
 
 - OMP sessions are append-only trees: `/fork`, `/branch`, `/tree`, `omp -r`. Nothing destroyed.

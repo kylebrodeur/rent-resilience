@@ -3,7 +3,8 @@
 # 2. rule unit tests (RuleTester)
 # 3. markdownlint (rr-publish-gate custom rule on README + docs/**)
 # 4. publish gate on reader-facing pages (dash gate, editorial markers)
+# Python only via uv (uv run), never bare python3.
 pnpm lint || exit 1
 pnpm lint:rules:test || exit 1
 pnpm lint:md || exit 1
-python3 tools/validate_publish_markdown.py site/public/index.html site/public/status.html || exit 1
+uv run tools/validate_publish_markdown.py site/public/index.html site/public/status.html || exit 1

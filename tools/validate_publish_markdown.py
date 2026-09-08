@@ -1,10 +1,17 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = []
+# ///
 """Publish gate for reader-facing copy: markdown pieces and the site's HTML pages.
 
 Vendored from Kyle's publishing system
 ( Personal-Publishing-Plan/00-system/00.02-operations/publishing/tools/validate_publish_markdown.py )
 and extended here with an HTML mode so the landing and status pages run through
 the same checks. Markdown behavior is unchanged from the canonical tool.
+
+Python in this repo runs only through uv (`uv run`), never bare python3; the
+PEP 723 block above makes that explicit (stdlib-only script).
 """
 
 from __future__ import annotations

@@ -274,6 +274,7 @@ You are the approval gate. Agents never merge their own work.
 - Secrets only via the `op` CLI (1Password). Never echo emails, KV keys, or
   PostHog distinct_ids into files or logs.
 - `npx wrangler deploy` only on Kyle's word.
+- Python only via uv (`uv run <script>`), never bare `python3`; Node work uses pnpm.
 
 ---
 
