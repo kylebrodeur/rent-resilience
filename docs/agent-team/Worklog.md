@@ -45,3 +45,12 @@
 - Week 1 build runbook written (docs/agent-team/wk1-build-runbook.md): day
   plan Wed schemas, Thu dataset, Fri-Sat ledger, Sun reliability, Mon ritual,
   with per-day checklists and handoff discipline.
+- Any-wallet pay (WalletConnect relay, no AppKit): raw
+  `@walletconnect/ethereum-provider@2.23.7` lazy-imported from jsdelivr behind
+  an "Any wallet app" picker row and a desktop no-extension QR path; QR drawn
+  client-side (qrcode-generator, lazy) into our own modal with a wc: deep-link
+  fallback. Feature inert until WC_PROJECT_ID is set (free project at
+  dashboard.reown.com). Fixed a latent picker bug: inline display:flex beat the
+  hidden attribute, so the picker could never dismiss. Card-rail analysis for
+  Kyle: 1c Visa lane rejected (30c fixed fees vs 1c payment); card belongs in
+  real-amount on-ramps later. Commits 7f9c76e, 5729744; deploy 28bc0a1f.
