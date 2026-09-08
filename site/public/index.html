@@ -233,7 +233,7 @@ footer a:hover{color:var(--mu)}
   <div class="con">
     <div class="hpill fu d1">
       <span class="hlv"><span class="hd2"></span>Building in public</span>
-      <span class="hsep">·</span><span>Pre-MVP · Sandbox week 1</span>
+      <span class="hsep">·</span><span>Pre-MVP · Sandbox underway</span>
       <span class="hsep">·</span>
       <span>Base · x402 · USDC</span>
     </div>
@@ -245,7 +245,7 @@ footer a:hover{color:var(--mu)}
           <div class="frow" style="max-width:320px">
             <a class="fb" style="flex:1;border-radius:3px;justify-content:center;min-height:46px" href="#optin">Try the 402 · 1¢ USDC ↓</a>
           </div>
-          <div class="ffine">Live today: <span>POST /api/optin · 0.01 USDC</span> on the site now. Proof endpoints land week 3.</div>
+          <div class="ffine">Live today: <span>POST /api/optin · 0.01 USDC</span> on the site now. What ships next: <a href="/status" style="color:var(--go);text-decoration:none">the status page</a>.</div>
         </div>
         <div class="hstats fu d3">
           <div class="hst"><span class="n">$46k</span><span class="l">on-time rent counts for $0 today</span></div>
@@ -402,7 +402,7 @@ footer a:hover{color:var(--mu)}
 <section id="how">
   <div class="con">
     <div class="sl">The protocol</div>
-    <h2>Four objects.<br><em>Three weeks</em> to the first paid call.</h2>
+    <h2>Four objects.<br>The first paid call is <em>live.</em></h2>
     <p class="ss">Append-only ledger, deterministic policy, privacy-preserving proofs, paid APIs: four objects, each shippable on its own. <a href="https://github.com/kylebrodeur/rent-resilience/tree/main/packages/protocol/schemas" style="color:var(--go)">Schemas on GitHub →</a></p>
     <div class="fg">
       <div class="fp">
@@ -490,7 +490,7 @@ footer a:hover{color:var(--mu)}
       <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">How is this not just rent reporting like Esusu or Bilt?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Those services report your payments to a credit bureau or give you rewards points after the fact. This resolves the exception in the moment it happens. The ledger is the substrate; the product is what an agent does with it when you come up short — composing landlord flexibility and assistance before any debt appears. Rent reporting looks backward. Resolution works forward.</div></div></div>
       <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Are you taking custody of my rent?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">No. The MVP moves no real money at all — the sandbox uses synthetic obligations and simulated providers. Payment rails are adapters: ACH, FedNow, or USDC on Base, chosen by cost and settlement truth, not by ideology. When real funds settle later, it's through licensed providers who own the custody, not this protocol.</div></div></div>
       <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">What does an "assistance event" do to my reliability record?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">It counts. Getting help doesn't erase your history — an assisted month closes the obligation and it stays in your satisfied record. An independent-satisfaction streak ends, because that streak means something narrower (you funded it alone). 24 of 24 satisfied with 1 assisted is a stronger application story than 24 of 24 alone that never had to exist.</div></div></div>
-      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">So the "paid by an agent" thing — does it already work?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Yes, in one small place. POST <span class="ci2">/api/optin</span> on this site answers 402, takes one cent in USDC on Base Sepolia, and records the paying agent's address. That's the entire mechanism. The reliability-proof endpoints arrive with the ledger in week 3. The spike exists so the rail is real before there's anything to sell behind it.</div></div></div>
+      <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">So the "paid by an agent" thing — does it already work?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Yes, in one small place. POST <span class="ci2">/api/optin</span> on this site answers 402, takes one cent in USDC on Base Sepolia, and records the paying agent's address. That's the entire mechanism. The reliability-proof endpoints arrive with the ledger; dates live on the <a href="/status" style="color:var(--go)">status page</a>. The spike exists so the rail is real before there's anything to sell behind it.</div></div></div>
       <div class="fqi" onclick="toggleFaq(this)"><button class="fqq" aria-expanded="false"><span class="fqqt">Why Base and not an existing rental platform's own chain?</span><span class="fqar">+</span></button><div class="fqa"><div class="fqai">Base is where x402 agent payments and ERC-8021 builder attribution already work. Public anchoring on Base gives the record tamper evidence anyone can verify with no trust in this company. The protocol is portable; the first deployment follows the payment rail and the agents.</div></div></div>
     </div>
   </div>
@@ -500,7 +500,7 @@ footer a:hover{color:var(--mu)}
   <div class="con">
     <div class="fci">
       <h2 class="fch">Rent already moves $50B+ a year.<br>Rent <em>reliability</em> is free to earn.</h2>
-      <p class="fcs">Protocol schemas are MIT-licensed on GitHub today. Sandbox in four weeks. And the 1¢ opt-in is live right now — one cent of USDC says you meant it.</p>
+      <p class="fcs">Protocol schemas are MIT-licensed on GitHub today. And the 1¢ opt-in is live right now — one cent of USDC says you meant it.</p>
       <div class="fclinks">
         <a class="fclink primary" href="/api/optin" target="_blank">Pay the 1¢ · join early access →</a>
         <a class="fclink" href="https://github.com/kylebrodeur/rent-resilience" target="_blank">Read the Protocol</a>
