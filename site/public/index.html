@@ -650,6 +650,9 @@ document.querySelectorAll('input[type=email]').forEach(function(inp){
 <script>
 /* Wallet pay: EIP-6963 injected wallets, no SDK. One fixed transfer, auditable by eye. */
 const RRPAY={to:'0x79588BB628c741d073FD3bC47685328Cf8aD6802',usdc:'0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',chainId:'0x2105'};
+/* WalletConnect relay for wallets without an extension (mobile apps, hardware, embedded).
+   Create a free project at dashboard.reown.com and paste the id here. Empty = option hidden. */
+const WC_PROJECT_ID='';
 const _wl=[];
 window.addEventListener('eip6963:announceProvider',function(e){if(e.detail&&e.detail.info&&!_wl.some(function(w){return w.info.rdns===e.detail.info.rdns;}))_wl.push(e.detail);});
 window.dispatchEvent(new Event('eip6963:requestProvider'));
@@ -659,13 +662,21 @@ function payClick(ev){
   if(!wl.length&&window.ethereum)wl.push({info:{name:'Browser wallet',rdns:'legacy',icon:null},provider:window.ethereum});
   const msg=document.getElementById('omsg');
   if(!wl.length){
+    /* Desktop with no extension: relay to any wallet app over WalletConnect.
+       Mobile stays on the ethereum: deep link (Base app handles it natively). */
+    if(WC_PROJECT_ID&&!window.matchMedia('(pointer:coarse)').matches){
+      ev.preventDefault();
+      phTrack('optin_wallet_pay',{result:'picker-open',wallets:0});
+      wcPay();
+      return false;
+    }
     if(msg)msg.textContent='No wallet detected in this browser. Scan the QR code with a wallet app, then paste the transaction hash below.';
     phTrack('optin_wallet_pay',{result:'no-wallet'});
     return true; /* let the deep link through for mobile wallet apps */
   }
   ev.preventDefault();
   phTrack('optin_wallet_pay',{result:'picker-open',wallets:wl.length});
-  if(wl.length===1)payFlow(wl[0]);else walletPicker(wl);
+  if(wl.length===1&&!WC_PROJECT_ID)payFlow(wl[0]);else walletPicker(wl);
   return false;
 }
 
@@ -674,21 +685,110 @@ function walletPicker(wl){
   if(!ov){
     ov=document.createElement('div');ov.id='wpick';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','Choose a wallet to pay 1 cent');
     ov.style.cssText='position:fixed;inset:0;background:rgba(10,8,4,.72);display:flex;align-items:center;justify-content:center;z-index:300;padding:16px';
+    ov.style.display='none';
     ov.innerHTML='<div style="background:var(--sf);border:1px solid var(--brh);border-radius:4px;padding:20px;width:min(320px,100%);box-shadow:0 20px 60px rgba(0,0,0,.5)"><div class="fpd" style="margin-bottom:12px"><span class="tag tg">Pay 1¢</span> choose a wallet</div><div id="wpklist"></div><button class="srbtn" type="button" id="wpkx" style="margin-top:12px;width:100%;justify-content:center">Cancel</button></div>';
     document.body.appendChild(ov);
-    ov.addEventListener('click',function(e){if(e.target===ov)ov.hidden=true;});
-    document.getElementById('wpkx').addEventListener('click',function(){ov.hidden=true;});
-    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!ov.hidden)ov.hidden=true;});
+    ov.addEventListener('click',function(e){if(e.target===ov)ov.style.display='none';});
+    document.getElementById('wpkx').addEventListener('click',function(){ov.style.display='none';});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&ov.style.display!=='none')ov.style.display='none';});
   }
   const list=document.getElementById('wpklist');list.innerHTML='';
   wl.forEach(function(w){
     const b=document.createElement('button');b.type='button';b.className='srbtn';b.style.cssText='width:100%;justify-content:flex-start;gap:9px;margin-top:6px;padding:9px 11px;color:var(--fg)';
     b.innerHTML=(w.info.icon?'<img src="'+w.info.icon+'" alt="" width="18" height="18" style="border-radius:3px">':'<span aria-hidden="true">🔗</span>')+'<span></span>';
     b.querySelector('span:last-child').textContent=w.info.name||'Wallet';
-    b.addEventListener('click',function(){ov.hidden=true;payFlow(w);});
+    b.addEventListener('click',function(){ov.style.display='none';payFlow(w);});
     list.appendChild(b);
   });
-  ov.hidden=false;
+  if(WC_PROJECT_ID){
+    const b=document.createElement('button');b.type='button';b.className='srbtn';b.style.cssText='width:100%;justify-content:flex-start;gap:9px;margin-top:6px;padding:9px 11px;color:var(--fg)';
+    b.innerHTML='<span aria-hidden="true">📱</span><span></span><span style="margin-left:auto;color:var(--dm);font-size:11px">QR</span>';
+    b.querySelectorAll('span')[1].textContent='Any wallet app';
+    b.addEventListener('click',function(){ov.style.display='none';wcPay();});
+    list.appendChild(b);
+  }
+  ov.style.display='flex';
+}
+
+/* WalletConnect relay: raw @walletconnect/ethereum-provider, our own QR modal,
+   no AppKit. Lazy-loaded on first click so the landing page stays dependency-free. */
+function wcEnsureQrLib(){
+  return new Promise(function(res){
+    if(window.qrcode)return res();
+    const s=document.createElement('script');
+    s.src='https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js';
+    s.onload=function(){res();};
+    s.onerror=function(){res();}; /* QR optional; the Open-wallet-app link still works */
+    document.head.appendChild(s);
+  });
+}
+async function wcPay(){
+  const msg=document.getElementById('omsg');
+  if(!WC_PROJECT_ID)return;
+  phTrack('optin_wallet_pay',{result:'wc-open'});
+  const ov=openWcModal();
+  try{
+    msg.textContent='Preparing any-wallet connect…';
+    const qrP=wcEnsureQrLib();
+    const mod=await import('https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.23.7/+esm');
+    await qrP;
+    const p=await mod.EthereumProvider.init({
+      projectId:WC_PROJECT_ID,
+      chains:[8453],
+      showQrModal:false,
+      metadata:{name:'Rent Resilience',description:'Rent should compound into resilience. Opt in with 1¢ USDC on Base.',url:'https://rentresilience.org',icons:['https://rentresilience.org/rent-resilience-app-icon.png']},
+      methods:['eth_requestAccounts','eth_chainId','eth_sendTransaction','wallet_switchEthereumChain','wallet_addEthereumChain'],
+      events:['chainChanged','accountsChanged']
+    });
+    p.on('display_uri',function(uri){drawWcQr(uri);});
+    await p.connect();
+    ov.style.display='none';
+    phTrack('optin_wallet_pay',{result:'wc-paired'});
+    await payFlow({info:{name:'WalletConnect wallet',rdns:'walletconnect'},provider:p});
+  }catch(e){
+    ov.style.display='none';
+    if(e&&/rejected|closed|declined/i.test(e.message||'')){msg.textContent='Any-wallet connect cancelled.';phTrack('optin_wallet_pay',{result:'wc-cancelled'});}
+    else{msg.textContent='Any-wallet connect didn\'t start. Scan the QR code with a wallet app, then paste the transaction hash below.';phTrack('optin_wallet_pay',{result:'wc-error'});}
+  }
+}
+
+function openWcModal(){
+  let ov=document.getElementById('wcpay');
+  if(!ov){
+    ov=document.createElement('div');ov.id='wcpay';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','Scan with any wallet app to pay 1 cent');
+    ov.style.cssText='position:fixed;inset:0;background:rgba(10,8,4,.72);align-items:center;justify-content:center;z-index:300;padding:16px';
+    ov.innerHTML='<div style="background:var(--sf);border:1px solid var(--brh);border-radius:4px;padding:20px;width:min(340px,100%);box-shadow:0 20px 60px rgba(0,0,0,.5);text-align:center"><div class="fpd" style="margin-bottom:12px"><span class="tag tg">Pay 1¢</span> scan with any wallet</div><div id="wcqr" style="display:flex;justify-content:center;align-items:center;min-height:220px"><span style="color:var(--dm);font-size:12px">Generating QR…</span></div><a id="wclink" class="fb" style="display:none;margin-top:12px;justify-content:center;text-align:center" href="#">Open wallet app</a><button class="srbtn" type="button" id="wcx" style="margin-top:12px;width:100%;justify-content:center">Cancel</button></div>';
+    document.body.appendChild(ov);
+    ov.addEventListener('click',function(e){if(e.target===ov)ov.style.display='none';});
+    document.getElementById('wcx').addEventListener('click',function(){ov.style.display='none';});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&ov.style.display==='flex')ov.style.display='none';});
+  }
+  document.getElementById('wcqr').innerHTML='<span style="color:var(--dm);font-size:12px">Generating QR…</span>';
+  document.getElementById('wclink').style.display='none';
+  ov.style.display='flex';
+  return ov;
+}
+
+function drawWcQr(uri){
+  const box=document.getElementById('wcqr');
+  if(!box)return;
+  box.innerHTML='';
+  try{
+    const q=window.qrcode(0,'M');
+    q.addData(uri);q.make();
+    const n=q.getModuleCount(),cell=Math.max(3,Math.floor(232/n)),sz=cell*n;
+    const cv=document.createElement('canvas');cv.width=sz;cv.height=sz;
+    cv.setAttribute('role','img');cv.setAttribute('aria-label','WalletConnect pairing QR code');
+    const g=cv.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,sz,sz);g.fillStyle='#0a0804';
+    for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(q.isDark(r,c))g.fillRect(c*cell,r*cell,cell,cell);
+    box.appendChild(cv);
+    const ln=document.getElementById('wclink');
+    if(ln){ln.href=uri;ln.style.display='flex';}
+  }catch(e){
+    box.innerHTML='<span style="color:var(--dm);font-size:12px">QR failed to render. Open the link below instead.</span>';
+    const ln=document.getElementById('wclink');
+    if(ln){ln.href=uri;ln.style.display='flex';}
+  }
 }
 
 async function payFlow(w){
