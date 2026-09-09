@@ -139,4 +139,12 @@
   secret from Kyle's personal 1Password vault (the UofD Resend account stays
   out of this project); rentresilience.org registered in Resend and DKIM/
   SPF/MX/tracking records added to the Cloudflare zone, verification pending
-  at write time.
+  at write time. Then completed end to end: the five stale Namecheap
+  eforward MX records at the zone root were the blocker; after deleting them
+  and adding Resend's receiving MX (inbound-smtp.us-east-1.amazonaws.com,
+  needed for the enabled kyle@/help@ boxes), the domain went fully verified.
+  First real "You're in" email sent from kyle@ and delivered to Kyle's inbox
+  (Resend last_event: delivered); the once-only flag is confirmed in KV and
+  a repeat /api/contact POST sent nothing. Live DNS edits used the Cloudflare
+  API token from Kyle's personal vault ("Cloudflare - KB All"; the older
+  "Cloudflare - Kyle Brodeur" item's token is dead).
