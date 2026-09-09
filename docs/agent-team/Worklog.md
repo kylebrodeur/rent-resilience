@@ -148,3 +148,23 @@
   a repeat /api/contact POST sent nothing. Live DNS edits used the Cloudflare
   API token from Kyle's personal vault ("Cloudflare - KB All"; the older
   "Cloudflare - Kyle Brodeur" item's token is dead).
+- CI unblocked and week-1 review materials written. Both GitHub Actions
+  workflows (Docs site, Lint + publish gate) had failed on every push since
+  their pnpm setup step: pnpm/action-setup@v4 was given `version: 12` while
+  package.json also pins packageManager pnpm@12.3.4, which the action treats
+  as a conflict and refuses. Dropped the input in both workflows so the pin
+  in package.json is the single source of truth; both runs went green.
+  Also removed a duplicated "synced" echo in docs-site/sync.sh. Link check
+  across the landing page, status page, and docs found one dead link: the
+  status footer pointed at kylebrodeur.com (no DNS), now kylebrodeur.xyz to
+  match the landing page; deployed and verified. All other external links
+  (docs subdomain, GitHub docs/schemas, basescan receipt, YouTube embed,
+  base.dev) return 200, and every repo-relative link in the docs markdown
+  resolves to a real GitHub path. New docs: docs/email-signups.md (the email
+  flow and the unstick procedure; the code comment referencing it pointed at
+  a file that did not exist) and docs/agent-team/qa-deployed-checklist.md,
+  the week-1 manual QA pass over the deployed landing page, status page,
+  docs site, worker API, email lane, and infra/telemetry. The week-1 runbook
+  gained a state note (CI green; rent-event/rent-obligation schemas already
+  exist and are pushed, so Wed covers provider-capability and
+  deterministic-policy only) and a site QA lane pointing at the checklist.
