@@ -17,6 +17,11 @@ lanes: `qa-deployed-checklist.md` in this directory. Work through it during
 the week, not as a big-bang on Monday; file findings in the worklog and fix
 on the site lane between build days.
 
+Queued personal-site item for this week (Kyle, 2026-09-09): point
+kylebrodeur.com and brodeur.me at kylebrodeur.xyz (redirects; brodeur.me
+keeps its mail), then replace the placeholder content on kylebrodeur.xyz and
+feature the crypto work there.
+
 ## Day plan
 
 | Day | Lane | Output |
