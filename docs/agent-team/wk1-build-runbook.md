@@ -4,6 +4,19 @@ The one-page operating plan for week 1. Day plan mirrors the dashboard
 (project-reference.html); this file adds the per-day checklists and handoff
 discipline. Append progress to `Worklog.md`, not here.
 
+State as of Sep 9: CI is green (both workflows; the pnpm setup conflict is
+fixed), the rent-event/rent-obligation schemas already exist in the repo and
+are pushed, and the deployed site stack (pay lanes, confirm flow, email flow)
+is live end to end. Wed's schema day now covers the two remaining schemas
+only: provider-capability and deterministic-policy.
+
+## Site QA lane (Kyle, evenings, any day)
+
+The deployed stack has its own manual QA pass, independent of the build
+lanes: `qa-deployed-checklist.md` in this directory. Work through it during
+the week, not as a big-bang on Monday; file findings in the worklog and fix
+on the site lane between build days.
+
 ## Day plan
 
 | Day | Lane | Output |
