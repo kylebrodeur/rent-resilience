@@ -29,5 +29,4 @@ out = open(f"content/docs/{name}.mdx", "w")
 out.write(f"---\ntitle: {title}\n---\n\n" + body)
 PY2
   echo "synced $name"
-  echo "synced $name"
 done
